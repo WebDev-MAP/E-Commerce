@@ -1,13 +1,7 @@
-import { useShopContext } from '../context/ShopContext'
+import Navbar from './components/Navbar.jsx'
 
 function App() {
-  const { vorname, nachname } = useShopContext()
-
-  return (
-    <h1 className="m-2 text-2xl">
-      Template {vorname} {nachname}
-    </h1>
-  )
+  return <Navbar></Navbar>
 }
 
 export default App

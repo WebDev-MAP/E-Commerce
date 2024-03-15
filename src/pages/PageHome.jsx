@@ -1,4 +1,11 @@
+import { useShopContext } from '../context/ShopContext'
+
 function PageHome() {
-  return <div>PageHome</div>
+  const { vorname, nachname } = useShopContext()
+  return (
+    <div>
+      PageHome {vorname} {nachname}
+    </div>
+  )
 }
 export default PageHome

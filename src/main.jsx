@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import Provider from '../context/ShopContext.jsx'
+import Provider from './context/ShopContext.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import Page404 from './pages/Page404.jsx'

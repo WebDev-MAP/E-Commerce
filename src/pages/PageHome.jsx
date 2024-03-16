@@ -1,11 +1,6 @@
-import { useShopContext } from '../context/ShopContext'
+import Panel from '../components/Panel'
 
 function PageHome() {
-  const { vorname, nachname } = useShopContext()
-  return (
-    <div>
-      PageHome {vorname} {nachname}
-    </div>
-  )
+  return <Panel />
 }
 export default PageHome

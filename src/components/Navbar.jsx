@@ -1,10 +1,12 @@
 import { NavLink, Outlet } from 'react-router-dom'
+import Popup from './Popup'
 
 function Navbar() {
   return (
     <>
+      <Popup />
       <nav>
-        <ul className="content flex gap-4 bg-slate-500 px-4 py-2">
+        <ul className="content flex gap-4  px-4 py-2">
           <li>
             <NavLink to="/">Home</NavLink>
           </li>

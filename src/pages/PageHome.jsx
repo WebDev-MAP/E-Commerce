@@ -1,6 +1,10 @@
 import Panel from '../components/Panel'
 
 function PageHome() {
-  return <Panel />
+  return (
+    <>
+      <Panel />
+    </>
+  )
 }
 export default PageHome

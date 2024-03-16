@@ -1,3 +1,4 @@
+import CardList from '../components/CardList';
 import Hero from '../components/Hero'
 import Panel from '../components/Panel'
 
@@ -6,6 +7,7 @@ function PageHome() {
     <>
       <Hero />
       <Panel />
+		<CardList />
     </>
   )
 }

@@ -9,6 +9,12 @@ export default {
         satoshi_medium: 'Satoshi Medium',
         satoshi_bold: 'Satoshi Bold',
       },
+      colors: {
+        background: '#F2F0F1',
+      },
+      backgroundImage: {
+        'hero-large': "url('./images/hero/hero-large.png')",
+      },
     },
   },
 

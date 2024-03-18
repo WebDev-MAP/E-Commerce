@@ -9,6 +9,9 @@ export default {
         satoshi_medium: 'Satoshi Medium',
         satoshi_bold: 'Satoshi Bold',
       },
+      colors: {
+        background: '#F2F0F1',
+      },
     },
   },
 

@@ -46,7 +46,6 @@ const CardList = () => {
 		<button className="mt-9 border-gray-300 border-[1px] rounded-full w-full md:w-auto py-3 px-20 font-satoshi_medium md:text-base mb-16">View All</button>
 		</div>
 		<div className="flex justify-center">
-		<div className="border-b-[1px] border-gray-300 w-10/12 text-center"></div>
 		</div>
 		</section>
     </>

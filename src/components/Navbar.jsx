@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import Popup from './Popup'
+import Footer from './Footer';
 
 function Navbar() {
   return (
@@ -16,6 +17,7 @@ function Navbar() {
         </ul>
       </nav>
       <Outlet />
+		<Footer />
     </>
   )
 }

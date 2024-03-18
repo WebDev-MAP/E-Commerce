@@ -12,9 +12,6 @@ export default {
       colors: {
         background: '#F2F0F1',
       },
-      backgroundImage: {
-        'hero-large': "url('./images/hero/hero-large.png')",
-      },
     },
   },
 

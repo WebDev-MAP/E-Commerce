@@ -3,7 +3,7 @@ import Button from './Button'
 function Hero() {
   return (
     <div className="w-full bg-background">
-      <div className="md:bg-hero-large   mx-auto  grid max-w-[1440px] grid-cols-1 bg-background bg-cover bg-right-bottom  text-left text-2xl md:h-[500px] md:grid-cols-2 lg:h-[665px] lg:max-h-[665px] xl:bg-center ">
+      <div className="mx-auto   grid  max-w-[1440px] grid-cols-1 bg-background bg-cover bg-right-bottom text-left  text-2xl md:h-[500px] md:grid-cols-2 md:bg-[url('/images/hero/hero-large.png')] lg:h-[665px] lg:max-h-[665px] xl:bg-center ">
         <div className="">
           <div className="  w-fit px-4 lg:px-24">
             <h2 className=" font pb-5 pt-10 font-integral_cf lg:pt-24 lg:text-4xl xl:text-6xl">

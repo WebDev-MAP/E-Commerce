@@ -13,7 +13,7 @@ export default {
         background: '#F2F0F1',
       },
       backgroundImage: {
-        'hero-large': "url('./images/hero/hero-large.png')",
+        'hero-large': "url('public/images/hero/hero-large.png')",
       },
     },
   },

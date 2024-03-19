@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 /* added fonts */
 @font-face {
   font-family: 'Satoshi Bold';

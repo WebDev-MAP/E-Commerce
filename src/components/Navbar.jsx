@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Popup from './Popup'
 import Footer from './Footer'
 // Icons
@@ -15,6 +15,7 @@ import { FaGithub } from 'react-icons/fa'
 
 function Navbar() {
   const [menuIsOpen, setMenuIsOpen] = useState(false)
+
   return (
     <>
       <Popup />
@@ -29,10 +30,10 @@ function Navbar() {
           </div>
           {/* Dropdown */}
           <div
-            className={`absolute inset-y-16 left-0 z-10 flex w-screen   justify-center bg-white  font-satoshi_regular transition-all duration-500 ease-in-out lg:hidden ${menuIsOpen ? ' h-dvh  overflow-hidden' : '  h-0 '}`}
+            className={`fixed inset-y-16 left-0 z-10 flex w-screen   justify-center bg-white  font-satoshi_regular transition-all duration-500 ease-in-out lg:hidden ${menuIsOpen ? '  h-screen' : 'h-0 '}`}
           >
             <ul
-              className={`mt-10 flex flex-col items-center font-satoshi_regular transition-all duration-500 ease-in-out ${menuIsOpen ? 'opacity-100' : 'opacity-0'}`}
+              className={`mt-10 flex flex-col items-center justify-center space-y-2 font-satoshi_regular transition-all duration-500 ease-in-out ${menuIsOpen ? 'opacity-100' : 'opacity-0'}`}
             >
               <NavLink to="/" onClick={() => setMenuIsOpen(!menuIsOpen)}>
                 <li>Home</li>

@@ -19,17 +19,23 @@ function Navbar() {
       <nav>
         <div className="relative mx-auto flex min-h-16 max-w-[1440px] items-center px-4  lg:px-0 ">
           {/* Burgermenu */}
+
           <div onClick={() => setMenuIsOpen(!menuIsOpen)}>
             <RxHamburgerMenu className="mr-4 cursor-pointer text-2xl lg:hidden" />
           </div>
           {/* Dropdown */}
           <div
-            className={`absolute inset-y-16 left-0 flex h-full w-screen justify-center bg-white transition-all duration-500 ease-in-out lg:hidden ${menuIsOpen ? 'z-10 h-screen' : ' h-0 '}`}
+            className={`absolute inset-y-16 left-0 z-10 flex h-full w-screen justify-center bg-white  font-satoshi_regular transition-all duration-500 ease-in-out lg:hidden ${menuIsOpen ? ' h-screen' : '  h-0 opacity-0'}`}
           >
             <ul
               className={`transition-all duration-500 ease-in-out ${menuIsOpen ? 'opacity-100' : 'opacity-0'}`}
             >
-              <li>Hello</li>
+              <NavLink to="/" onClick={() => setMenuIsOpen(!menuIsOpen)}>
+                <li>Home</li>
+              </NavLink>
+              <NavLink to="/cart" onClick={() => setMenuIsOpen(!menuIsOpen)}>
+                <li>Cart</li>
+              </NavLink>
             </ul>
           </div>
 
@@ -75,7 +81,6 @@ function Navbar() {
             </div>
           </div>
         </div>
-        {/* dropdown mobile*/}
       </nav>
 
       <Outlet />

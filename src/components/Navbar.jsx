@@ -1,13 +1,12 @@
 import { NavLink, Outlet } from 'react-router-dom'
-
+import { useState } from 'react'
+import Popup from './Popup'
 // Icons
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { IoSearch } from 'react-icons/io5'
 import { LuShoppingCart } from 'react-icons/lu'
 import { CgProfile } from 'react-icons/cg'
 import { FaAngleDown } from 'react-icons/fa6'
-
-import Popup from './Popup'
 
 function Navbar() {
   return (
@@ -16,11 +15,12 @@ function Navbar() {
 
       {/* Navbar */}
       <nav>
-        <div className="mx-auto flex min-h-16 max-w-[1440px] items-center px-4 lg:px-0">
+        <div className=" mx-auto flex min-h-16 max-w-[1440px] items-center px-4 lg:px-0 ">
           {/* Burgermenu */}
-          <div>
-            <RxHamburgerMenu className="mr-4 text-2xl lg:hidden" />
+          <div onClick={() => setIsOpen(!isOpen)}>
+            <RxHamburgerMenu className=" mr-4 cursor-pointer text-2xl lg:hidden" />
           </div>
+
           <div>
             <NavLink className="font-integral_cf text-2xl sm:block sm:text-3xl lg:ml-24 ">
               SHOP.CO
@@ -63,6 +63,7 @@ function Navbar() {
             </div>
           </div>
         </div>
+        {/* dropdown mobile*/}
       </nav>
 
       <Outlet />

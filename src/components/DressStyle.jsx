@@ -28,7 +28,8 @@ function DressStyle() {
           {dressStyles.map((style, index) => (
             <div
               key={index}
-              className={`style-${style.name.toLowerCase()} bg-[url('${style.image}')] ${index % 3 ? 'md:col-span-3 lg:col-span-4' : 'md:col-span-2 lg:col-span-3'}`}
+              className={`style-${style.name.toLowerCase()} ${index % 3 ? 'md:col-span-3 lg:col-span-4' : 'md:col-span-2 lg:col-span-3'}`}
+              style={{ backgroundImage: `url('${style.image}')` }}
             >
               <h3 className="absolute left-6 top-9">{style.name}</h3>
             </div>

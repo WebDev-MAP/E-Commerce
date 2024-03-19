@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useState } from 'react'
 import Popup from './Popup'
-import Footer from './Footer';
+import Footer from './Footer'
 // Icons
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { IoSearch } from 'react-icons/io5'
@@ -10,16 +10,27 @@ import { CgProfile } from 'react-icons/cg'
 import { FaAngleDown } from 'react-icons/fa6'
 
 function Navbar() {
+  const [menuIsOpen, setMenuIsOpen] = useState(false)
   return (
     <>
       <Popup />
 
       {/* Navbar */}
       <nav>
-        <div className=" mx-auto flex min-h-16 max-w-[1440px] items-center px-4 lg:px-0 ">
+        <div className="relative mx-auto flex min-h-16 max-w-[1440px] items-center px-4  lg:px-0 ">
           {/* Burgermenu */}
-          <div onClick={() => setIsOpen(!isOpen)}>
-            <RxHamburgerMenu className=" mr-4 cursor-pointer text-2xl lg:hidden" />
+          <div onClick={() => setMenuIsOpen(!menuIsOpen)}>
+            <RxHamburgerMenu className="mr-4 cursor-pointer text-2xl lg:hidden" />
+          </div>
+          {/* Dropdown */}
+          <div
+            className={`absolute inset-y-16 left-0 flex h-full w-screen justify-center bg-white transition-all duration-500 ease-in-out lg:hidden ${menuIsOpen ? 'z-10 h-screen' : ' h-0 '}`}
+          >
+            <ul
+              className={`transition-all duration-500 ease-in-out ${menuIsOpen ? 'opacity-100' : 'opacity-0'}`}
+            >
+              <li>Hello</li>
+            </ul>
           </div>
 
           <div>
@@ -68,7 +79,7 @@ function Navbar() {
       </nav>
 
       <Outlet />
-		<Footer />
+      <Footer />
     </>
   )
 }

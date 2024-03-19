@@ -1,6 +1,6 @@
 function Panel() {
   return (
-    <div className="fixed flex min-h-32 justify-center bg-black">
+    <div className=" flex min-h-32 justify-center bg-black">
       <div className="flex flex-wrap items-center justify-center gap-9 py-10 lg:gap-24">
         <img src="./images/panel/versace-logo.png" className="h-6" alt="" />
         <img src="./images/panel/zara-logo.png" className="h-6" alt="" />

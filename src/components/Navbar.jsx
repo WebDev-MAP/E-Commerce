@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useState } from 'react'
 import Popup from './Popup'
+import Footer from './Footer';
 // Icons
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { IoSearch } from 'react-icons/io5'
@@ -67,6 +68,7 @@ function Navbar() {
       </nav>
 
       <Outlet />
+		<Footer />
     </>
   )
 }

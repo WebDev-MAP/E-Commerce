@@ -2,32 +2,32 @@ import { SlEnvolope } from 'react-icons/sl'
 
 const Newsletter = () => {
   return (
-    <div className="max-w-[1440px] mx-auto flex h-auto w-[90%] flex-col items-center lg:justify-between gap-5 rounded-2xl bg-black px-12 py-8 text-center text-white lg:flex-row">
-      <h1 className="text-center font-integral_cf text-xl font-bold lg:text-left lg:text-4xl w-full">
-        STAY UPTO DATE ABOUT <br /> OUR LATEST OFFERS
-      </h1>
+    <div className="mx-4 flex justify-center lg:mx-24">
+      <div className="flex w-[1289px] flex-col items-center rounded-[20px] bg-black px-6 lg:flex-row lg:justify-center lg:px-16">
+        <h1 className="my-8 w-full font-integral_cf text-3xl font-bold text-white lg:my-11 lg:w-auto xl:text-[40px]">
+          STAY UPTO DATE ABOUT OUR LATEST OFFERS
+        </h1>
 
-        <form className='w-full lg:w-[90%]'>
-          <div className="relative flex items-center  text-gray-400 focus-within:text-gray-600 lg:w-[90%]">
-            <SlEnvolope className="pointer-events-none absolute ml-3 h-7 w-6 pb-2" />
+        <form className="w-full lg:my-9 lg:flex lg:w-auto lg:flex-col lg:items-center">
+          <div className="relative mb-3 flex items-center lg:w-96">
+            <SlEnvolope className="pointer-events-none absolute ml-4 h-5 w-5 text-black text-opacity-40" />
 
             <input
               type="email"
               placeholder="Enter your email address"
-              className="lg:text-2xl text-xl font-satoshi_medium mb-2 w-full rounded-full border border-gray-400 py-2 lg:py-3 pl-10 pr-3 text-black"
+              className="h-11 w-full rounded-[62px] pl-12 font-satoshi_regular text-sm text-black placeholder-black placeholder-opacity-40 lg:h-12 lg:text-lg"
             />
           </div>
 
-          <div className='w-full lg:w-[90%]'>
+          <div className="lg:w-96">
             <button
-              type="submit"
-              className="lg:h-14 rounded-full bg-white px-5 py-2 text-black text-xl lg:text-2xl font-satoshi_medium hover:bg-blue-600 w-full lg:px-10"
+              className="mb-7 h-11 w-full rounded-[62px] bg-white font-satoshi_medium text-sm text-black lg:m-auto lg:h-12 lg:text-lg"
             >
               Subscribe to Newsletter
             </button>
           </div>
         </form>
-
+      </div>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Popup from './Popup'
 import Footer from './Footer'
 // Icons
@@ -15,20 +15,23 @@ import { FaGithub } from 'react-icons/fa'
 
 function Navbar() {
   const [menuIsOpen, setMenuIsOpen] = useState(false)
-  useEffect(() => {
-    if (menuIsOpen) {
-      document.body.classList.add('overflow-hidden')
-    } else {
-      document.body.classList.remove('overflow-hidden')
-    }
-  }, [menuIsOpen])
+
+  // useEffect(() => {
+  //   if (menuIsOpen) {
+  //     document.body.classList.add('overflow-hidden')
+  //   } else {
+  //     document.body.classList.remove('overflow-hidden')
+  //   }
+  // }, [menuIsOpen])
 
   return (
     <>
       <Popup />
 
       {/* Navbar */}
-      <nav>
+      <nav
+        className={`z-10 bg-white transition-all duration-500 ease-out ${menuIsOpen ? '  h-64 ' : 'h-16 '}`}
+      >
         <div className="relative mx-auto flex min-h-16 max-w-[1440px] items-center px-4  lg:px-0 ">
           {/* Burgermenu */}
 
@@ -37,10 +40,10 @@ function Navbar() {
           </div>
           {/* Dropdown */}
           <div
-            className={`absolute inset-y-16 left-0 z-10 flex w-screen   justify-center bg-white  font-satoshi_regular transition-all duration-500 ease-in-out lg:hidden ${menuIsOpen ? '  h-screen' : 'h-0 '}`}
+            className={` absolute inset-y-16 left-0 z-10 flex   w-screen justify-center  bg-white font-satoshi_regular transition-all  duration-500 ease-in-out lg:hidden ${menuIsOpen ? '  border-b-gray h-48 border-b-2' : 'h-0 '}`}
           >
             <ul
-              className={`mt-10 flex flex-col items-center justify-center space-y-2 font-satoshi_regular transition-all duration-500 ease-in-out ${menuIsOpen ? 'opacity-100' : 'opacity-0'}`}
+              className={` flex flex-col items-center justify-center space-y-2 font-satoshi_regular transition-opacity duration-300 ease-in-out ${menuIsOpen ? 'opacity-100' : 'opacity-0'}`}
             >
               <NavLink to="/" onClick={() => setMenuIsOpen(!menuIsOpen)}>
                 <li>Home</li>
@@ -48,7 +51,7 @@ function Navbar() {
               <NavLink to="/cart" onClick={() => setMenuIsOpen(!menuIsOpen)}>
                 <li>Cart</li>
               </NavLink>
-              <div className="flex space-x-3 pt-10">
+              <div className="flex space-x-3 pt-4">
                 <a
                   href="https://twitter.com"
                   target="_blank"
@@ -81,23 +84,62 @@ function Navbar() {
             </ul>
           </div>
 
-          <div>
+          <div className="">
             <NavLink className="font-integral_cf text-2xl sm:block sm:text-3xl lg:ml-24 ">
               SHOP.CO
             </NavLink>
           </div>
           {/* Navigation Desktop */}
-          <ul className="ml-4 mt-2 hidden items-center  gap-4 text-nowrap font-satoshi_regular text-base  lg:flex">
-            <li>
-              Shop <FaAngleDown className="inline cursor-pointer" />
+          <ul className="  ml-4 mt-2 hidden  items-center gap-4 text-nowrap font-satoshi_regular  text-base hover:cursor-pointer lg:flex">
+            {/* Dropdown Shop  */}
+            <li onClick={() => setMenuIsOpen(!menuIsOpen)}>
+              Shop{' '}
+              {menuIsOpen ? (
+                <FaAngleDown className="inline   transition-transform duration-500" />
+              ) : (
+                <FaAngleDown className="inline rotate-90  transition-transform duration-500" />
+              )}
             </li>
+            {/* TODO: Dropdown  */}
+
+            <div
+              className={`absolute inset-y-16  left-0  z-10   flex w-full  cursor-default  justify-center   font-satoshi_regular transition-all  duration-500 ease-in-out  ${menuIsOpen ? '  h-52 ' : 'h-0 '}`}
+            >
+              <div
+                className={`flex gap-10 font-satoshi_regular transition-opacity duration-300 ease-in-out ${menuIsOpen ? 'opacity-100' : 'opacity-0'}`}
+              >
+                <ul className="flex flex-col items-start hover:cursor-pointer">
+                  <li>Damen</li>
+                  <li>Kleider</li>
+                  <li>Shirts & Tops</li>
+                  <li>Jacken & Blazer</li>
+                  <li>Hosen</li>
+                  <li>Jeans</li>
+                  <li>Alles entdecken</li>
+                </ul>
+                <ul className="flex flex-col justify-start hover:cursor-pointer">
+                  <li>Herren</li>
+                  <li>T-Shirts & Polos</li>
+                  <li>Sweatshirts & Hoodies</li>
+                  <li>Jacken</li>
+                  <li>Hosen</li>
+                  <li>Jeans</li>
+                  <li>Alles entdecken</li>
+                </ul>
+                <ul className="flex flex-col justify-start ">
+                  <li>Kinder</li>
+                  <li>Mädchen</li>
+                  <li>Babys</li>
+                </ul>
+              </div>
+            </div>
             <li>OnSale</li>
             <li>New Arrivals</li>
             <li>Brands</li>
           </ul>
 
           {/* Searchbar */}
-          <form className="mt-2 flex  w-full">
+          <form className="mt-2 flex  w-screen">
             <button className="ml-4 hidden rounded-l-full bg-background px-2 lg:inline-block">
               <IoSearch />
             </button>

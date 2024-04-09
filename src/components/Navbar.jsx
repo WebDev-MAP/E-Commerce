@@ -30,7 +30,7 @@ function Navbar() {
 
       {/* Navbar */}
       <nav
-        className={`z-10 bg-white transition-all duration-500 ease-out ${menuIsOpen ? '  h-64 ' : 'h-16 '}`}
+        className={` z-10 bg-white transition-all duration-500 ease-out ${menuIsOpen ? '  h-64 ' : 'h-16 '}`}
       >
         <div className="relative mx-auto flex min-h-16 max-w-[1440px] items-center px-4  lg:px-0 ">
           {/* Burgermenu */}

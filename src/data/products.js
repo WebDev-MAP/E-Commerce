@@ -80,39 +80,3 @@ export const products = [
     stars: 4,
   },
 ]
-
-export const reviews = [
-  {
-    stars: 4,
-    name: 'Sarah Meier',
-    review: `I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations."`,
-    verified: true,
-  },
-  {
-    stars: 5,
-    name: 'John Doe',
-    review:
-      'I absolutely love the products from Shop.co! The quality is top-notch and the prices are unbeatable. Highly recommended!',
-    verified: true,
-  },
-  {
-    stars: 3,
-    name: 'Jane Smith',
-    review:
-      'The clothes I bought from Shop.co are decent, but nothing extraordinary. The prices are reasonable though.',
-    verified: false,
-  },
-  {
-    stars: 5,
-    name: 'Alex Johnson',
-    review:
-      'Shop.co has the best selection of clothes. I always find something I love!',
-    verified: true,
-  },
-  {
-    stars: 4,
-    name: 'Emily Brown',
-    review: `I'm a loyal customer of Shop.co. The quality and variety of their products are unmatched.`,
-    verified: true,
-  },
-]

@@ -6,7 +6,7 @@ function Popup() {
 
   return (
     panelIsOpen && (
-      <div className=" flex h-10 items-center justify-center bg-black p-4  font-satoshi_regular text-[10px] text-white sm:px-20 sm:text-sm">
+      <div className=" flex h-10 w-full items-center justify-center bg-black  p-4 font-satoshi_regular text-[10px] text-white sm:px-20 sm:text-sm">
         <p>
           Sign up and get 20% off to your first order.{' '}
           <span className=" cursor-pointer font-satoshi_bold underline underline-offset-2">

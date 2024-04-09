@@ -5,7 +5,7 @@ const Card = ({ product }) => {
   return (
     <>
       <div className="">
-		  <img src={product.image} alt={product.title} />
+		  <img src={product.image} alt={product.title} className="pointer-events-none" />
 		  <h3 className="pt-4 font-satoshi_bold text-base md:text-lg">{product.title}</h3>
 		  <p className="font-satoshi_regular flex flex-row items-center text-xs md:text-sm">{
 			[...Array(product.stars)].map((star, index) => {

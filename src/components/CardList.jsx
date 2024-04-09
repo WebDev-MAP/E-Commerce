@@ -1,53 +1,131 @@
-import { products } from "../data/products"
-import Card from "./Card";
+import { products } from '../data/products'
+import Card from './Card'
+import { useRef } from 'react'
+import Slider from 'react-slick'
+import React from 'react'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 const CardList = () => {
+  let sliderRef = useRef(null)
+  const play = () => {
+    sliderRef.slickPlay()
+  }
+  const pause = () => {
+    sliderRef.slickPause()
+  }
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 100,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    initalSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+          autoplay: true,
+          autoplaySpeed: 4000,
+          cssEase: 'linear',
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          initialSlide: 0,
+          autoplay: true,
+          autoplaySpeed: 4000,
+          cssEase: 'linear',
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 4000,
+          cssEase: 'linear',
+          infinite: true,
+        },
+      },
+    ],
+  }
+
   return (
     <>
-	 <section className="mx-4 lg:mx-24 ">
-	 	<h2 className="font-integral_cf text-3xl md:text-5xl text-center mt-16 mb-12">NEW ARRIVALS</h2>
-      <div className="flex flex-row gap-4 md:gap-8 justify-center">
-			<div>
-			<Card product={products[0]} />
-			</div>
-			<div>
-			<Card product={products[1]} />
-			</div>
-			<div className="hidden md:block">
-			<Card product={products[2]} />
-			</div>
-			<div className="hidden lg:block">
-			<Card product={products[3]} />
-			</div>
-		</div>
-		<div className="flex justify-center">
-		<button className="mt-9 border-gray-300 border-[1px] rounded-full w-full md:w-auto py-3 px-20 font-satoshi_medium md:text-base mb-16">View All</button>
-		</div>
-		<div className="flex justify-center">
-		<div className="border-b-[1px] border-gray-300 w-10/12 text-center"></div>
-		</div>
+      <section className="mx-14 lg:mx-24 ">
+        <h2 className="mb-12 mt-16 text-center font-integral_cf text-3xl md:text-5xl">
+          NEW ARRIVALS
+        </h2>
+        <div className="cursor-pointer overflow-hidden">
+          <Slider
+            ref={(slider) => (sliderRef = slider)}
+            {...settings}
+            className="mx-auto max-w-[80rem]"
+          >
+            {products.map((product) => {
+              if (product.id < 5) {
+                return (
+                  <div
+                    key={product.id}
+                    className=" w-[300px] pr-2 md:w-[300px]"
+                  >
+                    <Card product={product} />
+                  </div>
+                )
+              }
+            })}
+          </Slider>
+        </div>
+        <div className="flex justify-center">
+          <button className="mb-16 mt-9 w-full rounded-full border-[1px] border-gray-300 px-20 py-3 font-satoshi_medium md:w-auto md:text-base">
+            View All
+          </button>
+        </div>
+        <div className="flex justify-center">
+          <div className="w-10/12 border-b-[1px] border-gray-300 text-center"></div>
+        </div>
 
-		<h2 className="font-integral_cf text-3xl md:text-5xl text-center mt-16 mb-12">TOP SELLING</h2>
-		<div className="flex flex-row gap-4 md:gap-8 justify-center">
-			<div>
-			<Card product={products[4]} />
-			</div>
-			<div>
-			<Card product={products[5]} />
-			</div>
-			<div className="hidden md:block">
-			<Card product={products[6]} />
-			</div>
-			<div className="hidden lg:block">
-			<Card product={products[7]} />
-			</div>
-		</div>
-		<div className="flex justify-center">
-		<button className="mt-9 border-gray-300 border-[1px] rounded-full w-full md:w-auto py-3 px-20 font-satoshi_medium md:text-base mb-16">View All</button>
-		</div>
-		<div className="flex justify-center">
-		</div>
-		</section>
+        <h2 className="mb-12 mt-16 text-center font-integral_cf text-3xl md:text-5xl">
+          TOP SELLING
+        </h2>
+        <div className="overflow-hidden">
+          <Slider
+            ref={(slider) => (sliderRef = slider)}
+            {...settings}
+            className="mx-auto max-w-[80rem]"
+          >
+            {products.map((product) => {
+              if (product.id > 4 && product.id < 9) {
+                return (
+                  <div
+                    key={product.id}
+                    className=" w-[300px] pr-2 md:w-[300px]"
+                  >
+                    <Card product={product} />
+                  </div>
+                )
+              }
+            })}
+          </Slider>
+        </div>
+        <div className="flex justify-center">
+          <button className="mb-16 mt-9 w-full rounded-full border-[1px] border-gray-300 px-20 py-3 font-satoshi_medium md:w-auto md:text-base">
+            View All
+          </button>
+        </div>
+        <div className="flex justify-center"></div>
+      </section>
     </>
   )
 }

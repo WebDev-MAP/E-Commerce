@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* added fonts */
 @font-face {
   font-family: 'Satoshi Bold';
@@ -27,4 +26,13 @@
   src:
     local('Integral CF Bold'),
     url(./fonts/Integralcf-Bold.otf) format('opentype');
+}
+
+/* Remove Arrows on Input with type Number */
+@layer base {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }

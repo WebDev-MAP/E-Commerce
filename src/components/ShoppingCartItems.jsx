@@ -17,21 +17,27 @@ function ShoppingCartItems({ product }) {
 
   return (
     <div>
-      <section className="my-3 flex w-full gap-3">
+      <section className="my-3 md:my-6 flex w-full gap-3">
         <div>
-          <img className="w-28" src={product.image} alt={product.title} />
+          <img
+            className="w-28 md:w-32"
+            src={product.image}
+            alt={product.title}
+          />
         </div>
         <div className="flex w-full flex-col justify-between">
           <div className="flex justify-between">
             <div>
-              <h3 className="font-satoshi_bold text-sm">{product.title}</h3>
-              <p className="font-satoshi_regular text-[12px]">
+              <h3 className="font-satoshi_bold text-sm md:text-xl">
+                {product.title}
+              </h3>
+              <p className="font-satoshi_regular text-[12px] md:text-sm">
                 Size:{' '}
                 <span className="text-black text-opacity-60">
                   {product.size}
                 </span>
               </p>
-              <p className="font-satoshi_regular text-[12px]">
+              <p className="font-satoshi_regular text-[12px] md:text-sm">
                 Color:{' '}
                 <span className="text-black text-opacity-60">
                   {product.color}
@@ -45,7 +51,9 @@ function ShoppingCartItems({ product }) {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <p className="font-satoshi_bold text-xl">${product.price}</p>
+            <p className="font-satoshi_bold text-xl md:text-2xl">
+              ${product.price}
+            </p>
             <div className="flex rounded-full bg-[#F0F0F0]">
               <button
                 onClick={decrementQuantity}

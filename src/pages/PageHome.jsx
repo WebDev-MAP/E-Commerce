@@ -3,6 +3,7 @@ import Hero from '../components/Hero'
 import Panel from '../components/Panel'
 import Newsletter from '../components/Newsletter'
 import DressStyle from '../components/DressStyle'
+import CustomerReviews from '../components/CustomerReviews'
 
 function PageHome() {
   return (
@@ -11,6 +12,7 @@ function PageHome() {
       <Panel />
       <CardList />
       <DressStyle />
+      <CustomerReviews />
       <Newsletter />
     </>
   )

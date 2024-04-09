@@ -48,7 +48,7 @@ function Navbar() {
               <NavLink to="/" onClick={() => setMenuIsOpen(!menuIsOpen)}>
                 <li>Home</li>
               </NavLink>
-              <NavLink to="/cart" onClick={() => setMenuIsOpen(!menuIsOpen)}>
+              <NavLink to="home/cart" onClick={() => setMenuIsOpen(!menuIsOpen)}>
                 <li>Cart</li>
               </NavLink>
               <div className="flex space-x-3 pt-4">
@@ -156,7 +156,7 @@ function Navbar() {
               <IoSearch />
             </div>
             <div>
-              <NavLink to="/cart">
+              <NavLink to="home/cart">
                 <LuShoppingCart />
               </NavLink>
             </div>

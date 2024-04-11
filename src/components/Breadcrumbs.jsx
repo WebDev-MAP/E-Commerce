@@ -7,7 +7,7 @@ function Breadcrumbs() {
 
   const crumbs = location.pathname
     .split('/')
-    .filter((crumb) => crumb !== '')
+    .filter((crumb) => crumb !== '' && crumb !== 'home')
     .map((crumb) => {
       currentLink += `/${crumb}`
 
@@ -16,7 +16,7 @@ function Breadcrumbs() {
           className="crumb mr-1 inline-block font-satoshi_regular text-black text-opacity-60 after:ml-1 after:content-['>'] last:text-opacity-100 last:after:hidden"
           key={crumb}
         >
-          <Link className='hover:underline' to={currentLink}>
+          <Link className="hover:underline" to={currentLink}>
             {crumb[0].toUpperCase() + crumb.slice(1)}
           </Link>
         </div>
@@ -24,7 +24,12 @@ function Breadcrumbs() {
     })
   return (
     <div>
-      <div className="breadcrumbs">{crumbs}</div>
+      <div className="breadcrumbs">
+        <div className="crumb mr-1 inline-block font-satoshi_regular text-black text-opacity-60 after:ml-1 after:content-['>']">
+          <Link to="/">Home</Link>
+        </div>
+        {crumbs}
+      </div>
     </div>
   )
 }

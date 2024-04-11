@@ -16,14 +16,6 @@ import { FaGithub } from 'react-icons/fa'
 function Navbar() {
   const [menuIsOpen, setMenuIsOpen] = useState(false)
 
-  // useEffect(() => {
-  //   if (menuIsOpen) {
-  //     document.body.classList.add('overflow-hidden')
-  //   } else {
-  //     document.body.classList.remove('overflow-hidden')
-  //   }
-  // }, [menuIsOpen])
-
   return (
     <>
       <Popup />
@@ -48,7 +40,10 @@ function Navbar() {
               <NavLink to="/" onClick={() => setMenuIsOpen(!menuIsOpen)}>
                 <li>Home</li>
               </NavLink>
-              <NavLink to="home/cart" onClick={() => setMenuIsOpen(!menuIsOpen)}>
+              <NavLink
+                to="home/cart"
+                onClick={() => setMenuIsOpen(!menuIsOpen)}
+              >
                 <li>Cart</li>
               </NavLink>
               <div className="flex space-x-3 pt-4">
@@ -100,7 +95,7 @@ function Navbar() {
                 <FaAngleDown className="inline rotate-90  transition-transform duration-500" />
               )}
             </li>
-            {/* TODO: Dropdown  */}
+            {/* Dropdown  */}
 
             <div
               className={`absolute inset-y-16  left-0  z-10   flex w-full  cursor-default  justify-center   font-satoshi_regular transition-all  duration-500 ease-in-out  ${menuIsOpen ? '  h-52 ' : 'h-0 '}`}

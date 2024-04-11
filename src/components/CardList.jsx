@@ -5,6 +5,7 @@ import Slider from 'react-slick'
 import React from 'react'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import { NavLink } from 'react-router-dom'
 
 const CardList = () => {
   let sliderRef = useRef(null)
@@ -64,6 +65,7 @@ const CardList = () => {
   return (
     <>
       <section className="mx-14 lg:mx-24 ">
+        {' '}
         <h2 className="mb-12 mt-16 text-center font-integral_cf text-3xl md:text-5xl">
           NEW ARRIVALS
         </h2>
@@ -89,13 +91,12 @@ const CardList = () => {
         </div>
         <div className="flex justify-center">
           <button className="mb-16 mt-9 w-full rounded-full border-[1px] border-gray-300 px-20 py-3 font-satoshi_medium md:w-auto md:text-base">
-            View All
+            <NavLink to="home/category"> View All</NavLink>
           </button>
         </div>
         <div className="flex justify-center">
           <div className="w-10/12 border-b-[1px] border-gray-300 text-center"></div>
         </div>
-
         <h2 className="mb-12 mt-16 text-center font-integral_cf text-3xl md:text-5xl">
           TOP SELLING
         </h2>
@@ -121,7 +122,7 @@ const CardList = () => {
         </div>
         <div className="flex justify-center">
           <button className="mb-16 mt-9 w-full rounded-full border-[1px] border-gray-300 px-20 py-3 font-satoshi_medium md:w-auto md:text-base">
-            View All
+            <NavLink to="home/category">View All</NavLink>
           </button>
         </div>
         <div className="flex justify-center"></div>

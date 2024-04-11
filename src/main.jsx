@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import Page404 from './pages/Page404.jsx'
 import PageCart from './pages/PageCart.jsx'
+import PageCategory from './pages/PageCategory.jsx'
 import PageHome from './pages/PageHome.jsx'
 
 const router = createBrowserRouter([
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: '/home',
         element: <PageHome />,
+      },
+      {
+        path: 'home/category',
+        element: <PageCategory />,
       },
       {
         path: 'home/cart',

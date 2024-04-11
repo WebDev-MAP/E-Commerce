@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import Card from './Card'
 import { products } from '../data/products'
+import { useShopContext } from '../context/ShopContext'
 
 // Example items, to simulate fetching from another resources.
 const items = products
@@ -26,20 +27,22 @@ function PaginatedItems({ itemsPerPage }) {
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0)
 
+  const { filterOpen, setFilterOpen } = useShopContext()
+
   // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`)
+  // console.log(`Loading items from ${itemOffset} to ${endOffset}`)
   const currentItems = items.slice(itemOffset, endOffset)
   const pageCount = Math.ceil(items.length / itemsPerPage)
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % items.length
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    )
+    // console.log(
+    //   `User requested page number ${event.selected}, which is offset ${newOffset}`
+    // )
     setItemOffset(newOffset)
     window.scrollTo({
       top: 0,
@@ -51,7 +54,12 @@ function PaginatedItems({ itemsPerPage }) {
     <div className=" ">
       <div className="flex items-center">
         <h4 className="mb-4 font-satoshi_bold text-2xl sm:text-3xl">Casual</h4>
-        <button className="ml-auto pb-3 md:hidden">
+        <button
+          className="ml-auto pb-3 md:hidden"
+          onClick={() => {
+            setFilterOpen(!filterOpen)
+          }}
+        >
           <img src="/images/icons/filter.svg" alt="filterItems" />
         </button>
       </div>

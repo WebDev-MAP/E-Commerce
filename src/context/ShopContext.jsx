@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 const ShopContext = createContext()
 
@@ -8,9 +8,13 @@ function Provider({ children }) {
   const vorname = 'Max'
   const nachname = 'Mustermann'
 
+  const [filterOpen, setFilterOpen] = useState('false')
+
   const valueToShare = {
     vorname,
     nachname,
+    filterOpen,
+    setFilterOpen,
   }
 
   return (

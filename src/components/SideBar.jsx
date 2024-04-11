@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { FaAngleDown } from 'react-icons/fa'
 import Button from './Button'
+import { useShopContext } from '../context/ShopContext'
 
 const sideBarSizes = [
   'XX-Small',
@@ -21,18 +22,28 @@ function SideBar() {
   const [dressStyleAccordionIsOpen, setDressStyleAccordionIsOpen] =
     useState(false)
 
+  const { filterOpen, setFilterOpen } = useShopContext()
+
+  console.log(filterOpen)
   return (
     // Sidebar desktop
     <>
       <div
-        className="absolute left-0 top-20
-       z-30  mr-4 h-fit w-full space-y-6 rounded-3xl border-2 bg-white p-6 md:relative md:top-full md:block md:w-[18rem] md:min-w-[18rem] "
+        className={`left-0 top-20 z-30
+       mr-4   h-fit w-full space-y-6 rounded-3xl border-2 bg-white p-6 md:static md:top-full md:block md:w-[18rem] md:min-w-[18rem] ${filterOpen ? 'hidden' : 'absolute'}`}
       >
         <div className="flex justify-between">
           <h4 className="font-satoshi_bold text-xl">Filters</h4>
           {/* Filter Icon */}
-          <button className="rounded-full">
-            <img src="/images/icons/filter.svg" alt="filterItems" />
+          <button
+            className=" rounded-full md:pointer-events-none"
+            onClick={() => setFilterOpen(!filterOpen)}
+          >
+            {filterOpen ? (
+              <img src="/images/icons/filter.svg" alt="filterItems" />
+            ) : (
+              <p>X</p>
+            )}
           </button>
         </div>
         <div className="font-satoshi_regular text-base opacity-60">

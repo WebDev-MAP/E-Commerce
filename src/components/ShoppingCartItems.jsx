@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { PiTrashFill } from 'react-icons/pi'
+import { formatCurrency } from '../utilities/formatCurrency'
 
 function ShoppingCartItems({ product }) {
   const [quantity, setQuantity] = useState(1)
@@ -52,7 +53,7 @@ function ShoppingCartItems({ product }) {
           </div>
           <div className="flex items-center justify-between">
             <p className="font-satoshi_bold text-xl md:text-2xl">
-              ${product.price}
+              {formatCurrency(product.price)}
             </p>
             <div className="flex rounded-full bg-[#F0F0F0]">
               <button

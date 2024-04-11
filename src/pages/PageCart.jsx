@@ -3,6 +3,7 @@ import ShoppingCartItems from '../components/ShoppingCartItems'
 import { products } from '../data/products'
 import { MdOutlineDiscount } from 'react-icons/md'
 import { IoMdArrowForward } from 'react-icons/io'
+import { formatCurrency } from '../utilities/formatCurrency'
 
 let cart = [products[8], products[9], products[10]]
 let subTotal = cart.reduce((total, product) => {
@@ -48,21 +49,21 @@ function PageCart() {
                     <p className="font-satoshi_regular text-black text-opacity-60 ">
                       Subtotal
                     </p>
-                    <span className="font-satoshi_bold">${subTotal}</span>
+                    <span className="font-satoshi_bold">{formatCurrency(subTotal)}</span>
                   </div>
                   <div className="flex justify-between">
                     <p className="font-satoshi_regular text-black text-opacity-60 ">
                       Discount (-20%)
                     </p>
                     <span className="font-satoshi_bold text-[#FF3333]">
-                      -${discount}
+                      -{formatCurrency(discount)}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <p className="font-satoshi_regular text-black text-opacity-60">
                       Delivery Fee
                     </p>
-                    <span className="font-satoshi_bold">${deliveryFee}</span>
+                    <span className="font-satoshi_bold">{formatCurrency(deliveryFee)}</span>
                   </div>
                 </div>
                 <div className="flex justify-between pt-4">
@@ -70,7 +71,7 @@ function PageCart() {
                     Total
                   </p>
                   <span className="font-satoshi_bold text-xl md:text-2xl">
-                    ${total}
+                    {formatCurrency(total)}
                   </span>
                 </div>
               </div>

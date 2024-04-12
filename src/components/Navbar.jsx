@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useState } from 'react'
 import Popup from './Popup'
+import Newsletter from '../components/Newsletter'
 import Footer from './Footer'
 // Icons
 import { RxHamburgerMenu } from 'react-icons/rx'
@@ -168,6 +169,7 @@ function Navbar() {
       </nav>
 
       <Outlet />
+      <Newsletter />
       <Footer />
     </>
   )

@@ -2,7 +2,7 @@ import { SlEnvolope } from 'react-icons/sl'
 
 const Newsletter = () => {
   return (
-    <div className="mx-4 flex justify-center lg:mx-24 mt-12 md:mt-20">
+    <div className="mx-4 flex justify-center lg:mx-24">
       <div className="flex w-[1289px] flex-col items-center rounded-[20px] bg-black px-6 lg:flex-row lg:justify-center lg:px-16">
         <h1 className="my-8 w-full font-integral_cf text-3xl font-bold text-white lg:my-11 lg:w-auto xl:text-[40px]">
           STAY UPTO DATE ABOUT OUR LATEST OFFERS

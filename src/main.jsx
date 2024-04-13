@@ -6,6 +6,7 @@ import './index.css'
 import Page404 from './pages/Page404.jsx'
 import PageCart from './pages/PageCart.jsx'
 import PageHome from './pages/PageHome.jsx'
+import AuthPage from './pages/AuthPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <PageCart />,
+      },
+      {
+        path: '/login',
+        element: <AuthPage />,
       },
     ],
   },

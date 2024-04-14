@@ -5,14 +5,12 @@ const ShopContext = createContext()
 export const useShopContext = () => useContext(ShopContext)
 
 function Provider({ children }) {
-  const vorname = 'Max'
-  const nachname = 'Mustermann'
-
+  const [filterAuswahl, setFilterAuswahl] = useState([])
   const [filterOpen, setFilterOpen] = useState('false')
 
   const valueToShare = {
-    vorname,
-    nachname,
+    filterAuswahl,
+    setFilterAuswahl,
     filterOpen,
     setFilterOpen,
   }

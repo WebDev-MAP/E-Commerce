@@ -8,6 +8,9 @@ export const products = [
     discountedPrice: 100,
     discountPercentage: 0,
     stars: 4,
+    dressStyle: 'Casual',
+    sizes: 'Small',
+    kleidungsstueck: 'T-shirts',
   },
   {
     id: 2,
@@ -18,6 +21,9 @@ export const products = [
     discountedPrice: 240,
     discountPercentage: 20,
     stars: 3,
+    dressStyle: 'Casual',
+    sizes: 'Large',
+    kleidungsstueck: 'Jeans',
   },
   {
     id: 3,
@@ -28,6 +34,9 @@ export const products = [
     discountedPrice: 140,
     discountPercentage: 0,
     stars: 4,
+    dressStyle: 'Party',
+    sizes: 'Small',
+    kleidungsstueck: 'Shirts',
   },
   {
     id: 4,
@@ -38,6 +47,9 @@ export const products = [
     discountedPrice: 130,
     discountPercentage: 30,
     stars: 5,
+    dressStyle: 'Casual',
+    sizes: 'Medium',
+    kleidungsstueck: 'T-shirts',
   },
   {
     id: 5,
@@ -48,6 +60,9 @@ export const products = [
     discountedPrice: 212,
     discountPercentage: 20,
     stars: 5,
+    dressStyle: 'Party',
+    sizes: 'Large',
+    kleidungsstueck: 'Shirts',
   },
   {
     id: 6,
@@ -58,6 +73,9 @@ export const products = [
     discountedPrice: 100,
     discountPercentage: 20,
     stars: 4,
+    dressStyle: 'Casual',
+    sizes: 'Small',
+    kleidungsstueck: 'T-shirts',
   },
   {
     id: 7,
@@ -68,6 +86,9 @@ export const products = [
     discountedPrice: 50,
     discountPercentage: 0,
     stars: 3,
+    dressStyle: 'Casual',
+    sizes: 'Medium',
+    kleidungsstueck: 'Shorts',
   },
   {
     id: 8,
@@ -78,6 +99,9 @@ export const products = [
     discountedPrice: 170,
     discountPercentage: 30,
     stars: 4,
+    dressStyle: 'Casual',
+    sizes: 'Large',
+    kleidungsstueck: 'Jeans',
   },
   {
     id: 9,
@@ -90,6 +114,8 @@ export const products = [
     stars: 4,
     size: 'Large',
     color: 'White',
+    dressStyle: 'Casual',
+    kleidungsstueck: 'T-shirts',
   },
   {
     id: 10,
@@ -102,6 +128,8 @@ export const products = [
     stars: 4,
     size: 'Medium',
     color: 'Red',
+    dressStyle: 'Party',
+    kleidungsstueck: 'Shirts',
   },
   {
     id: 11,
@@ -114,5 +142,7 @@ export const products = [
     stars: 4,
     size: 'Large',
     color: 'Blue',
+    dressStyle: 'Casual',
+    kleidungsstueck: 'Jeans',
   },
 ]

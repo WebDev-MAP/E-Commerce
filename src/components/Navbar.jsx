@@ -13,9 +13,11 @@ import { FaTwitter } from 'react-icons/fa'
 import { FaFacebook } from 'react-icons/fa'
 import { FaInstagram } from 'react-icons/fa'
 import { FaGithub } from 'react-icons/fa'
+import { useShopContext } from '../context/ShopContext'
 
 function Navbar() {
   const [menuIsOpen, setMenuIsOpen] = useState(false)
+  const { cartQuantity } = useShopContext()
 
   // useEffect(() => {
   //   if (menuIsOpen) {
@@ -158,7 +160,14 @@ function Navbar() {
             </div>
             <div>
               <NavLink to="/cart">
-                <LuShoppingCart />
+                <button className="relative">
+                  <LuShoppingCart />
+                  {cartQuantity > 0 && (
+                    <div className="absolute bottom-0 right-0 flex h-4 w-4 -translate-y-1/2 translate-x-1/4 items-center justify-center rounded-full bg-red-600 text-xs text-white">
+                      {cartQuantity > 9 ? '9+' : cartQuantity}
+                    </div>
+                  )}
+                </button>
               </NavLink>
             </div>
             <div>

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Popup from './Popup'
 import Newsletter from '../components/Newsletter'
 import Footer from './Footer'
+
 // Icons
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { IoSearch } from 'react-icons/io5'
@@ -53,6 +54,9 @@ function Navbar() {
               </NavLink>
               <NavLink to="/cart" onClick={() => setMenuIsOpen(!menuIsOpen)}>
                 <li>Cart</li>
+              </NavLink>
+              <NavLink to="/auth" onClick={() => setMenuIsOpen(!menuIsOpen)}>
+                <li>Profile</li>
               </NavLink>
               <div className="flex space-x-3 pt-4">
                 <a
@@ -171,7 +175,9 @@ function Navbar() {
               </NavLink>
             </div>
             <div>
-              <CgProfile />
+              <NavLink to="/login">
+                <CgProfile />
+              </NavLink>
             </div>
           </div>
         </div>

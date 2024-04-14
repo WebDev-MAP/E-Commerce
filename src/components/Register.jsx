@@ -48,7 +48,7 @@ function Register() {
       font-satoshi_regular placeholder-black placeholder-opacity-70" placeholder="Phone Number" />
       <input type="text" value={bankData} onChange={(e) => setBankData(e.target.value)} className="mb-4 px-16 py-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 text-center
       font-satoshi_regular placeholder-black placeholder-opacity-70" placeholder="IBAN" />
-      <button type="submit" className="px-4 py-2 bg-black text-white rounded-md hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-gray-500 font-integral_cf">Register</button>
+      <button type="submit" className="px-4 py-2 bg-black text-white rounded-md hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-gray-500 font-integral_cf shadow-lg animate-pulse">Register</button>
     </form>
   );
 }

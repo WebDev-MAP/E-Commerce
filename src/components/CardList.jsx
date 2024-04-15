@@ -5,6 +5,7 @@ import Slider from 'react-slick'
 import React from 'react'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import { Link } from 'react-router-dom';
 
 const CardList = () => {
   let sliderRef = useRef(null)
@@ -74,14 +75,14 @@ const CardList = () => {
             className="mx-auto max-w-[80rem]"
           >
             {products.map((product) => {
-              if (product.id < 5) {
+              if (product.id < 4 || product.id === 12) {
                 return (
-                  <div
+                  <Link to={`/home/product/${product.id}`}
                     key={product.id}
                     className=" w-[300px] pr-2 md:w-[300px]"
                   >
                     <Card product={product} />
-                  </div>
+                  </Link>
                 )
               }
             })}
@@ -108,12 +109,12 @@ const CardList = () => {
             {products.map((product) => {
               if (product.id > 4 && product.id < 9) {
                 return (
-                  <div
+                  <Link to={`/home/product/${product.id}`}
                     key={product.id}
                     className=" w-[300px] pr-2 md:w-[300px]"
                   >
                     <Card product={product} />
-                  </div>
+                  </Link>
                 )
               }
             })}

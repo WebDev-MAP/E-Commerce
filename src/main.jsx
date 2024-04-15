@@ -6,6 +6,7 @@ import './index.css'
 import Page404 from './pages/Page404.jsx'
 import PageCart from './pages/PageCart.jsx'
 import PageHome from './pages/PageHome.jsx'
+import PageDetails from './pages/PageDetails.jsx'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: 'home/cart',
         element: <PageCart />,
+      },
+      {
+        path: 'product/:id',
+        element: <PageDetails />,
       },
     ],
   },

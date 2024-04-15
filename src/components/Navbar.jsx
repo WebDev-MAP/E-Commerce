@@ -41,16 +41,30 @@ function Navbar() {
             <ul
               className={` flex flex-col items-center justify-center space-y-2 font-satoshi_regular transition-opacity duration-300 ease-in-out ${menuIsOpen ? 'opacity-100' : 'hidden'}`}
             >
-              <NavLink to="/" onClick={() => setMenuIsOpen(!menuIsOpen)}>
-                <li>Home</li>
+              <NavLink
+                to="/category"
+                onClick={() => setMenuIsOpen(!menuIsOpen)}
+              >
+                <li>Shop</li>
               </NavLink>
 
-              <NavLink to="/cart" onClick={() => setMenuIsOpen(!menuIsOpen)}>
-
-                <li>Cart</li>
+              <NavLink
+                to="/category"
+                onClick={() => setMenuIsOpen(!menuIsOpen)}
+              >
+                <li>OnSale</li>
               </NavLink>
-              <NavLink to="/auth" onClick={() => setMenuIsOpen(!menuIsOpen)}>
-                <li>Profile</li>
+              <NavLink
+                to="/category"
+                onClick={() => setMenuIsOpen(!menuIsOpen)}
+              >
+                <li>New Arrivals</li>
+              </NavLink>
+              <NavLink
+                to="/category"
+                onClick={() => setMenuIsOpen(!menuIsOpen)}
+              >
+                <li>Brands</li>
               </NavLink>
               <div className="flex space-x-3 pt-4">
                 <a

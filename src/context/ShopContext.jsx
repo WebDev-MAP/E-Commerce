@@ -9,6 +9,7 @@ export const useShopContext = () => useContext(ShopContext)
 function Provider({ children }) {
   const [filterAuswahl, setFilterAuswahl] = useState([])
   const [filterOpen, setFilterOpen] = useState('false')
+  const [selectedDressStyle, setSelectedDressStyle] = useState([])
 
   const valueToShare = {
     filterAuswahl,
@@ -85,6 +86,8 @@ function Provider({ children }) {
         setFilterAuswahl,
         filterOpen,
         setFilterOpen,
+        selectedDressStyle,
+        setSelectedDressStyle,
       }}
     >
       {children}

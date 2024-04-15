@@ -273,7 +273,8 @@ function SideBar() {
               selectedKleidungsstueck,
               selectedPrice,
             ])
-            return setFilterOpen(!filterOpen)
+            setFilterOpen(!filterOpen)
+            return window.scrollTo(0, 0)
           }}
         >
           Apply Filter

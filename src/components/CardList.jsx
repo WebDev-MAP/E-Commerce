@@ -6,8 +6,7 @@ import React from 'react'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import { Link, NavLink } from 'react-router-dom';
-
+import { Link, NavLink } from 'react-router-dom'
 
 const CardList = () => {
   let sliderRef = useRef(null)
@@ -80,7 +79,8 @@ const CardList = () => {
             {products.map((product) => {
               if (product.id < 4 || product.id === 12) {
                 return (
-                  <Link to={`/product/${product.id}`}
+                  <Link
+                    to={`/product/${product.id}`}
                     key={product.id}
                     className=" w-[300px] pr-2 md:w-[300px]"
                   >
@@ -111,7 +111,8 @@ const CardList = () => {
             {products.map((product) => {
               if (product.id > 4 && product.id < 9) {
                 return (
-                  <Link to={`/product/${product.id}`}
+                  <Link
+                    to={`/product/${product.id}`}
                     key={product.id}
                     className=" w-[300px] pr-2 md:w-[300px]"
                   >
@@ -124,7 +125,7 @@ const CardList = () => {
         </div>
         <div className="flex justify-center">
           <button className="mb-16 mt-9 w-full rounded-full border-[1px] border-gray-300 px-20 py-3 font-satoshi_medium md:w-auto md:text-base">
-            <NavLink to="home/category">View All</NavLink>
+            <NavLink to="/category">View All</NavLink>
           </button>
         </div>
         <div className="flex justify-center"></div>

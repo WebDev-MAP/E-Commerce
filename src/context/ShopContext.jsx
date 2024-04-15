@@ -1,18 +1,23 @@
-import { createContext, useContext } from 'react'
+
+import { createContext, useContext, useState } from 'react'
+
 import { useState } from 'react'
 import { products } from '../data/products'
+
 
 const ShopContext = createContext()
 
 export const useShopContext = () => useContext(ShopContext)
 
 function Provider({ children }) {
-  const vorname = 'Max'
-  const nachname = 'Mustermann'
+  const [filterAuswahl, setFilterAuswahl] = useState([])
+  const [filterOpen, setFilterOpen] = useState('false')
 
   const valueToShare = {
-    vorname,
-    nachname,
+    filterAuswahl,
+    setFilterAuswahl,
+    filterOpen,
+    setFilterOpen,
   }
 
   const [cartItems, setCartItems] = useState([

@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import Page404 from './pages/Page404.jsx'
 import PageCart from './pages/PageCart.jsx'
+import PageCategory from './pages/PageCategory.jsx'
 import PageHome from './pages/PageHome.jsx'
 import PageDetails from './pages/PageDetails.jsx'
 import AuthPage from './pages/AuthPage.jsx'
@@ -24,12 +25,20 @@ const router = createBrowserRouter([
         element: <PageCart />,
       },
       {
+
+        path: '/category',
+        element: <PageCategory />,
+      },
+      {
+ 
+        
         path: '/login',
         element: <AuthPage />,
       },
       {
-        path: 'product/:id',
+        path: '/product/:id',
         element: <PageDetails />,
+
       },
     ],
   },

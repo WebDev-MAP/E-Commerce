@@ -5,7 +5,6 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 // react-icons
 import { reviews } from '../data/reviews'
-import { AiFillStar } from 'react-icons/ai'
 import { GoArrowLeft, GoArrowRight } from 'react-icons/go'
 import { IoCheckmarkCircle } from 'react-icons/io5'
 import { FaStar } from 'react-icons/fa'

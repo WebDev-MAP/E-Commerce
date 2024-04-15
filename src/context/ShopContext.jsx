@@ -18,9 +18,9 @@ function Provider({ children }) {
   }
 
   const [cartItems, setCartItems] = useState([
-    { id: 9, quantity: 1 },
-    { id: 10, quantity: 1 },
-    { id: 11, quantity: 1 },
+    { id: 7, quantity: 1 },
+    { id: 8, quantity: 1 },
+    { id: 12, quantity: 1 },
   ])
 
   const cartQuantity = cartItems.reduce(

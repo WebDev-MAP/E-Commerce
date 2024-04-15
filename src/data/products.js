@@ -11,10 +11,22 @@ export const products = [
     discountedPrice: 100,
     discountPercentage: 0,
 
-	 type: 'T-shirt',
+    type: 'T-shirt',
     style: 'Casual',
-	 description:
+    description:
       'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+    descriptionDetails:
+      'Elevate your style with our "T-shirt with Tape Details," a versatile wardrobe essential that seamlessly blends comfort and fashion. Crafted from a soft and breathable fabric, this t-shirt ensures all-day comfort, whether youre running errands, hitting the gym, or lounging at home. The unique graphic design adds a touch of personality and flair, making it perfect for any occasion, from casual outings to weekend adventures. Embrace the mantra of living life to the fullest with this stylish and comfortable tee.',
+    details: [
+      'Material: Crafted from a soft and breathable fabric blend, ensuring comfort and durability.',
+      'Graphic Design: Features a unique graphic design that adds a touch of personality and style.',
+      "Versatile: Perfect for any occasion, whether it's a casual day out or a relaxed evening at home.",
+      'Comfort Fit: Designed for superior comfort and ease of movement.',
+      'Care Instructions: Machine wash cold with like colors; tumble dry low.',
+      'Available Sizes: Available in a range of sizes to ensure the perfect fit for every body type.',
+      'Style Tip: Pair with your favorite jeans or shorts for a casual yet trendy look.',
+      'Unisex: Suitable for both men and women, adding versatility to your wardrobe.',
+    ],
 
     stars: 4,
     dressStyle: 'Casual',
@@ -33,10 +45,22 @@ export const products = [
     discountedPrice: 240,
     discountPercentage: 20,
 
-	 type: 'Jeans',
+    type: 'Jeans',
     style: 'Casual',
     description:
       'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+    descriptionDetails:
+      'Elevate your style with our "T-shirt with Tape Details," a versatile wardrobe essential that seamlessly blends comfort and fashion. Crafted from a soft and breathable fabric, this t-shirt ensures all-day comfort, whether youre running errands, hitting the gym, or lounging at home. The unique graphic design adds a touch of personality and flair, making it perfect for any occasion, from casual outings to weekend adventures. Embrace the mantra of living life to the fullest with this stylish and comfortable tee.',
+    details: [
+      'Material: Crafted from a soft and breathable fabric blend, ensuring comfort and durability.',
+      'Graphic Design: Features a unique graphic design that adds a touch of personality and style.',
+      "Versatile: Perfect for any occasion, whether it's a casual day out or a relaxed evening at home.",
+      'Comfort Fit: Designed for superior comfort and ease of movement.',
+      'Care Instructions: Machine wash cold with like colors; tumble dry low.',
+      'Available Sizes: Available in a range of sizes to ensure the perfect fit for every body type.',
+      'Style Tip: Pair with your favorite jeans or shorts for a casual yet trendy look.',
+      'Unisex: Suitable for both men and women, adding versatility to your wardrobe.',
+    ],
 
     stars: 3,
     dressStyle: 'Casual',
@@ -55,10 +79,22 @@ export const products = [
     discountedPrice: 140,
     discountPercentage: 0,
 
-	 type: 'T-shirt',
+    type: 'T-shirt',
     style: 'Casual',
     description:
       'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+    descriptionDetails:
+      'Elevate your style with our "T-shirt with Tape Details," a versatile wardrobe essential that seamlessly blends comfort and fashion. Crafted from a soft and breathable fabric, this t-shirt ensures all-day comfort, whether youre running errands, hitting the gym, or lounging at home. The unique graphic design adds a touch of personality and flair, making it perfect for any occasion, from casual outings to weekend adventures. Embrace the mantra of living life to the fullest with this stylish and comfortable tee.',
+    details: [
+      'Material: Crafted from a soft and breathable fabric blend, ensuring comfort and durability.',
+      'Graphic Design: Features a unique graphic design that adds a touch of personality and style.',
+      "Versatile: Perfect for any occasion, whether it's a casual day out or a relaxed evening at home.",
+      'Comfort Fit: Designed for superior comfort and ease of movement.',
+      'Care Instructions: Machine wash cold with like colors; tumble dry low.',
+      'Available Sizes: Available in a range of sizes to ensure the perfect fit for every body type.',
+      'Style Tip: Pair with your favorite jeans or shorts for a casual yet trendy look.',
+      'Unisex: Suitable for both men and women, adding versatility to your wardrobe.',
+    ],
 
     stars: 4,
     dressStyle: 'Party',
@@ -77,10 +113,22 @@ export const products = [
     discountedPrice: 130,
     discountPercentage: 30,
 
-	 type: 'T-shirt',
+    type: 'T-shirt',
     style: 'Casual',
     description:
       'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+    descriptionDetails:
+      'Elevate your style with our "T-shirt with Tape Details," a versatile wardrobe essential that seamlessly blends comfort and fashion. Crafted from a soft and breathable fabric, this t-shirt ensures all-day comfort, whether youre running errands, hitting the gym, or lounging at home. The unique graphic design adds a touch of personality and flair, making it perfect for any occasion, from casual outings to weekend adventures. Embrace the mantra of living life to the fullest with this stylish and comfortable tee.',
+    details: [
+      'Material: Crafted from a soft and breathable fabric blend, ensuring comfort and durability.',
+      'Graphic Design: Features a unique graphic design that adds a touch of personality and style.',
+      "Versatile: Perfect for any occasion, whether it's a casual day out or a relaxed evening at home.",
+      'Comfort Fit: Designed for superior comfort and ease of movement.',
+      'Care Instructions: Machine wash cold with like colors; tumble dry low.',
+      'Available Sizes: Available in a range of sizes to ensure the perfect fit for every body type.',
+      'Style Tip: Pair with your favorite jeans or shorts for a casual yet trendy look.',
+      'Unisex: Suitable for both men and women, adding versatility to your wardrobe.',
+    ],
 
     stars: 5,
     dressStyle: 'Casual',
@@ -99,10 +147,22 @@ export const products = [
     discountedPrice: 212,
     discountPercentage: 20,
 
-	 type: 'T-shirt',
+    type: 'T-shirt',
     style: 'Casual',
     description:
       'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+    descriptionDetails:
+      'Elevate your style with our "T-shirt with Tape Details," a versatile wardrobe essential that seamlessly blends comfort and fashion. Crafted from a soft and breathable fabric, this t-shirt ensures all-day comfort, whether youre running errands, hitting the gym, or lounging at home. The unique graphic design adds a touch of personality and flair, making it perfect for any occasion, from casual outings to weekend adventures. Embrace the mantra of living life to the fullest with this stylish and comfortable tee.',
+    details: [
+      'Material: Crafted from a soft and breathable fabric blend, ensuring comfort and durability.',
+      'Graphic Design: Features a unique graphic design that adds a touch of personality and style.',
+      "Versatile: Perfect for any occasion, whether it's a casual day out or a relaxed evening at home.",
+      'Comfort Fit: Designed for superior comfort and ease of movement.',
+      'Care Instructions: Machine wash cold with like colors; tumble dry low.',
+      'Available Sizes: Available in a range of sizes to ensure the perfect fit for every body type.',
+      'Style Tip: Pair with your favorite jeans or shorts for a casual yet trendy look.',
+      'Unisex: Suitable for both men and women, adding versatility to your wardrobe.',
+    ],
 
     stars: 5,
     dressStyle: 'Party',
@@ -121,10 +181,22 @@ export const products = [
     discountedPrice: 100,
     discountPercentage: 20,
 
-	 type: 'T-shirt',
+    type: 'T-shirt',
     style: 'Casual',
     description:
       'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+    descriptionDetails:
+      'Elevate your style with our "T-shirt with Tape Details," a versatile wardrobe essential that seamlessly blends comfort and fashion. Crafted from a soft and breathable fabric, this t-shirt ensures all-day comfort, whether youre running errands, hitting the gym, or lounging at home. The unique graphic design adds a touch of personality and flair, making it perfect for any occasion, from casual outings to weekend adventures. Embrace the mantra of living life to the fullest with this stylish and comfortable tee.',
+    details: [
+      'Material: Crafted from a soft and breathable fabric blend, ensuring comfort and durability.',
+      'Graphic Design: Features a unique graphic design that adds a touch of personality and style.',
+      "Versatile: Perfect for any occasion, whether it's a casual day out or a relaxed evening at home.",
+      'Comfort Fit: Designed for superior comfort and ease of movement.',
+      'Care Instructions: Machine wash cold with like colors; tumble dry low.',
+      'Available Sizes: Available in a range of sizes to ensure the perfect fit for every body type.',
+      'Style Tip: Pair with your favorite jeans or shorts for a casual yet trendy look.',
+      'Unisex: Suitable for both men and women, adding versatility to your wardrobe.',
+    ],
 
     stars: 4,
     dressStyle: 'Casual',
@@ -143,10 +215,22 @@ export const products = [
     discountedPrice: 50,
     discountPercentage: 0,
 
-	 type: 'T-shirt',
+    type: 'Shorts',
     style: 'Casual',
     description:
       'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+    descriptionDetails:
+      'Elevate your style with our "T-shirt with Tape Details," a versatile wardrobe essential that seamlessly blends comfort and fashion. Crafted from a soft and breathable fabric, this t-shirt ensures all-day comfort, whether youre running errands, hitting the gym, or lounging at home. The unique graphic design adds a touch of personality and flair, making it perfect for any occasion, from casual outings to weekend adventures. Embrace the mantra of living life to the fullest with this stylish and comfortable tee.',
+    details: [
+      'Material: Crafted from a soft and breathable fabric blend, ensuring comfort and durability.',
+      'Graphic Design: Features a unique graphic design that adds a touch of personality and style.',
+      "Versatile: Perfect for any occasion, whether it's a casual day out or a relaxed evening at home.",
+      'Comfort Fit: Designed for superior comfort and ease of movement.',
+      'Care Instructions: Machine wash cold with like colors; tumble dry low.',
+      'Available Sizes: Available in a range of sizes to ensure the perfect fit for every body type.',
+      'Style Tip: Pair with your favorite jeans or shorts for a casual yet trendy look.',
+      'Unisex: Suitable for both men and women, adding versatility to your wardrobe.',
+    ],
 
     stars: 3,
     dressStyle: 'Casual',
@@ -165,17 +249,29 @@ export const products = [
     discountedPrice: 170,
     discountPercentage: 30,
 
-	 type: 'T-Shorts',
+    type: 'Jeans',
     style: 'Casual',
     description:
       'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+    descriptionDetails:
+      'Elevate your style with our "T-shirt with Tape Details," a versatile wardrobe essential that seamlessly blends comfort and fashion. Crafted from a soft and breathable fabric, this t-shirt ensures all-day comfort, whether youre running errands, hitting the gym, or lounging at home. The unique graphic design adds a touch of personality and flair, making it perfect for any occasion, from casual outings to weekend adventures. Embrace the mantra of living life to the fullest with this stylish and comfortable tee.',
+    details: [
+      'Material: Crafted from a soft and breathable fabric blend, ensuring comfort and durability.',
+      'Graphic Design: Features a unique graphic design that adds a touch of personality and style.',
+      "Versatile: Perfect for any occasion, whether it's a casual day out or a relaxed evening at home.",
+      'Comfort Fit: Designed for superior comfort and ease of movement.',
+      'Care Instructions: Machine wash cold with like colors; tumble dry low.',
+      'Available Sizes: Available in a range of sizes to ensure the perfect fit for every body type.',
+      'Style Tip: Pair with your favorite jeans or shorts for a casual yet trendy look.',
+      'Unisex: Suitable for both men and women, adding versatility to your wardrobe.',
+    ],
 
     stars: 4,
     dressStyle: 'Casual',
     sizes: 'Large',
     kleidungsstueck: 'Jeans',
   },
-  
+
   {
     id: 9,
     productId: 579180,
@@ -187,7 +283,7 @@ export const products = [
     discountedPrice: 100,
     discountPercentage: 30,
 
-	 type: 'Jeans',
+    type: 'Jeans',
     style: 'Casual',
     description:
       'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
@@ -210,7 +306,7 @@ export const products = [
     discountedPrice: 116,
     discountPercentage: 30,
 
-	 type: 'T-shirt',
+    type: 'T-shirt',
     style: 'Casual',
     description:
       'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
@@ -221,7 +317,7 @@ export const products = [
     dressStyle: 'Party',
     kleidungsstueck: 'Shirts',
   },
-  
+
   {
     id: 11,
     productId: 106305,
@@ -277,6 +373,5 @@ export const products = [
     stars: 5,
     size: 'Large',
     color: 'Green',
-
   },
 ]

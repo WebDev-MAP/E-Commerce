@@ -1,8 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaPlus, FaMinus, FaStar } from 'react-icons/fa'
 import { TiTick } from 'react-icons/ti'
-
-import { products } from '../data/products'
 
 const ProductDetails = ({ product }) => {
   const [quantity, setQuantity] = useState(1)
@@ -20,6 +18,11 @@ const ProductDetails = ({ product }) => {
     let _quantity = quantity - 1
     setQuantity(_quantity)
   }
+
+  useEffect(() => {
+    setMainImage(`${product.mainImage}`)
+  }, [product.mainImage])
+
   return (
     <>
       <section className="mb-20">
@@ -34,19 +37,31 @@ const ProductDetails = ({ product }) => {
             </div>
             <div className="flex flex-row justify-center gap-2 md:justify-normal md:gap-4 lg:flex-col">
               <img
-                src="/images/products/product-12-1.png"
+                src={
+                  product.id === 12
+                    ? '/images/products/product-12-1.png'
+                    : '/images/products/broken-image.png'
+                }
                 alt="product image 1"
                 className="min-h-28 min-w-[100px] cursor-pointer"
                 onClick={() => setMainImage(`${product.images[0]}`)}
               />
               <img
-                src="/images/products/product-12-2.png"
+                src={
+                  product.id === 12
+                    ? '/images/products/product-12-2.png'
+                    : '/images/products/broken-image.png'
+                }
                 alt="product image 2"
                 className="min-h-28  min-w-[100px] cursor-pointer"
                 onClick={() => setMainImage(`${product.images[1]}`)}
               />
               <img
-                src="/images/products/product-12-3.png"
+                src={
+                  product.id === 12
+                    ? '/images/products/product-12-3.png'
+                    : '/images/products/broken-image.png'
+                }
                 alt="product image 3"
                 className="min-h-28  min-w-[100px] cursor-pointer"
                 onClick={() => setMainImage(`${product.images[2]}`)}
@@ -93,7 +108,7 @@ const ProductDetails = ({ product }) => {
                 onClick={() => setSelectedColor('#4F4631')}
               >
                 {selectedColor === '#4F4631' ? (
-                  <TiTick className="pl-1 text-3xl text-white" />
+                  <TiTick className="pl-1.5 text-4xl text-white lg:pl-0.5" />
                 ) : (
                   ''
                 )}
@@ -103,7 +118,7 @@ const ProductDetails = ({ product }) => {
                 onClick={() => setSelectedColor('#314F4A')}
               >
                 {selectedColor === '#314F4A' ? (
-                  <TiTick className="pl-1 text-3xl text-white" />
+                  <TiTick className="pl-1.5 text-4xl text-white lg:pl-0.5" />
                 ) : (
                   ''
                 )}
@@ -113,7 +128,7 @@ const ProductDetails = ({ product }) => {
                 onClick={() => setSelectedColor('#31344F')}
               >
                 {selectedColor === '#31344F' ? (
-                  <TiTick className="pl-1 text-3xl text-white" />
+                  <TiTick className="pl-1.5 text-4xl text-white lg:pl-0.5" />
                 ) : (
                   ''
                 )}

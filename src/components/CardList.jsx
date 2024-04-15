@@ -1,15 +1,15 @@
 import { products } from '../data/products'
 import Card from './Card'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Slider from 'react-slick'
 import React from 'react'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import { Link, NavLink } from 'react-router-dom';
-
+import { Link, NavLink } from 'react-router-dom'
 
 const CardList = () => {
+  const [isDragging, setIsDragging] = useState(false)
   let sliderRef = useRef(null)
   const play = () => {
     sliderRef.slickPlay()
@@ -80,12 +80,26 @@ const CardList = () => {
             {products.map((product) => {
               if (product.id < 4 || product.id === 12) {
                 return (
-                  <Link to={`/product/${product.id}`}
+                  <div
                     key={product.id}
-                    className=" w-[300px] pr-2 md:w-[300px]"
+                    className="w-[300px] pr-2 md:w-[300px]"
+                    onMouseDown={() => setIsDragging(false)}
+                    onMouseMove={() => setIsDragging(true)}
                   >
-                    <Card product={product} />
-                  </Link>
+                    <Link
+                      to={`/product/${product.id}`}
+                      className=""
+                      draggable="false"
+                      onClick={(event) => {
+                        if (isDragging) {
+                          event.preventDefault()
+                          event.stopPropagation()
+                        }
+                      }}
+                    >
+                      <Card product={product} />
+                    </Link>
+                  </div>
                 )
               }
             })}
@@ -111,12 +125,26 @@ const CardList = () => {
             {products.map((product) => {
               if (product.id > 4 && product.id < 9) {
                 return (
-                  <Link to={`/product/${product.id}`}
+                  <div
                     key={product.id}
-                    className=" w-[300px] pr-2 md:w-[300px]"
+                    className="w-[300px] pr-2 md:w-[300px]"
+                    onMouseDown={() => setIsDragging(false)}
+                    onMouseMove={() => setIsDragging(true)}
                   >
-                    <Card product={product} />
-                  </Link>
+                    <Link
+                      to={`/product/${product.id}`}
+                      className=""
+                      draggable="false"
+                      onClick={(event) => {
+                        if (isDragging) {
+                          event.preventDefault()
+                          event.stopPropagation()
+                        }
+                      }}
+                    >
+                      <Card product={product} />
+                    </Link>
+                  </div>
                 )
               }
             })}

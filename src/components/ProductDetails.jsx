@@ -3,12 +3,15 @@ import { FaPlus, FaMinus, FaStar } from 'react-icons/fa'
 import { TiTick } from 'react-icons/ti'
 
 import { products } from '../data/products'
+import { useShopContext } from '../context/ShopContext'
 
 const ProductDetails = ({ product }) => {
   const [quantity, setQuantity] = useState(1)
   const [mainImage, setMainImage] = useState(`${product.mainImage}`)
   const [selectedColor, setSelectedColor] = useState('')
   const [selectedSize, setSelectedSize] = useState('')
+
+  const { increaseCartQuantity } = useShopContext()
 
   function incrementQuantity() {
     let _quantity = quantity + 1
@@ -19,6 +22,19 @@ const ProductDetails = ({ product }) => {
     if (quantity === 1) return
     let _quantity = quantity - 1
     setQuantity(_quantity)
+  }
+
+  function addToCart() {
+    // if (quantity === 0 || selectedColor === '' || size === '') return
+    if (selectedColor === '') {
+      alert('Please select a color')
+      return
+    }
+    if (selectedSize === '') {
+      alert('Please select a size')
+      return
+    }
+    increaseCartQuantity(product.id, quantity)
   }
   return (
     <>
@@ -166,7 +182,10 @@ const ProductDetails = ({ product }) => {
                   <FaPlus className="text-sm md:text-xl" />
                 </button>
               </div>
-              <button className="w-2/3 rounded-3xl bg-black font-satoshi_medium text-sm text-white md:text-base">
+              <button
+                onClick={addToCart}
+                className="w-2/3 rounded-3xl bg-black font-satoshi_medium text-sm text-white md:text-base"
+              >
                 Add to Cart
               </button>
             </div>

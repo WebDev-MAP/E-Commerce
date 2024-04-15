@@ -17,23 +17,20 @@ function Provider({ children }) {
     setFilterOpen,
   }
 
-  const [cartItems, setCartItems] = useState([
-    { id: 7, quantity: 1 },
-    { id: 8, quantity: 1 },
-    { id: 12, quantity: 1 },
-  ])
+  const [cartItems, setCartItems] = useState([])
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
     0
   )
-  console.log('TotalItems:', cartQuantity)
+  // console.log('TotalItems:', cartQuantity)
+  console.log('Cart Items:', cartItems)
 
   // To Add a Product in the Cart or Increase Quantity of an Item in the Cart
-  const increaseCartQuantity = (id) => {
+  const increaseCartQuantity = (id, quantity = 1) => {
     const cartItemsUpdate = () => {
       if (cartItems.find((item) => item.id === id) == null) {
-        return [...cartItems, { id, quantity: 1 }]
+        return [...cartItems, { id, quantity: quantity }]
       } else {
         return cartItems.map((item) => {
           if (item.id === id) {

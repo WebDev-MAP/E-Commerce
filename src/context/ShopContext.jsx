@@ -1,8 +1,6 @@
-
 import { createContext, useContext, useState } from 'react'
 
 import { products } from '../data/products'
-
 
 const ShopContext = createContext()
 
@@ -83,6 +81,10 @@ function Provider({ children }) {
         increaseCartQuantity,
         decreaseCartQuantity,
         removeCartItem,
+        filterAuswahl,
+        setFilterAuswahl,
+        filterOpen,
+        setFilterOpen,
       }}
     >
       {children}

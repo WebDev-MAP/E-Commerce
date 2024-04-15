@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet } from 'react-router-dom'
 import { useState } from 'react'
 import Popup from './Popup'
 import Newsletter from '../components/Newsletter'
@@ -100,7 +100,10 @@ function Navbar() {
           </div>
 
           <div className="">
-            <NavLink className="font-integral_cf text-2xl sm:block sm:text-3xl lg:ml-24 ">
+            <NavLink
+              className="font-integral_cf text-2xl sm:block sm:text-3xl lg:ml-24 "
+              onClick={() => setMenuIsOpen(false)}
+            >
               SHOP.CO
             </NavLink>
           </div>
@@ -118,13 +121,13 @@ function Navbar() {
             {/* Dropdown  */}
 
             <div
-              className={`absolute inset-y-16  left-0  z-10   flex w-full  cursor-default  justify-center   font-satoshi_regular transition-all  duration-500 ease-in-out  ${menuIsOpen ? '  h-52 ' : 'h-0 '}`}
+              className={`left-30 absolute  inset-y-16  z-10   flex w-full  cursor-default  justify-start   font-satoshi_regular transition-all  duration-500 ease-in-out  ${menuIsOpen ? '  h-52 ' : 'h-0 '}`}
             >
               <div
                 className={`flex gap-10 font-satoshi_regular transition-opacity duration-300 ease-in-out ${menuIsOpen ? 'opacity-100' : 'hidden'}`}
               >
                 <ul className="flex flex-col items-start hover:cursor-pointer">
-                  <li>Damen</li>
+                  <li className="font-integral_cf">Damen</li>
                   <li>Kleider</li>
                   <li>Shirts & Tops</li>
                   <li>Jacken & Blazer</li>
@@ -133,7 +136,7 @@ function Navbar() {
                   <li>Alles entdecken</li>
                 </ul>
                 <ul className="flex flex-col justify-start hover:cursor-pointer">
-                  <li>Herren</li>
+                  <li className="font-integral_cf">Herren</li>
                   <li>T-Shirts & Polos</li>
                   <li>Sweatshirts & Hoodies</li>
                   <li>Jacken</li>
@@ -141,10 +144,25 @@ function Navbar() {
                   <li>Jeans</li>
                   <li>Alles entdecken</li>
                 </ul>
-                <ul className="flex flex-col justify-start ">
-                  <li>Kinder</li>
+                <ul className="flex flex-col justify-start hover:cursor-pointer ">
+                  <li className="font-integral_cf">Kinder</li>
                   <li>Mädchen</li>
                   <li>Babys</li>
+                </ul>
+                <ul className="relative">
+                  <Link
+                    to="/category"
+                    onClick={() => setMenuIsOpen(!menuIsOpen)}
+                  >
+                    <img
+                      src="/images/navbar/mode.png"
+                      alt=""
+                      className="h-[10rem] pt-2"
+                    />
+                    <p className="absolute top-32 w-full bg-black p-2 font-integral_cf text-white">
+                      All Products
+                    </p>
+                  </Link>
                 </ul>
               </div>
             </div>

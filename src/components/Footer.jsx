@@ -212,12 +212,12 @@ const Footer = () => {
             </p>
             <div className="mt-4 sm:mt-0">
               <img
-                src="../images/footer/payment-methods-large.png"
+                src="/images/footer/payment-methods-large.png"
                 alt="Payment methods: Visa, Mastercard, PayPal, Apple Pay, Google Pay"
                 className="hidden sm:block"
               />
               <img
-                src="../images/footer/payment-methods-small.png"
+                src="/images/footer/payment-methods-small.png"
                 alt="Payment methods: Visa, Mastercard, PayPal, Apple Pay, Google Pay"
                 className="block sm:hidden"
               />

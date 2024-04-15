@@ -1,0 +1,172 @@
+import Breadcrumbs from '../components/Breadcrumbs'
+import ProductDetails from '../components/ProductDetails'
+import ProductReviews from '../components/ProductReviews'
+import { useState, useRef, useEffect } from 'react'
+import { products } from '../data/products'
+import { useParams } from 'react-router-dom'
+import ProductDescription from '../components/ProductDescription'
+import ProductFAQ from '../components/ProductFAQ'
+import Card from '../components/Card'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import Newsletter from '../components/Newsletter'
+import { Link } from 'react-router-dom'
+
+const PageDetails = () => {
+  const [detailsNav, setDetailsNav] = useState(2)
+  const productId = useParams().id
+  const product = products.find((e) => e.id === parseInt(productId))
+
+  let sliderRef = useRef(null)
+  const play = () => {
+    sliderRef.slickPlay()
+  }
+  const pause = () => {
+    sliderRef.slickPause()
+  }
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 100,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    initalSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+          autoplay: true,
+          autoplaySpeed: 4000,
+          cssEase: 'linear',
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          initialSlide: 0,
+          autoplay: true,
+          autoplaySpeed: 4000,
+          cssEase: 'linear',
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 4000,
+          cssEase: 'linear',
+          infinite: true,
+        },
+      },
+    ],
+  }
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  const crumbs = [
+    { name: 'Home', link: '/' },
+    { name: product.style, link: '/' },
+    { name: product.type, link: '/' },
+    { name: product.title, link: `/product/${product.id}` },
+  ]
+
+  return (
+    <>
+      <div className="m-auto max-w-7xl">
+        <div className="mx-4 flex justify-center">
+          <div className="w-full max-w-7xl border-b-[1px] border-gray-300/50"></div>
+        </div>
+        <div className="mx-4">
+          <div className="my-5">
+            {/* <Breadcrumbs /> */}
+            {crumbs.map((crumb, index) => {
+              return (
+                <div
+                  key={index}
+                  className="crumb mr-1 inline-block font-satoshi_regular text-black text-opacity-60 after:ml-1 after:content-['>'] last:text-opacity-100 last:after:hidden"
+                >
+                  <Link className="hover:underline" to={crumb.link}>
+                    {crumb.name}
+                  </Link>
+                </div>
+              )
+            })}
+          </div>
+          <ProductDetails product={product} />
+          <div className="flex flex-row justify-evenly">
+            <button
+              className={`w-1/3 border-b-2 pb-3 font-satoshi_regular text-base md:font-satoshi_medium md:text-xl ${detailsNav === 1 ? 'border-black text-black' : 'border-black/40 text-black/40'}`}
+              onClick={() => {
+                setDetailsNav(1)
+              }}
+            >
+              Product Details
+            </button>
+            <button
+              className={`w-1/3 border-b-2 pb-3 font-satoshi_regular text-base md:font-satoshi_medium md:text-xl ${detailsNav === 2 ? 'border-black text-black' : 'border-black/40 text-black/40'}`}
+              onClick={() => {
+                setDetailsNav(2)
+              }}
+            >
+              Rating & Reviews
+            </button>
+            <button
+              className={`w-1/3 border-b-2 pb-3 font-satoshi_regular text-base md:font-satoshi_medium md:text-xl ${detailsNav === 3 ? 'border-black text-black' : 'border-black/40 text-black/40'}`}
+              onClick={() => {
+                setDetailsNav(3)
+              }}
+            >
+              FAQs
+            </button>
+          </div>
+          {detailsNav === 1 && <ProductDescription product={product} />}
+          {detailsNav === 2 && <ProductReviews productId={product.productId} />}
+          {detailsNav === 3 && <ProductFAQ />}
+        </div>
+        <div className="mb-14 md:mb-20">
+          <h2 className="mb-14 text-center font-integral_cf text-3xl md:text-5xl">
+            You Might also like
+          </h2>
+          <div className="mx-14">
+            <div className="overflow-hidden">
+              <Slider
+                ref={(slider) => (sliderRef = slider)}
+                {...settings}
+                className="mx-auto max-w-[80rem]"
+              >
+                {products.map((product) => {
+                  if (product.id < 9) {
+                    return (
+                      <div
+                        key={product.id}
+                        className=" w-[300px] pr-2 md:w-[300px]"
+                      >
+                        <Card product={product} />
+                      </div>
+                    )
+                  }
+                })}
+              </Slider>
+            </div>
+          </div>
+        </div>
+        <Newsletter />
+      </div>
+    </>
+  )
+}
+
+export default PageDetails

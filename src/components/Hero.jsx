@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import Button from './Button'
 
 function Hero() {
@@ -14,9 +15,14 @@ function Hero() {
               designed to bring out your individuality and cater to your sense
               of style.
             </p>
-            <Button className=" my-5 w-full md:my-8 md:w-fit lg:mb-12" primary>
-              Shop Now
-            </Button>
+            <Link to="/category">
+              <Button
+                className=" my-5 w-full md:my-8 md:w-fit lg:mb-12"
+                primary
+              >
+                Shop Now
+              </Button>
+            </Link>
           </div>
           <div className="flex flex-wrap justify-center gap-3 px-4  font-satoshi_regular text-xs sm:justify-around  md:max-w-[300px] lg:max-w-[400px] lg:pl-24  xl:ml-24  xl:flex-nowrap xl:justify-start xl:gap-10 xl:pl-0">
             <div>

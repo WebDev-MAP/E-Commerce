@@ -152,7 +152,7 @@ const CardList = () => {
         </div>
         <div className="flex justify-center">
           <button className="mb-16 mt-9 w-full rounded-full border-[1px] border-gray-300 px-20 py-3 font-satoshi_medium md:w-auto md:text-base">
-            <NavLink to="home/category">View All</NavLink>
+            <NavLink to="/category">View All</NavLink>
           </button>
         </div>
         <div className="flex justify-center"></div>

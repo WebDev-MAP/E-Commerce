@@ -11,7 +11,7 @@ function AuthPage() {
           Login or Register
         </h2>
 
-        {/* Login-Bereich */}
+        {/* Login-B */}
         <div className="w-full">
           <h3 className="font-integral_cf text-2xl font-bold text-black">Login</h3>
           <p className="text-black font-satoshi_bold mb-2">Already have an account? Login here.</p>

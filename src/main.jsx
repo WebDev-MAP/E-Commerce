@@ -7,6 +7,8 @@ import Page404 from './pages/Page404.jsx'
 import PageCart from './pages/PageCart.jsx'
 import PageCategory from './pages/PageCategory.jsx'
 import PageHome from './pages/PageHome.jsx'
+import PageDetails from './pages/PageDetails.jsx'
+import AuthPage from './pages/AuthPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -19,16 +21,24 @@ const router = createBrowserRouter([
         element: <PageHome />,
       },
       {
-        path: '/home',
-        element: <PageHome />,
+        path: '/cart',
+        element: <PageCart />,
       },
       {
-        path: 'home/category',
+
+        path: '/category',
         element: <PageCategory />,
       },
       {
-        path: 'home/cart',
-        element: <PageCart />,
+ 
+        
+        path: '/login',
+        element: <AuthPage />,
+      },
+      {
+        path: '/product/:id',
+        element: <PageDetails />,
+
       },
     ],
   },

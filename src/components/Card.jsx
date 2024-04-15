@@ -3,11 +3,13 @@ import { FaStar } from 'react-icons/fa'
 const Card = ({ product }) => {
   return (
     <>
-      <div className="">
+
+      <div>
         <img
-          src={product.image}
+          src={product.mainImage}
           alt={product.title}
-          className="pointer-events-none"
+          className="pointer-events-none max-h-[300px]"
+
         />
         <h3 className="pt-4 font-satoshi_bold text-base md:text-lg">
           {product.title}

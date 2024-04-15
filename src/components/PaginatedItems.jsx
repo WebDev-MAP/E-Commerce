@@ -18,21 +18,21 @@ function PaginatedItems({ itemsPerPage }) {
   function Items({ currentItems }) {
     return (
       <div className=" mb-32 flex  ">
-        <div className="product-container flex grow flex-wrap justify-center gap-4">
+        <ul className="product-container flex grow flex-wrap justify-center gap-4">
           {currentItems.length > 0 ? (
-            currentItems.map((item) => (
-              <div className="hover:pointer">
+            currentItems.map((item, index) => (
+              <li className="hover:pointer" key={index}>
                 <Link to={`/product/${item.id}`}>
                   <Card product={item} />
                 </Link>
-              </div>
+              </li>
             ))
           ) : (
             <p className="font-satoshi_regular">
               Keine zutreffenden Produkte gefunden.
             </p>
           )}
-        </div>
+        </ul>
       </div>
     )
   }

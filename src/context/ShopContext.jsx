@@ -35,7 +35,7 @@ function Provider({ children }) {
       } else {
         return cartItems.map((item) => {
           if (item.id === id) {
-            return { ...item, quantity: item.quantity + 1 }
+            return { ...item, quantity: item.quantity + quantity }
           } else {
             return item
           }

@@ -25,7 +25,7 @@ function ShoppingCartItems() {
                       <div>
                         <img
                           className="w-28 md:w-32"
-                          src={product.image}
+                          src={product.mainImage}
                           alt={product.title}
                         />
                       </div>

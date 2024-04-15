@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 function DressStyle() {
   const dressStyles = [
     {
@@ -26,13 +28,16 @@ function DressStyle() {
         </h2>
         <div className="grid grid-cols-1 gap-8 py-10 *:relative *:h-48 *:rounded-3xl *:bg-cover *:bg-top *:font-satoshi_bold *:text-2xl *:shadow-xl md:grid-cols-5 md:*:h-72 lg:grid-cols-7 lg:py-16 lg:*:text-4xl">
           {dressStyles.map((style, index) => (
-            <div
+            <Link
+              to="/category"
               key={index}
-              className={`style-${style.name.toLowerCase()} ${index % 3 ? 'md:col-span-3 lg:col-span-4' : 'md:col-span-2 lg:col-span-3'}`}
+              className={`style-${style.name.toLowerCase()} ${index % 3 ? 'md:col-span-3 lg:col-span-4' : 'md:col-span-2 lg:col-span-3'} hover:cursor-pointer`}
               style={{ backgroundImage: `url('${style.image}')` }}
             >
-              <h3 className="absolute left-6 top-9">{style.name}</h3>
-            </div>
+              <div>
+                <h3 className="absolute left-6 top-9">{style.name}</h3>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

@@ -76,13 +76,13 @@ function CustomerReviews() {
           {reviews.map((review) => {
             // stars
 
-            const sterne = [...Array(review.stars)].map((index) => {
+            const sterne = [...Array(review.stars)].map((star, index) => {
               return <FaStar key={index} className="mr-1 text-yellow-400" />
             })
 
             // cardcomponent
             return (
-              <div key={review.id}>
+              <li key={review.id}>
                 <div className="mx-2  mb-16 mt-10 flex h-[240px] flex-col items-start space-y-3  rounded-2xl border border-black/10 px-8 pt-7 font-satoshi_regular text-base">
                   <div className="flex">{sterne}</div>
                   <div className="flex items-center">
@@ -95,9 +95,9 @@ function CustomerReviews() {
                       )}
                     </div>
                   </div>
-                  <p className="  opacity-60">{review.review}</p>
+                  <p className=" opacity-60">{review.review}</p>
                 </div>
-              </div>
+              </li>
             )
           })}
         </Slider>

@@ -11,22 +11,17 @@ export const products = [
     discountedPrice: 100,
     discountPercentage: 0,
 
+	 type: 'T-shirt',
+    style: 'Casual',
+	 description:
+      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+
     stars: 4,
     dressStyle: 'Casual',
     sizes: 'Small',
     kleidungsstueck: 'T-shirts',
   },
-  {
-    id: 2,
-    title: 'Skinny Fit Jeans',
-    image: '/images/products/product-2.png',
 
-    type: 'T-shirt',
-    style: 'Casual',
-    description:
-      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
-    stars: 4,
-  },
   {
     id: 2,
     productId: 186035,
@@ -38,22 +33,17 @@ export const products = [
     discountedPrice: 240,
     discountPercentage: 20,
 
+	 type: 'Jeans',
+    style: 'Casual',
+    description:
+      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+
     stars: 3,
     dressStyle: 'Casual',
     sizes: 'Large',
     kleidungsstueck: 'Jeans',
   },
-  {
-    id: 3,
-    title: 'Checkered Shirt',
-    image: '/images/products/product-3.png',
 
-    type: 'Jeans',
-    style: 'Casual',
-    description:
-      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
-    stars: 3,
-  },
   {
     id: 3,
     productId: 106622,
@@ -65,22 +55,17 @@ export const products = [
     discountedPrice: 140,
     discountPercentage: 0,
 
+	 type: 'T-shirt',
+    style: 'Casual',
+    description:
+      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+
     stars: 4,
     dressStyle: 'Party',
     sizes: 'Small',
     kleidungsstueck: 'Shirts',
   },
-  {
-    id: 4,
-    title: 'Sleeve Striped T-shirt',
-    image: '/images/products/product-4.png',
 
-    type: 'T-shirt',
-    style: 'Casual',
-    description:
-      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
-    stars: 4,
-  },
   {
     id: 4,
     productId: 385236,
@@ -92,22 +77,17 @@ export const products = [
     discountedPrice: 130,
     discountPercentage: 30,
 
+	 type: 'T-shirt',
+    style: 'Casual',
+    description:
+      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+
     stars: 5,
     dressStyle: 'Casual',
     sizes: 'Medium',
     kleidungsstueck: 'T-shirts',
   },
-  {
-    id: 5,
-    title: 'Vertical Striped Shirt',
-    image: '/images/products/product-5.png',
 
-    type: 'T-shirt',
-    style: 'Casual',
-    description:
-      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
-    stars: 5,
-  },
   {
     id: 5,
     productId: 727893,
@@ -119,22 +99,17 @@ export const products = [
     discountedPrice: 212,
     discountPercentage: 20,
 
+	 type: 'T-shirt',
+    style: 'Casual',
+    description:
+      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+
     stars: 5,
     dressStyle: 'Party',
     sizes: 'Large',
     kleidungsstueck: 'Shirts',
   },
-  {
-    id: 6,
-    title: 'Courage Graphic T-shirt',
-    image: '/images/products/product-6.png',
 
-    type: 'T-shirt',
-    style: 'Casual',
-    description:
-      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
-    stars: 5,
-  },
   {
     id: 6,
     productId: 646075,
@@ -146,22 +121,17 @@ export const products = [
     discountedPrice: 100,
     discountPercentage: 20,
 
+	 type: 'T-shirt',
+    style: 'Casual',
+    description:
+      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+
     stars: 4,
     dressStyle: 'Casual',
     sizes: 'Small',
     kleidungsstueck: 'T-shirts',
   },
-  {
-    id: 7,
-    title: 'Loose Fit Bermuda Shorts',
-    image: '/images/products/product-7.png',
 
-    type: 'T-shirt',
-    style: 'Casual',
-    description:
-      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
-    stars: 4,
-  },
   {
     id: 7,
     productId: 231589,
@@ -173,22 +143,17 @@ export const products = [
     discountedPrice: 50,
     discountPercentage: 0,
 
+	 type: 'T-shirt',
+    style: 'Casual',
+    description:
+      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+
     stars: 3,
     dressStyle: 'Casual',
     sizes: 'Medium',
     kleidungsstueck: 'Shorts',
   },
-  {
-    id: 8,
-    title: 'Faded Skinny Jeans',
-    image: '/images/products/product-8.png',
 
-    type: 'T-Shorts',
-    style: 'Casual',
-    description:
-      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
-    stars: 3,
-  },
   {
     id: 8,
     productId: 802564,
@@ -200,20 +165,17 @@ export const products = [
     discountedPrice: 170,
     discountPercentage: 30,
 
+	 type: 'T-Shorts',
+    style: 'Casual',
+    description:
+      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+
     stars: 4,
     dressStyle: 'Casual',
     sizes: 'Large',
     kleidungsstueck: 'Jeans',
   },
-  {
-    id: 9,
-
-    type: 'Jeans',
-    style: 'Casual',
-    description:
-      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
-    stars: 4,
-  },
+  
   {
     id: 9,
     productId: 579180,
@@ -225,23 +187,18 @@ export const products = [
     discountedPrice: 100,
     discountPercentage: 30,
 
+	 type: 'Jeans',
+    style: 'Casual',
+    description:
+      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+
     stars: 4,
     size: 'Large',
     color: 'White',
     dressStyle: 'Casual',
     kleidungsstueck: 'T-shirts',
   },
-  {
-    id: 10,
 
-    type: 'T-shirt',
-    style: 'Casual',
-    description:
-      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
-    stars: 4,
-    size: 'Large',
-    color: 'White',
-  },
   {
     id: 10,
     productId: 296508,
@@ -253,23 +210,18 @@ export const products = [
     discountedPrice: 116,
     discountPercentage: 30,
 
+	 type: 'T-shirt',
+    style: 'Casual',
+    description:
+      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
+
     stars: 4,
     size: 'Medium',
     color: 'Red',
     dressStyle: 'Party',
     kleidungsstueck: 'Shirts',
   },
-  {
-    id: 11,
-
-    type: 'T-shirt',
-    style: 'Casual',
-    description:
-      'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
-    stars: 4,
-    size: 'Medium',
-    color: 'Red',
-  },
+  
   {
     id: 11,
     productId: 106305,
@@ -291,9 +243,6 @@ export const products = [
     style: 'Casual',
     description:
       'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
-    stars: 4,
-    size: 'Large',
-    color: 'Blue',
   },
   {
     id: 12,

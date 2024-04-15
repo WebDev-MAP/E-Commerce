@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
+import { useShopContext } from '../context/ShopContext'
 
 function DressStyle() {
+  const { setSelectedDressStyle, selectedDressStyle } = useShopContext()
+
   const dressStyles = [
     {
       name: 'Casual',
@@ -30,6 +33,10 @@ function DressStyle() {
           {dressStyles.map((style, index) => (
             <Link
               to="/category"
+              onClick={() => {
+                setSelectedDressStyle(style.name)
+                console.log(selectedDressStyle)
+              }}
               key={index}
               className={`style-${style.name.toLowerCase()} ${index % 3 ? 'md:col-span-3 lg:col-span-4' : 'md:col-span-2 lg:col-span-3'} hover:cursor-pointer`}
               style={{ backgroundImage: `url('${style.image}')` }}

@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom'
 
 function PaginatedItems({ itemsPerPage }) {
   const [itemOffset, setItemOffset] = useState(0)
-  const { filterAuswahl, filterOpen, setFilterOpen } = useShopContext()
+  const { filterAuswahl, filterOpen, setFilterOpen, selectedDressStyle } =
+    useShopContext()
   let [filteredItems, setFilteredItems] = useState([])
 
   let allProducts = products
@@ -18,18 +19,32 @@ function PaginatedItems({ itemsPerPage }) {
     return (
       <div className=" mb-32 flex  ">
         <div className="product-container flex grow flex-wrap justify-center gap-4">
-          {currentItems &&
+          {currentItems.length > 0 ? (
             currentItems.map((item) => (
               <div className="hover:pointer">
                 <Link to={`/product/${item.id}`}>
                   <Card product={item} />
                 </Link>
               </div>
-            ))}
+            ))
+          ) : (
+            <p className="font-satoshi_regular">
+              Keine zutreffenden Produkte gefunden.
+            </p>
+          )}
         </div>
       </div>
     )
   }
+
+  useEffect(() => {
+    if (selectedDressStyle.length > 0) {
+      const filteredItems = allProducts.filter((product) => {
+        return selectedDressStyle.includes(product.dressStyle)
+      })
+      setFilteredItems(filteredItems)
+    } else return
+  }, [])
 
   useEffect(() => {
     // wenn filterauswahl leer ist, zeige alle produkte

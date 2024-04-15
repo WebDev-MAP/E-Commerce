@@ -39,7 +39,7 @@ function Navbar() {
             className={` absolute inset-y-16 left-0 z-10 flex   w-screen justify-center  bg-white font-satoshi_regular transition-all  duration-500 ease-in-out lg:hidden ${menuIsOpen ? '  border-b-gray h-48 border-b-2' : 'h-0 '}`}
           >
             <ul
-              className={` flex flex-col items-center justify-center space-y-2 font-satoshi_regular transition-opacity duration-300 ease-in-out ${menuIsOpen ? 'opacity-100' : 'opacity-0'}`}
+              className={` flex flex-col items-center justify-center space-y-2 font-satoshi_regular transition-opacity duration-300 ease-in-out ${menuIsOpen ? 'opacity-100' : 'hidden'}`}
             >
               <NavLink to="/" onClick={() => setMenuIsOpen(!menuIsOpen)}>
                 <li>Home</li>
@@ -107,7 +107,7 @@ function Navbar() {
               className={`absolute inset-y-16  left-0  z-10   flex w-full  cursor-default  justify-center   font-satoshi_regular transition-all  duration-500 ease-in-out  ${menuIsOpen ? '  h-52 ' : 'h-0 '}`}
             >
               <div
-                className={`flex gap-10 font-satoshi_regular transition-opacity duration-300 ease-in-out ${menuIsOpen ? 'opacity-100' : 'opacity-0'}`}
+                className={`flex gap-10 font-satoshi_regular transition-opacity duration-300 ease-in-out ${menuIsOpen ? 'opacity-100' : 'hidden'}`}
               >
                 <ul className="flex flex-col items-start hover:cursor-pointer">
                   <li>Damen</li>

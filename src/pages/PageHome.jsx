@@ -1,7 +1,6 @@
 import CardList from '../components/CardList'
 import Hero from '../components/Hero'
 import Panel from '../components/Panel'
-import Newsletter from '../components/Newsletter'
 import DressStyle from '../components/DressStyle'
 import CustomerReviews from '../components/CustomerReviews'
 
@@ -13,7 +12,6 @@ function PageHome() {
       <CardList />
       <DressStyle />
       <CustomerReviews />
-      <Newsletter />
     </>
   )
 }

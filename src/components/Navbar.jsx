@@ -1,7 +1,9 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useState } from 'react'
 import Popup from './Popup'
+import Newsletter from '../components/Newsletter'
 import Footer from './Footer'
+
 // Icons
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { IoSearch } from 'react-icons/io5'
@@ -12,9 +14,11 @@ import { FaTwitter } from 'react-icons/fa'
 import { FaFacebook } from 'react-icons/fa'
 import { FaInstagram } from 'react-icons/fa'
 import { FaGithub } from 'react-icons/fa'
+import { useShopContext } from '../context/ShopContext'
 
 function Navbar() {
   const [menuIsOpen, setMenuIsOpen] = useState(false)
+  const { cartQuantity } = useShopContext()
 
   // useEffect(() => {
   //   if (menuIsOpen) {
@@ -48,8 +52,11 @@ function Navbar() {
               <NavLink to="/" onClick={() => setMenuIsOpen(!menuIsOpen)}>
                 <li>Home</li>
               </NavLink>
-              <NavLink to="home/cart" onClick={() => setMenuIsOpen(!menuIsOpen)}>
+              <NavLink to="/cart" onClick={() => setMenuIsOpen(!menuIsOpen)}>
                 <li>Cart</li>
+              </NavLink>
+              <NavLink to="/auth" onClick={() => setMenuIsOpen(!menuIsOpen)}>
+                <li>Profile</li>
               </NavLink>
               <div className="flex space-x-3 pt-4">
                 <a
@@ -156,18 +163,28 @@ function Navbar() {
               <IoSearch />
             </div>
             <div>
-              <NavLink to="home/cart">
-                <LuShoppingCart />
+              <NavLink to="/cart">
+                <button className="relative">
+                  <LuShoppingCart />
+                  {cartQuantity > 0 && (
+                    <div className="absolute bottom-0 right-0 flex h-4 w-4 -translate-y-1/2 translate-x-1/4 items-center justify-center rounded-full bg-red-600 text-xs text-white">
+                      {cartQuantity > 9 ? '9+' : cartQuantity}
+                    </div>
+                  )}
+                </button>
               </NavLink>
             </div>
             <div>
-              <CgProfile />
+              <NavLink to="/login">
+                <CgProfile />
+              </NavLink>
             </div>
           </div>
         </div>
       </nav>
 
       <Outlet />
+      <Newsletter />
       <Footer />
     </>
   )

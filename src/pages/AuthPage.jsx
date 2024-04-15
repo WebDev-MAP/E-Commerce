@@ -7,14 +7,12 @@ function AuthPage() {
   return (
     <div className="flex flex-col items-center justify-center bg-white mt-2 relative rounded-lg p-6">
       <div className='border-2 border-gray-400 rounded-lg opacity-100 shadow-xl hover:shadow-2xl transition duration-900 ease-in-out relative z-10 py-3 px-6 w-full max-w-lg'>
-        <h2 className="mb-6 font-integral_cf text-3xl font-bold text-black animate-pulse">
-          Login or Register
-        </h2>
+        
 
         {/* Login-B */}
         <div className="w-full">
-          <h3 className="font-integral_cf text-2xl font-bold text-black">Login</h3>
-          <p className="text-black font-satoshi_bold mb-2">Already have an account? Login here.</p>
+          <h3 className="font-integral_cf text-2xl font-bold text-black mb-2">Login</h3>
+          
           <Login />
         </div>
 

@@ -1,19 +1,18 @@
-import Breadcrumbs from '../components/Breadcrumbs'
 import ProductDetails from '../components/ProductDetails'
 import ProductReviews from '../components/ProductReviews'
 import { useState, useRef, useEffect } from 'react'
 import { products } from '../data/products'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import ProductDescription from '../components/ProductDescription'
 import ProductFAQ from '../components/ProductFAQ'
 import Card from '../components/Card'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { Link } from 'react-router-dom'
 
 const PageDetails = () => {
   const [detailsNav, setDetailsNav] = useState(2)
+  const [isDragging, setIsDragging] = useState(false)
   const productId = useParams().id
   const product = products.find((e) => e.id === parseInt(productId))
 
@@ -77,8 +76,8 @@ const PageDetails = () => {
 
   const crumbs = [
     { name: 'Home', link: '/' },
-    { name: product.style, link: '/' },
-    { name: product.type, link: '/' },
+    { name: product.style, link: '/category' },
+    { name: product.type, link: '/category' },
     { name: product.title, link: `/product/${product.id}` },
   ]
 
@@ -90,7 +89,6 @@ const PageDetails = () => {
         </div>
         <div className="mx-4">
           <div className="my-5">
-            {/* <Breadcrumbs /> */}
             {crumbs.map((crumb, index) => {
               return (
                 <div
@@ -147,13 +145,29 @@ const PageDetails = () => {
                 className="mx-auto max-w-[80rem]"
               >
                 {products.map((product) => {
-                  if (product.id < 9) {
+                  if (product.id < 9 && product.id !== parseInt(productId)) {
                     return (
                       <div
                         key={product.id}
-                        className=" w-[300px] pr-2 md:w-[300px]"
+                        className="w-[300px] pr-2 md:w-[300px]"
+                        onMouseDown={() => setIsDragging(false)}
+                        onMouseMove={() => setIsDragging(true)}
                       >
-                        <Card product={product} />
+                        <Link
+                          to={`/product/${product.id}`}
+                          className=""
+                          draggable="false"
+                          onClick={(event) => {
+                            if (isDragging) {
+                              event.preventDefault()
+                              event.stopPropagation()
+                            } else {
+                              window.scrollTo({ top: 0, behavior: 'smooth' })
+                            }
+                          }}
+                        >
+                          <Card product={product} />
+                        </Link>
                       </div>
                     )
                   }

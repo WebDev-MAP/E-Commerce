@@ -35,11 +35,11 @@ function AuthPage() {
             aria-controls="panel-content"
             id="panel-header"
           >
-            <h3 className="text-black font-satoshi_bold">No account yet? Register here.</h3>
+            <h3 className="text-black font-satoshi_bold mb-0">No account yet? Register here.</h3>
           </AccordionSummary>
           <AccordionDetails>
             <div className="flex flex-col space-y-2">
-              <p className=" font-integral_cf text-2xl font-bold text-black mb-2">Register</p>
+              <p className=" font-integral_cf text-2xl font-bold text-black mb-0">Register</p>
               <Register />
             </div>
           </AccordionDetails>

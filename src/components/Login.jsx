@@ -42,7 +42,7 @@ function Login() {
       />
       <button
         type="submit"
-        className="rounded-md bg-black px-4 py-2 font-integral_cf text-white shadow-lg hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-gray-500"
+        className="rounded-md bg-black px-4 py-2 mb-2 font-integral_cf text-white shadow-lg hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-gray-500"
       >
         Login
       </button>

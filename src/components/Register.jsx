@@ -110,7 +110,7 @@ function Register() {
         type="text"
         value={bankData}
         onChange={(e) => setBankData(e.target.value)}
-        className="mb-4 rounded-md border border-gray-500 px-16 py-2 text-center font-satoshi_regular placeholder-black placeholder-opacity-70
+        className="mb-2 rounded-md border border-gray-500 px-16 py-2 text-center font-satoshi_regular placeholder-black placeholder-opacity-70
       focus:outline-none focus:ring-2 focus:ring-gray-500"
         placeholder="IBAN"
       />

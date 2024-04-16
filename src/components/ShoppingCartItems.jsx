@@ -86,7 +86,7 @@ function ShoppingCartItems() {
                                 -
                               </button>
                               <span
-                                className="flex w-12 items-center justify-center bg-[#F0F0F0]"
+                                className="flex w-8 items-center justify-center bg-[#F0F0F0] md:w-12"
                                 id="quantity"
                               >
                                 {cartItem.quantity}

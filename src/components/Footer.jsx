@@ -132,7 +132,7 @@ const Footer = () => {
                   <ul role="list" className="mt-6 space-y-4">
                     <li>
                       <a
-                        href="#"
+                        href="/login"
                         className="font-satoshi_regular text-sm leading-4 text-black opacity-60 hover:opacity-100 md:text-base"
                       >
                         Account

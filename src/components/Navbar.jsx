@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Popup from './Popup'
 import Newsletter from '../components/Newsletter'
 import Footer from './Footer'
+import { products } from '../data/products'
 
 // Icons
 import { RxHamburgerMenu } from 'react-icons/rx'
@@ -18,7 +19,23 @@ import { useShopContext } from '../context/ShopContext'
 
 function Navbar() {
   const [menuIsOpen, setMenuIsOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const [mobileQuery, setMobileQuery] = useState('')
+  const [searchbarIsOpen, setSearchbarIsOpen] = useState(false)
+  const [mobileSearchIsOpen, setMobileSearchIsOpen] = useState(false)
   const { cartQuantity } = useShopContext()
+
+  const filteredProducts = products
+    .filter((product) => {
+      return product.title.toLowerCase().includes(query.toLowerCase())
+    })
+    .map((product) => ({ id: product.id, title: product.title }))
+
+  const mobileFilteredProducts = products
+    .filter((product) => {
+      return product.title.toLowerCase().includes(mobileQuery.toLowerCase())
+    })
+    .map((product) => ({ id: product.id, title: product.title }))
 
   return (
     <>
@@ -172,25 +189,77 @@ function Navbar() {
           </ul>
 
           {/* Searchbar */}
-          <form className="mt-2 flex  w-screen">
+          <form
+            className="mt-2 flex w-screen"
+            onClick={() => setSearchbarIsOpen(true)}
+          >
             <button className="ml-4 hidden rounded-l-full bg-background px-2 lg:inline-block">
               <IoSearch />
             </button>
             <input
               type="text"
               placeholder="Search for products..."
-              className="mr-4 hidden  h-8 w-full max-w-96 rounded-r-full bg-background pl-4 lg:flex"
+              className="mr-4 hidden h-8 w-full max-w-96 rounded-r-full bg-background pl-4 lg:flex"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value)
+              }}
+              onBlur={() => {
+                setTimeout(() => {
+                  setSearchbarIsOpen(false), setQuery('')
+                }, 300)
+              }}
             />
+            {searchbarIsOpen && query && (
+              <ul className="absolute z-20 ml-[3rem] mt-8 w-full max-w-96 rounded-md bg-white shadow-lg">
+                {filteredProducts.map((product) => (
+                  <Link to={`/product/${product.id}`} key={product.id}>
+                    <li className="p-2 hover:bg-gray-200">{product.title}</li>
+                  </Link>
+                ))}
+              </ul>
+            )}
           </form>
 
           {/* Icons */}
-          <div className="ml-auto mr-0 flex gap-2 text-xl lg:mr-24">
+          <div className="ml-auto mr-0 flex items-center gap-2 text-xl lg:mr-24">
             <div className="lg:hidden">
-              <IoSearch />
+              <IoSearch
+                onClick={() => setMobileSearchIsOpen(!mobileSearchIsOpen)}
+              />
+              {mobileSearchIsOpen && (
+                <div className="absolute right-2 z-20 mt-8 w-[95%] max-w-96 rounded-md bg-white shadow-lg sm:w-full">
+                  <input
+                    type="text"
+                    placeholder="Search for products..."
+                    className="h-8 w-full max-w-96 rounded-md border border-black pl-4"
+                    value={mobileQuery}
+                    onChange={(e) => {
+                      setMobileQuery(e.target.value)
+                    }}
+                    onBlur={() => {
+                      setTimeout(() => {
+                        setMobileSearchIsOpen(false), setMobileQuery('')
+                      }, 200)
+                    }}
+                  />
+                  {mobileSearchIsOpen && mobileQuery && (
+                    <ul>
+                      {mobileFilteredProducts.map((product) => (
+                        <Link to={`/product/${product.id}`} key={product.id}>
+                          <li className="p-2 hover:bg-gray-200">
+                            {product.title}
+                          </li>
+                        </Link>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
             </div>
             <div>
               <NavLink to="/cart">
-                <button className="relative">
+                <button className="relative flex">
                   <LuShoppingCart />
                   {cartQuantity > 0 && (
                     <div className="absolute bottom-0 right-0 flex h-4 w-4 -translate-y-1/2 translate-x-1/4 items-center justify-center rounded-full bg-red-600 text-xs text-white">

@@ -43,17 +43,25 @@ function ShoppingCartItems() {
                                   {cartItem.size}
                                 </span>
                               </p>
-                              <p className="font-satoshi_regular text-[12px] md:text-sm">
+                              <p className="flex items-center gap-1 font-satoshi_regular text-[12px] md:text-sm">
                                 Color:{' '}
-                                <span className="text-black text-opacity-60">
-                                  {cartItem.color}
+                                <span
+                                  className={`flex h-3 w-3 items-center justify-center rounded-full hover:bg-opacity-90 hover:shadow-xl md:h-5 md:w-5`}
+                                  style={{ backgroundColor: cartItem.color }}
+                                >
                                 </span>
                               </p>
                             </div>
                             <div>
                               <button>
                                 <PiTrashFill
-                                  onClick={() => removeCartItem(product.id, cartItem.size, cartItem.color)}
+                                  onClick={() =>
+                                    removeCartItem(
+                                      product.id,
+                                      cartItem.size,
+                                      cartItem.color
+                                    )
+                                  }
                                   className="h-5 w-5 text-[#FF3333]"
                                 />
                               </button>
@@ -67,7 +75,13 @@ function ShoppingCartItems() {
                             </p>
                             <div className="flex rounded-full bg-[#F0F0F0]">
                               <button
-                                onClick={() => decreaseCartQuantity(product.id, cartItem.size, cartItem.color)}
+                                onClick={() =>
+                                  decreaseCartQuantity(
+                                    product.id,
+                                    cartItem.size,
+                                    cartItem.color
+                                  )
+                                }
                                 className="rounded-l-full py-1 pl-3 pr-4 text-[1rem] outline-1 hover:outline"
                               >
                                 -
@@ -79,7 +93,13 @@ function ShoppingCartItems() {
                                 {cartItem.quantity}
                               </span>
                               <button
-                                onClick={() => increaseCartQuantity(product.id, cartItem.size, cartItem.color)}
+                                onClick={() =>
+                                  increaseCartQuantity(
+                                    product.id,
+                                    cartItem.size,
+                                    cartItem.color
+                                  )
+                                }
                                 className="rounded-r-full py-1 pl-4 pr-3 text-[1rem] outline-1 hover:outline"
                               >
                                 +

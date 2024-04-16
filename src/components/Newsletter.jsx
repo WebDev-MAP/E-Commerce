@@ -74,8 +74,8 @@ const Newsletter = () => {
                     <span className="font-bold">20%</span> auf deinen nächsten
                     einkauf sparst.
                   </p>
-                  <div className="flex ">
-                    <p className="flex items-center rounded-l-full bg-background px-6 py-4 font-bold">
+                  <div className=" flex">
+                    <p className="flex items-center rounded-l-full bg-background px-6 py-4  font-bold">
                       welcome20
                     </p>
                     <Button

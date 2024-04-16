@@ -200,7 +200,7 @@ function Navbar() {
                 </button>
               </NavLink>
             </div>
-            <div>
+            <div className="mt-[1px]">
               <NavLink to="/login">
                 <CgProfile />
               </NavLink>

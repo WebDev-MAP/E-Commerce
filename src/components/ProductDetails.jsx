@@ -26,6 +26,12 @@ const ProductDetails = ({ product }) => {
     setMainImage(`${product.mainImage}`)
   }, [product.mainImage])
 
+  useEffect(() => {
+    setSelectedColor('')
+    setSelectedSize('')
+	 setQuantity(1)
+  }, [product])
+
   function addToCart() {
     // if (quantity === 0 || selectedColor === '' || size === '') return
     if (selectedColor === '') {
@@ -120,31 +126,31 @@ const ProductDetails = ({ product }) => {
             </p>
             <div className="flex flex-row gap-4">
               <button
-                className={`h-10 w-10 cursor-pointer rounded-full bg-[#4F4631] md:h-9 md:w-9`}
+                className={`h-10 w-10 cursor-pointer rounded-full bg-[#4F4631] md:h-9 md:w-9 flex justify-center items-center hover:shadow-xl hover:bg-opacity-90`}
                 onClick={() => setSelectedColor('#4F4631')}
               >
                 {selectedColor === '#4F4631' ? (
-                  <TiTick className="pl-1.5 text-4xl text-white lg:pl-0.5" />
+                  <TiTick className="text-4xl text-white" />
                 ) : (
                   ''
                 )}
               </button>
               <button
-                className="h-10 w-10 cursor-pointer rounded-full bg-[#314F4A] md:h-9 md:w-9"
+                className="h-10 w-10 cursor-pointer rounded-full bg-[#314F4A] md:h-9 md:w-9 flex justify-center items-center hover:shadow-xl hover:bg-opacity-90"
                 onClick={() => setSelectedColor('#314F4A')}
               >
                 {selectedColor === '#314F4A' ? (
-                  <TiTick className="pl-1.5 text-4xl text-white lg:pl-0.5" />
+                  <TiTick className="text-4xl text-white" />
                 ) : (
                   ''
                 )}
               </button>
               <button
-                className="h-10 w-10 cursor-pointer rounded-full bg-[#31344F] md:h-9 md:w-9"
+                className="h-10 w-10 cursor-pointer rounded-full bg-[#31344F] md:h-9 md:w-9 flex justify-center items-center hover:shadow-xl hover:bg-opacity-90"
                 onClick={() => setSelectedColor('#31344F')}
               >
                 {selectedColor === '#31344F' ? (
-                  <TiTick className="pl-1.5 text-4xl text-white lg:pl-0.5" />
+                  <TiTick className="text-4xl text-white" />
                 ) : (
                   ''
                 )}
@@ -156,25 +162,25 @@ const ProductDetails = ({ product }) => {
             </p>
             <div className="lg-gap-3 flex flex-row gap-1 sm:gap-2">
               <button
-                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 ${selectedSize === 'Small' ? 'bg-black text-white' : 'text-black'}`}
+                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 hover:bg-black/15 ${selectedSize === 'Small' ? 'bg-black text-white' : 'text-black'}`}
                 onClick={() => setSelectedSize('Small')}
               >
                 Small
               </button>
               <button
-                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 ${selectedSize === 'Medium' ? 'bg-black text-white' : 'text-black'}`}
+                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 hover:bg-black/15 ${selectedSize === 'Medium' ? 'bg-black text-white' : 'text-black'}`}
                 onClick={() => setSelectedSize('Medium')}
               >
                 Medium
               </button>
               <button
-                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 ${selectedSize === 'Large' ? 'bg-black text-white' : 'text-black'}`}
+                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 hover:bg-black/15 ${selectedSize === 'Large' ? 'bg-black text-white' : 'text-black'}`}
                 onClick={() => setSelectedSize('Large')}
               >
                 Large
               </button>
               <button
-                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 ${selectedSize === 'X-Large' ? 'bg-black text-white' : 'text-black'}`}
+                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 hover:bg-black/15 ${selectedSize === 'X-Large' ? 'bg-black text-white' : 'text-black'}`}
                 onClick={() => setSelectedSize('X-Large')}
               >
                 X-Large
@@ -199,7 +205,7 @@ const ProductDetails = ({ product }) => {
               </div>
               <button
                 onClick={addToCart}
-                className="w-2/3 rounded-3xl bg-black font-satoshi_medium text-sm text-white md:text-base"
+                className="w-2/3 rounded-3xl bg-black font-satoshi_medium text-sm text-white md:text-base hover:shadow-xl hover:bg-opacity-90"
               >
                 Add to Cart
               </button>

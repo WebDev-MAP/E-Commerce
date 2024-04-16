@@ -19,6 +19,12 @@ function Provider({ children }) {
   }
 
   const [cartItems, setCartItems] = useState([])
+  const [criteria, setCriteria] = useState({
+    kleidungsstueck: [],
+    size: [],
+    price: [],
+    dressStyle: [],
+  })
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
@@ -85,6 +91,8 @@ function Provider({ children }) {
         setFilterOpen,
         selectedDressStyle,
         setSelectedDressStyle,
+        criteria,
+        setCriteria,
       }}
     >
       {children}

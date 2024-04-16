@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { FaAngleDown } from 'react-icons/fa'
 import Button from './Button'
 import { useShopContext } from '../context/ShopContext'
+import { set } from 'mongoose'
 
 // wählbare optionen
 const sizes = [
@@ -25,7 +26,11 @@ const colors = [
   { color: 'Blue', className: 'bg-blue-600' },
 ]
 
+// Filterkriterien
+
 function SideBar() {
+  const { criteria, setCriteria } = useShopContext()
+  console.log(criteria, criteria.dressStyle)
   // open and close accordion
   const [priceAccordionIsOpen, setPriceAccordionIsOpen] = useState(true)
   // const [colorsAccordionIsOpen, setColorsAccordionIsOpen] = useState(false)
@@ -34,61 +39,60 @@ function SideBar() {
     useState(true)
 
   // open filter
-  const { filterOpen, setFilterOpen, setFilterAuswahl } = useShopContext()
-  // save selected filter options
-  const [selectedStrings, setSelectedStrings] = useState([])
-  const [selectedSize, setSelectedSize] = useState([])
-  const [selectedKleidungsstueck, setSelectedKleidungsstueck] = useState([])
+  const { filterOpen, setFilterOpen } = useShopContext()
   const [selectedPrice, setSelectedPrice] = useState([])
-
-  console.log(selectedStrings, selectedSize, selectedPrice)
 
   // füge oder entferne filteroptionen onclick
   const handleClickDressStyle = (e) => {
-    console.log(e)
-    if (selectedStrings.includes(e.target.innerText)) {
-      setSelectedStrings([
-        ...selectedStrings.filter((string) => string !== e.target.innerText),
-      ])
+    if (criteria.dressStyle.includes(e.target.innerText)) {
+      criteria.dressStyle = criteria.dressStyle.filter(
+        (style) => style !== e.target.innerText
+      )
       e.target.classList.remove('text-black')
       e.target.classList.remove('font-bold')
-      return
+    } else {
+      setCriteria({
+        ...criteria,
+        dressStyle: [...criteria.dressStyle, e.target.innerText],
+      })
+      e.target.classList.toggle('text-black')
+      e.target.classList.toggle('font-bold')
     }
-    setSelectedStrings([...selectedStrings, e.target.innerText])
-    e.target.classList.toggle('text-black')
-    e.target.classList.toggle('font-bold')
+    console.log(criteria)
   }
 
   const handleClickKleidungsstueck = (e) => {
-    console.log(e)
-    if (selectedKleidungsstueck.includes(e.target.innerText)) {
-      setSelectedKleidungsstueck([
-        ...selectedKleidungsstueck.filter(
-          (string) => string !== e.target.innerText
-        ),
-      ])
+    if (criteria.kleidungsstueck.includes(e.target.innerText)) {
+      criteria.kleidungsstueck = criteria.kleidungsstueck.filter(
+        (string) => string !== e.target.innerText
+      )
       e.target.classList.remove('text-black')
       e.target.classList.remove('font-bold')
-      return
+    } else {
+      setCriteria({
+        ...criteria,
+        kleidungsstueck: [...criteria.kleidungsstueck, e.target.innerText],
+      })
+      e.target.classList.toggle('text-black')
+      e.target.classList.toggle('font-bold')
     }
-    setSelectedKleidungsstueck([...selectedKleidungsstueck, e.target.innerText])
-    e.target.classList.toggle('text-black')
-    e.target.classList.toggle('font-bold')
   }
 
   const handleClickSize = (e) => {
-    console.log(e)
-    if (selectedSize.includes(e.target.innerText)) {
-      setSelectedSize([
-        ...selectedSize.filter((string) => string !== e.target.innerText),
-      ])
-      e.target.classList.remove('bg-black')
+    if (criteria.size.includes(e.target.innerText)) {
+      criteria.size = criteria.size.filter(
+        (size) => size !== e.target.innerText
+      )
       e.target.classList.remove('text-white')
-      return
+      e.target.classList.remove('bg-black')
+    } else {
+      setCriteria({
+        ...criteria,
+        size: [...criteria.size, e.target.innerText],
+      })
+      e.target.classList.toggle('text-white')
+      e.target.classList.toggle('bg-black')
     }
-    setSelectedSize([...selectedSize, e.target.innerText])
-    e.target.classList.toggle('bg-black')
-    e.target.classList.toggle('text-white')
   }
 
   return (
@@ -236,7 +240,7 @@ function SideBar() {
             )
           })}
         </div>
-        {/* dressstyle accordion */}
+        {/* Dressstyle accordion */}
         <h4
           className="flex font-satoshi_bold text-xl"
           onClick={() =>
@@ -257,7 +261,11 @@ function SideBar() {
         >
           {dressStyles.map((dressStyle, index) => {
             return (
-              <p onClick={handleClickDressStyle} key={index}>
+              <p
+                onClick={handleClickDressStyle}
+                key={index}
+                className="hover:cursor-pointer"
+              >
                 {dressStyle}
               </p>
             )
@@ -267,12 +275,8 @@ function SideBar() {
           primary
           className="w-full"
           onClick={() => {
-            setFilterAuswahl([
-              selectedStrings,
-              selectedSize,
-              selectedKleidungsstueck,
-              selectedPrice,
-            ])
+            setCriteria({ ...criteria, price: selectedPrice })
+            console.log(criteria)
             setFilterOpen(!filterOpen)
             return window.scrollTo(0, 0)
           }}

@@ -39,7 +39,7 @@ function PageContact() {
   return (
     <div className="flex flex-col items-center justify-center bg-white mt-6 relative rounded-lg p-4">
       <div className='border-2 border-gray-400 rounded-lg opacity-100 shadow-xl hover:shadow-2xl transition duration-900 ease-in-out relative z-10 py-3 px-6 w-full max-w-lg'>
-        <h2 className="mb-6 font-integral_cf text-3xl font-bold text-black animate-pulse">
+        <h2 className="mb-6 font-integral_cf text-3xl font-bold text-black">
           Contact Us
         </h2>
         

@@ -73,7 +73,7 @@ function ShoppingCartItems() {
                                 product.price * cartItem.quantity
                               )}
                             </p>
-                            <div className="flex rounded-full bg-[#F0F0F0]">
+                            <div className="flex items-center justify-center rounded-full bg-[#F0F0F0]">
                               <button
                                 onClick={() =>
                                   decreaseCartQuantity(
@@ -83,6 +83,8 @@ function ShoppingCartItems() {
                                   )
                                 }
                                 className="rounded-l-full py-1 pl-3 pr-4 text-[1rem] outline-1 hover:outline"
+                                onClick={() => decreaseCartQuantity(product.id, cartItem.size, cartItem.color)}
+                                className="rounded-l-full py-1 pl-3 pr-5 text-[1rem] hover:outline-1 hover:outline hover:z-10"
                               >
                                 -
                               </button>
@@ -101,6 +103,8 @@ function ShoppingCartItems() {
                                   )
                                 }
                                 className="rounded-r-full py-1 pl-4 pr-3 text-[1rem] outline-1 hover:outline"
+                                onClick={() => increaseCartQuantity(product.id, cartItem.size, cartItem.color)}
+                                className="rounded-r-full py-1 pl-4 pr-3 text-[1rem] hover:outline-1 hover:outline"
                               >
                                 +
                               </button>

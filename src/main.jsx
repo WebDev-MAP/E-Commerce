@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom/client'
+import ReactDOM from 'react-dom'
 import App from './App.jsx'
 import Provider from './context/ShopContext.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -10,6 +10,7 @@ import PageHome from './pages/PageHome.jsx'
 import PageDetails from './pages/PageDetails.jsx'
 import AuthPage from './pages/AuthPage.jsx'
 import PageContact from './pages/PageContact.jsx'
+import PageAbout from './pages/PageAbout.jsx'
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: '/contact',
         element: <PageContact />,
+      },
+      {
+        path: '/about',
+        element: <PageAbout />,
       },
       {
         path: '/product/:id',

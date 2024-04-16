@@ -7,14 +7,200 @@ import { Link } from 'react-router-dom'
 
 function PaginatedItems({ itemsPerPage }) {
   const [itemOffset, setItemOffset] = useState(0)
-  const { filterAuswahl, filterOpen, setFilterOpen, selectedDressStyle } =
-    useShopContext()
-  let [filteredItems, setFilteredItems] = useState([])
+  const { filterOpen, setFilterOpen } = useShopContext()
+  const { criteria } = useShopContext()
 
-  let allProducts = products
+  useEffect(() => {
+    setItemOffset(0)
+  }, [criteria])
 
-  let items = filteredItems
+  // Filterlogic
+  let filteredProducts = products.filter((product) => {
+    switch (true) {
+      // Kleidungsstück, Größe, DressStyle, Price
+      case criteria.kleidungsstueck.length > 0 &&
+        criteria.size.length > 0 &&
+        criteria.dressStyle.length > 0 &&
+        criteria.price.length > 0:
+        if (product.isDiscounted) {
+          return (
+            criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+            criteria.size.includes(product.sizes) &&
+            criteria.dressStyle.includes(product.dressStyle) &&
+            criteria.price[0] <= product.discountedPrice &&
+            criteria.price[1] >= product.discountedPrice
+          )
+        } else {
+          return (
+            criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+            criteria.size.includes(product.sizes) &&
+            criteria.dressStyle.includes(product.dressStyle) &&
+            criteria.price[0] <= product.price &&
+            criteria.price[1] >= product.price
+          )
+        }
+      // Kleidungsstück, Größe, DressStyle
+      case criteria.kleidungsstueck.length > 0 &&
+        criteria.size.length > 0 &&
+        criteria.dressStyle.length > 0:
+        return (
+          criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+          criteria.size.includes(product.sizes) &&
+          criteria.dressStyle.includes(product.dressStyle)
+        )
+      // Kleidungsstück, Größe, Price
+      case criteria.kleidungsstueck.length > 0 &&
+        criteria.size.length > 0 &&
+        criteria.price.length > 0:
+        if (product.isDiscounted) {
+          return (
+            criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+            criteria.size.includes(product.sizes) &&
+            criteria.price[0] <= product.discountedPrice &&
+            criteria.price[1] >= product.discountedPrice
+          )
+        } else {
+          return (
+            criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+            criteria.size.includes(product.sizes) &&
+            criteria.price[0] <= product.price &&
+            criteria.price[1] >= product.price
+          )
+        }
+      // Größe, DressStyle, Price
+      case criteria.size.length > 0 &&
+        criteria.dressStyle.length > 0 &&
+        criteria.price.length > 0:
+        if (product.isDiscounted) {
+          return (
+            criteria.size.includes(product.sizes) &&
+            criteria.dressStyle.includes(product.dressStyle) &&
+            criteria.price[0] <= product.discountedPrice &&
+            criteria.price[1] >= product.discountedPrice
+          )
+        } else {
+          return (
+            criteria.size.includes(product.sizes) &&
+            criteria.dressStyle.includes(product.dressStyle) &&
+            criteria.price[0] <= product.price &&
+            criteria.price[1] >= product.price
+          )
+        }
+      // Kleidungsstück, DressStyle, Price
+      case criteria.kleidungsstueck.length > 0 &&
+        criteria.dressStyle.length > 0 &&
+        criteria.price.length > 0:
+        if (product.isDiscounted) {
+          return (
+            criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+            criteria.dressStyle.includes(product.dressStyle) &&
+            criteria.price[0] <= product.discountedPrice &&
+            criteria.price[1] >= product.discountedPrice
+          )
+        } else {
+          return (
+            criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+            criteria.dressStyle.includes(product.dressStyle) &&
+            criteria.price[0] <= product.price &&
+            criteria.price[1] >= product.price
+          )
+        }
+      // Kleidungsstück, Größe
+      case criteria.kleidungsstueck.length > 0 && criteria.size.length > 0:
+        return (
+          criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+          criteria.size.includes(product.sizes)
+        )
+      // Kleidungsstück, DressStyle
+      case criteria.kleidungsstueck.length > 0 &&
+        criteria.dressStyle.length > 0:
+        return (
+          criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+          criteria.dressStyle.includes(product.dressStyle)
+        )
 
+      // Größe, DressStyle
+      case criteria.size.length > 0 && criteria.dressStyle.length > 0:
+        return (
+          criteria.size.includes(product.sizes) &&
+          criteria.dressStyle.includes(product.dressStyle)
+        )
+      // Price, DressStyle
+      case criteria.price.length > 0 && criteria.dressStyle.length > 0:
+        if (product.isDiscounted) {
+          return (
+            criteria.price[0] <= product.discountedPrice &&
+            criteria.price[1] >= product.discountedPrice &&
+            criteria.dressStyle.includes(product.dressStyle)
+          )
+        } else {
+          return (
+            criteria.price[0] <= product.price &&
+            criteria.price[1] >= product.price &&
+            criteria.dressStyle.includes(product.dressStyle)
+          )
+        }
+      // Price, Kleidungsstück
+      case criteria.price.length > 0 && criteria.kleidungsstueck.length > 0:
+        if (product.isDiscounted) {
+          return (
+            criteria.price[0] <= product.discountedPrice &&
+            criteria.price[1] >= product.discountedPrice &&
+            criteria.kleidungsstueck.includes(product.kleidungsstueck)
+          )
+        } else {
+          return (
+            criteria.price[0] <= product.price &&
+            criteria.price[1] >= product.price &&
+            criteria.kleidungsstueck.includes(product.kleidungsstueck)
+          )
+        }
+
+      // Price, Größe
+      case criteria.price.length > 0 && criteria.size.length > 0:
+        if (product.isDiscounted) {
+          return (
+            criteria.price[0] <= product.discountedPrice &&
+            criteria.price[1] >= product.discountedPrice &&
+            criteria.size.includes(product.sizes)
+          )
+        } else {
+          return (
+            criteria.price[0] <= product.price &&
+            criteria.price[1] >= product.price &&
+            criteria.size.includes(product.sizes)
+          )
+        }
+      // Kleidungsstück
+      case criteria.kleidungsstueck.length > 0:
+        return criteria.kleidungsstueck.includes(product.kleidungsstueck)
+      // Größe
+      case criteria.size.length > 0:
+        return criteria.size.includes(product.sizes)
+      // DressStyle
+      case criteria.dressStyle.length > 0:
+        return criteria.dressStyle.includes(product.dressStyle)
+      // Price
+      case criteria.price.length > 0:
+        if (product.isDiscounted) {
+          return (
+            criteria.price[0] <= product.discountedPrice &&
+            criteria.price[1] >= product.discountedPrice
+          )
+        } else {
+          return (
+            criteria.price[0] <= product.price &&
+            criteria.price[1] >= product.price
+          )
+        }
+      // Default
+      default:
+        return product
+    }
+  })
+
+  let items = filteredProducts
+  console.log(items, criteria, products)
   function Items({ currentItems }) {
     return (
       <div className=" mb-32 flex  ">
@@ -36,65 +222,6 @@ function PaginatedItems({ itemsPerPage }) {
       </div>
     )
   }
-
-  useEffect(() => {
-    if (selectedDressStyle.length > 0) {
-      const filteredItems = allProducts.filter((product) => {
-        return selectedDressStyle.includes(product.dressStyle)
-      })
-      setFilteredItems(filteredItems)
-    } else return
-  }, [])
-
-  useEffect(() => {
-    // wenn filterauswahl leer ist, zeige alle produkte
-
-    if (
-      filterAuswahl
-        .map((filter) => filter.length)
-        .every((filter) => filter === 0)
-    ) {
-      setFilteredItems(allProducts)
-      // wenn filterauswahl price nicht leer ist, filtere produkte nach preis
-    } else if (filterAuswahl[3].length > 0) {
-      const filteredItems = allProducts.filter((product) => {
-        if (product.isDiscounted === true) {
-          return (
-            product.discountedPrice >= filterAuswahl[3][0] &&
-            product.discountedPrice <= filterAuswahl[3][1]
-          )
-        } else {
-          return (
-            product.price >= filterAuswahl[3][0] &&
-            product.price <= filterAuswahl[3][1]
-          )
-        }
-      })
-      setFilteredItems(filteredItems)
-    }
-    // wenn filterauswahl dressStyle nicht leer ist, filtere produkte
-    else if (
-      filterAuswahl[0].length > 0 ||
-      filterAuswahl[1].length > 0 ||
-      filterAuswahl[2].length > 0
-    ) {
-      const filteredItems = allProducts.filter((product) => {
-        if (filterAuswahl[0].length > 0) {
-          return filterAuswahl[0].includes(product.dressStyle)
-        } else if (filterAuswahl[1].length > 0) {
-          return filterAuswahl[1].includes(product.sizes)
-        } else if (filterAuswahl[2].length > 0) {
-          return filterAuswahl[2].includes(product.kleidungsstueck)
-        }
-      })
-      setFilteredItems(filteredItems)
-    } else if (filterAuswahl[1].length > 0) {
-      const filteredItems = filteredItems.filter((product) => {
-        return filterAuswahl[1] === product.size
-      })
-      setFilteredItems(filteredItems)
-    }
-  }, [filterAuswahl])
 
   const endOffset = itemOffset + itemsPerPage
   const currentItems = items.slice(itemOffset, endOffset)

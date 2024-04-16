@@ -95,7 +95,9 @@ function CustomerReviews() {
                       )}
                     </div>
                   </div>
-                  <p className=" opacity-60">{review.review}</p>
+                  <p className="text-overflow-ellipsis max-h-[120px] overflow-hidden opacity-60">
+                    {review.review}
+                  </p>
                 </div>
               </li>
             )

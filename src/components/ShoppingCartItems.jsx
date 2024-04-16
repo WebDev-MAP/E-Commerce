@@ -53,7 +53,7 @@ function ShoppingCartItems() {
                             <div>
                               <button>
                                 <PiTrashFill
-                                  onClick={() => removeCartItem(product.id)}
+                                  onClick={() => removeCartItem(product.id, cartItem.size, cartItem.color)}
                                   className="h-5 w-5 text-[#FF3333]"
                                 />
                               </button>
@@ -67,7 +67,7 @@ function ShoppingCartItems() {
                             </p>
                             <div className="flex rounded-full bg-[#F0F0F0]">
                               <button
-                                onClick={() => decreaseCartQuantity(product.id)}
+                                onClick={() => decreaseCartQuantity(product.id, cartItem.size, cartItem.color)}
                                 className="rounded-l-full py-1 pl-3 pr-4 text-[1rem] outline-1 hover:outline"
                               >
                                 -
@@ -79,7 +79,7 @@ function ShoppingCartItems() {
                                 {cartItem.quantity}
                               </span>
                               <button
-                                onClick={() => increaseCartQuantity(product.id)}
+                                onClick={() => increaseCartQuantity(product.id, cartItem.size, cartItem.color)}
                                 className="rounded-r-full py-1 pl-4 pr-3 text-[1rem] outline-1 hover:outline"
                               >
                                 +

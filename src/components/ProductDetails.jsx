@@ -42,7 +42,7 @@ const ProductDetails = ({ product }) => {
       alert('Please select a size')
       return
     }
-    increaseCartQuantity(product.id, quantity)
+    increaseCartQuantity(product.id, selectedSize, selectedColor, quantity)
   }
 
   return (

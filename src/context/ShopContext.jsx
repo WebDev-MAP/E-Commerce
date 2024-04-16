@@ -33,6 +33,10 @@ function Provider({ children }) {
   function applyPromoCode() {
     if (!promoCode) {
       setWarnText('Please enter a promo code')
+      setTimeout(() => {
+        setWarnText('')
+        setPromoApplied(false)
+      }, 3000)
       return
     }
 

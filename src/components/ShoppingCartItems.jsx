@@ -48,8 +48,7 @@ function ShoppingCartItems() {
                                 <span
                                   className={`flex h-3 w-3 items-center justify-center rounded-full hover:bg-opacity-90 hover:shadow-xl md:h-5 md:w-5`}
                                   style={{ backgroundColor: cartItem.color }}
-                                >
-                                </span>
+                                ></span>
                               </p>
                             </div>
                             <div>
@@ -82,9 +81,7 @@ function ShoppingCartItems() {
                                     cartItem.color
                                   )
                                 }
-                                className="rounded-l-full py-1 pl-3 pr-4 text-[1rem] outline-1 hover:outline"
-                                onClick={() => decreaseCartQuantity(product.id, cartItem.size, cartItem.color)}
-                                className="rounded-l-full py-1 pl-3 pr-5 text-[1rem] hover:outline-1 hover:outline hover:z-10"
+                                className="rounded-l-full py-1 pl-3 pr-5 text-[1rem] hover:z-10 hover:outline hover:outline-1"
                               >
                                 -
                               </button>
@@ -102,9 +99,7 @@ function ShoppingCartItems() {
                                     cartItem.color
                                   )
                                 }
-                                className="rounded-r-full py-1 pl-4 pr-3 text-[1rem] outline-1 hover:outline"
-                                onClick={() => increaseCartQuantity(product.id, cartItem.size, cartItem.color)}
-                                className="rounded-r-full py-1 pl-4 pr-3 text-[1rem] hover:outline-1 hover:outline"
+                                className="rounded-r-full py-1 pl-4 pr-3 text-[1rem] hover:outline hover:outline-1"
                               >
                                 +
                               </button>

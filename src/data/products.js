@@ -79,8 +79,8 @@ export const products = [
     discountedPrice: 140,
     discountPercentage: 0,
 
-    type: 'T-shirt',
-    style: 'Casual',
+    type: 'Shirt',
+    style: 'Party',
     description:
       'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
     descriptionDetails:
@@ -147,8 +147,8 @@ export const products = [
     discountedPrice: 212,
     discountPercentage: 20,
 
-    type: 'T-shirt',
-    style: 'Casual',
+    type: 'Shirt',
+    style: 'Party',
     description:
       'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor',
     descriptionDetails:

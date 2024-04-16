@@ -193,7 +193,7 @@ function Navbar() {
             className="mt-2 flex w-screen"
             onClick={() => setSearchbarIsOpen(true)}
           >
-            <button className="ml-4 hidden rounded-l-full bg-background px-2 lg:inline-block">
+            <button className="ml-4 hidden rounded-l-full bg-background px-2  lg:inline-block">
               <IoSearch />
             </button>
             <input
@@ -211,7 +211,7 @@ function Navbar() {
               }}
             />
             {searchbarIsOpen && query && (
-              <ul className="absolute z-20 ml-[3rem] mt-8 w-full max-w-96 rounded-md bg-white shadow-lg">
+              <ul className=" absolute z-20 ml-[3rem] mt-8 w-full max-w-96 rounded-md bg-white shadow-lg">
                 {filteredProducts.map((product) => (
                   <Link to={`/product/${product.id}`} key={product.id}>
                     <li className="p-2 hover:bg-gray-200">{product.title}</li>
@@ -223,16 +223,16 @@ function Navbar() {
 
           {/* Icons */}
           <div className="ml-auto mr-0 flex items-center gap-2 text-xl lg:mr-24">
-            <div className="lg:hidden">
+            <div className="hover:cursor-pointer lg:hidden">
               <IoSearch
                 onClick={() => setMobileSearchIsOpen(!mobileSearchIsOpen)}
               />
               {mobileSearchIsOpen && (
-                <div className="absolute right-2 z-20 mt-8 w-[95%] max-w-96 rounded-md bg-white shadow-lg sm:w-full">
+                <div className="absolute left-0 z-20 mt-5 flex w-screen flex-col  items-center rounded-md bg-white  p-4 shadow-lg sm:w-full">
                   <input
                     type="text"
                     placeholder="Search for products..."
-                    className="h-8 w-full max-w-96 rounded-md border border-black pl-4"
+                    className=" h-8 w-full max-w-96  rounded-md border border-black pl-4"
                     value={mobileQuery}
                     onChange={(e) => {
                       setMobileQuery(e.target.value)
@@ -244,10 +244,10 @@ function Navbar() {
                     }}
                   />
                   {mobileSearchIsOpen && mobileQuery && (
-                    <ul>
+                    <ul className="mr-10">
                       {mobileFilteredProducts.map((product) => (
                         <Link to={`/product/${product.id}`} key={product.id}>
-                          <li className="p-2 hover:bg-gray-200">
+                          <li className=" w-[20rem] p-2 hover:bg-gray-200">
                             {product.title}
                           </li>
                         </Link>

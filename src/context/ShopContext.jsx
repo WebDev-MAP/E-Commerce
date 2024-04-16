@@ -18,6 +18,10 @@ function Provider({ children }) {
     setFilterOpen,
   }
 
+  const [promoCode, setPromoCode] = useState('')
+  const [discountRate, setDiscountRate] = useState(0)
+  const [promoApplied, setPromoApplied] = useState(false)
+  const [warnText, setWarnText] = useState('')
   const [cartItems, setCartItems] = useState([])
   const [criteria, setCriteria] = useState({
     kleidungsstueck: [],
@@ -25,6 +29,31 @@ function Provider({ children }) {
     price: [],
     dressStyle: [],
   })
+
+  function applyPromoCode() {
+    if (!promoCode) {
+      setWarnText('Please enter a promo code')
+      return
+    }
+
+    if (promoCode === 'WELCOME20') {
+      if (discountRate > 0) {
+        setWarnText('Promo code already applied')
+        return
+      }
+      setDiscountRate(0.2)
+      setPromoApplied(true)
+      setWarnText('Promo code applied')
+    } else {
+      setPromoApplied(false)
+      setWarnText('Invalid promo code')
+    }
+    setPromoCode('')
+    setTimeout(() => {
+      setWarnText('')
+      setPromoApplied(false)
+    }, 3000)
+  }
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
@@ -93,6 +122,12 @@ function Provider({ children }) {
         setSelectedDressStyle,
         criteria,
         setCriteria,
+        promoCode,
+        discountRate,
+        promoApplied,
+        warnText,
+        applyPromoCode,
+        setPromoCode,
       }}
     >
       {children}

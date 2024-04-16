@@ -40,21 +40,32 @@ const Newsletter = () => {
 
             <input
               type="email"
+              required
               placeholder="Enter your email address"
               className="h-11 w-full rounded-[62px] pl-12 font-satoshi_regular text-sm text-black placeholder-black placeholder-opacity-40 lg:h-12 lg:text-lg"
+              id="email"
             />
           </div>
 
           <div className="lg:w-96">
             <button
               className="mb-7 h-11 w-full rounded-[62px] bg-white font-satoshi_medium text-sm text-black lg:m-auto lg:h-12 lg:text-lg"
-              onClick={handleClick}
+              onClick={() => {
+                const emailInput = document.querySelector('#email')
+                if (
+                  emailInput.value !== '' &&
+                  emailInput.value.includes('@') &&
+                  emailInput.value.slice(-1) !== '@'
+                ) {
+                  return handleClick()
+                }
+              }}
             >
               Subscribe to Newsletter
             </button>
             {showModal && (
               <Modal onClose={handleClose} actionbar={actionbar}>
-                <div className="flex flex-col items-center gap-8 text-center font-satoshi_regular text-lg">
+                <div className="flex  flex-col items-center gap-8 text-center font-satoshi_regular text-lg">
                   <h5 className="font-integral_cf">
                     Vielen Dank das du den Newsletter abonniert hast.
                   </h5>

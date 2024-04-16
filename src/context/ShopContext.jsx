@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react'
 
 import { products } from '../data/products'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
 const ShopContext = createContext()
 
@@ -19,10 +20,10 @@ function Provider({ children }) {
   }
 
   const [promoCode, setPromoCode] = useState('')
-  const [discountRate, setDiscountRate] = useState(0)
+  const [discountRate, setDiscountRate] = useLocalStorage('discount-rate', 0)
   const [promoApplied, setPromoApplied] = useState(false)
   const [warnText, setWarnText] = useState('')
-  const [cartItems, setCartItems] = useState([])
+  const [cartItems, setCartItems] = useLocalStorage('shopping-cart', [])
   const [criteria, setCriteria] = useState({
     kleidungsstueck: [],
     size: [],
@@ -63,17 +64,15 @@ function Provider({ children }) {
     (quantity, item) => item.quantity + quantity,
     0
   )
-  // console.log('TotalItems:', cartQuantity)
-  console.log('Cart Items:', cartItems)
 
   // To Add a Product in the Cart or Increase Quantity of an Item in the Cart
-  const increaseCartQuantity = (id, quantity = 1) => {
+  const increaseCartQuantity = (id, size, color, quantity = 1) => {
     const cartItemsUpdate = () => {
-      if (cartItems.find((item) => item.id === id) == null) {
-        return [...cartItems, { id, quantity: quantity }]
+      if (cartItems.find((item) => item.id === id && item.size === size && item.color === color) == null) {
+        return [...cartItems, { id, quantity: quantity, size, color}]
       } else {
         return cartItems.map((item) => {
-          if (item.id === id) {
+          if ((item.id == id && item.size == size && item.color == color)) {
             return { ...item, quantity: item.quantity + quantity }
           } else {
             return item
@@ -86,13 +85,13 @@ function Provider({ children }) {
   }
 
   // To Decrease Quantity of an Item in the Cart
-  const decreaseCartQuantity = (id) => {
+  const decreaseCartQuantity = (id, size, color) => {
     const cartItemsUpdate = () => {
-      if (cartItems.find((item) => item.id === id).quantity === 1) {
-        return cartItems.filter((item) => item.id !== id)
+      if (cartItems.find((item) => item.id == id && item.size == size && item.color == color).quantity === 1) {
+        return cartItems.filter((item) => !(item.id == id && item.size == size && item.color == color))
       } else {
         return cartItems.map((item) => {
-          if (item.id === id) {
+          if ((item.id == id && item.size == size && item.color == color)) {
             return { ...item, quantity: item.quantity - 1 }
           } else {
             return item
@@ -105,8 +104,10 @@ function Provider({ children }) {
   }
 
   // To Remove an Item from the Cart
-  const removeCartItem = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id))
+  const removeCartItem = (id, size, color) => {
+    console.log(id, size, color)
+    console.log(cartItems.filter((item) => item.id !== id && item.size !== size && item.color !== color))
+    setCartItems(cartItems.filter((item) => !(item.id == id && item.size == size && item.color == color)))
   }
 
   return (

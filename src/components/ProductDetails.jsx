@@ -14,7 +14,7 @@ const ProductDetails = ({ product }) => {
   const { increaseCartQuantity } = useShopContext()
 
   const notify = () => {
-    toast.success('Added to cart! 🛒', {
+    toast.success('Added to cart!', {
       position: 'top-right',
       autoClose: 3000,
       hideProgressBar: false,

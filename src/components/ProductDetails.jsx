@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { FaPlus, FaMinus, FaStar } from 'react-icons/fa'
 import { TiTick } from 'react-icons/ti'
 import { useShopContext } from '../context/ShopContext'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const ProductDetails = ({ product }) => {
   const [quantity, setQuantity] = useState(1)
@@ -10,6 +12,18 @@ const ProductDetails = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState('')
 
   const { increaseCartQuantity } = useShopContext()
+
+  const notify = () => {
+    toast.success('Added to cart!', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
+  }
 
   function incrementQuantity() {
     let _quantity = quantity + 1
@@ -29,7 +43,7 @@ const ProductDetails = ({ product }) => {
   useEffect(() => {
     setSelectedColor('')
     setSelectedSize('')
-	 setQuantity(1)
+    setQuantity(1)
   }, [product])
 
   function addToCart() {
@@ -43,6 +57,7 @@ const ProductDetails = ({ product }) => {
       return
     }
     increaseCartQuantity(product.id, selectedSize, selectedColor, quantity)
+    notify()
   }
 
   return (
@@ -126,7 +141,7 @@ const ProductDetails = ({ product }) => {
             </p>
             <div className="flex flex-row gap-4">
               <button
-                className={`h-10 w-10 cursor-pointer rounded-full bg-[#4F4631] md:h-9 md:w-9 flex justify-center items-center hover:shadow-xl hover:bg-opacity-90`}
+                className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-[#4F4631] hover:bg-opacity-90 hover:shadow-xl md:h-9 md:w-9`}
                 onClick={() => setSelectedColor('#4F4631')}
               >
                 {selectedColor === '#4F4631' ? (
@@ -136,7 +151,7 @@ const ProductDetails = ({ product }) => {
                 )}
               </button>
               <button
-                className="h-10 w-10 cursor-pointer rounded-full bg-[#314F4A] md:h-9 md:w-9 flex justify-center items-center hover:shadow-xl hover:bg-opacity-90"
+                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-[#314F4A] hover:bg-opacity-90 hover:shadow-xl md:h-9 md:w-9"
                 onClick={() => setSelectedColor('#314F4A')}
               >
                 {selectedColor === '#314F4A' ? (
@@ -146,7 +161,7 @@ const ProductDetails = ({ product }) => {
                 )}
               </button>
               <button
-                className="h-10 w-10 cursor-pointer rounded-full bg-[#31344F] md:h-9 md:w-9 flex justify-center items-center hover:shadow-xl hover:bg-opacity-90"
+                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-[#31344F] hover:bg-opacity-90 hover:shadow-xl md:h-9 md:w-9"
                 onClick={() => setSelectedColor('#31344F')}
               >
                 {selectedColor === '#31344F' ? (
@@ -162,25 +177,25 @@ const ProductDetails = ({ product }) => {
             </p>
             <div className="lg-gap-3 flex flex-row gap-1 sm:gap-2">
               <button
-                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 hover:bg-black/15 ${selectedSize === 'Small' ? 'bg-black text-white' : 'text-black'}`}
+                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm hover:bg-black/15 sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 ${selectedSize === 'Small' ? 'bg-black text-white' : 'text-black'}`}
                 onClick={() => setSelectedSize('Small')}
               >
                 Small
               </button>
               <button
-                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 hover:bg-black/15 ${selectedSize === 'Medium' ? 'bg-black text-white' : 'text-black'}`}
+                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm hover:bg-black/15 sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 ${selectedSize === 'Medium' ? 'bg-black text-white' : 'text-black'}`}
                 onClick={() => setSelectedSize('Medium')}
               >
                 Medium
               </button>
               <button
-                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 hover:bg-black/15 ${selectedSize === 'Large' ? 'bg-black text-white' : 'text-black'}`}
+                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm hover:bg-black/15 sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 ${selectedSize === 'Large' ? 'bg-black text-white' : 'text-black'}`}
                 onClick={() => setSelectedSize('Large')}
               >
                 Large
               </button>
               <button
-                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 hover:bg-black/15 ${selectedSize === 'X-Large' ? 'bg-black text-white' : 'text-black'}`}
+                className={`cursor-pointer rounded-3xl bg-[#F0F0F0] px-3 py-2.5 font-satoshi_regular text-sm hover:bg-black/15 sm:px-4 sm:py-2.5 md:text-base lg:px-6 lg:py-3 ${selectedSize === 'X-Large' ? 'bg-black text-white' : 'text-black'}`}
                 onClick={() => setSelectedSize('X-Large')}
               >
                 X-Large
@@ -205,10 +220,23 @@ const ProductDetails = ({ product }) => {
               </div>
               <button
                 onClick={addToCart}
-                className="w-2/3 rounded-3xl bg-black font-satoshi_medium text-sm text-white md:text-base hover:shadow-xl hover:bg-opacity-90"
+                className="w-2/3 rounded-3xl bg-black font-satoshi_medium text-sm text-white hover:bg-opacity-90 hover:shadow-xl md:text-base"
               >
                 Add to Cart
               </button>
+              <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition:Bounce
+              />
             </div>
           </div>
         </div>

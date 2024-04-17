@@ -183,9 +183,15 @@ function Navbar() {
                 </ul>
               </div>
             </div>
-            <li>OnSale</li>
-            <li>New Arrivals</li>
-            <li>Brands</li>
+            <NavLink to="/category">
+              <li>OnSale</li>
+            </NavLink>
+            <NavLink to="/category">
+              <li>New Arrivals</li>
+            </NavLink>
+            <NavLink to="/category">
+              <li>Brands</li>
+            </NavLink>
           </ul>
 
           {/* Searchbar */}

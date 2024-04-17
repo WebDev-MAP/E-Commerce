@@ -76,11 +76,11 @@ const Newsletter = () => {
                   </p>
                   <div className=" flex">
                     <p className="flex items-center rounded-l-full bg-background px-6 py-4  font-bold">
-                      welcome20
+                      WELCOME20
                     </p>
                     <Button
                       primary
-                      onClick={() => navigator.clipboard.writeText('welcome20')}
+                      onClick={() => navigator.clipboard.writeText('WELCOME20')}
                       className=" rounded-l-none px-6 text-xl "
                     >
                       <FaCopy />

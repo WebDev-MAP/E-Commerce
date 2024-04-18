@@ -250,7 +250,7 @@ function Navbar() {
                     }}
                   />
                   {mobileSearchIsOpen && mobileQuery && (
-                    <ul className="mr-10">
+                    <ul className="sm:mr-12">
                       {mobileFilteredProducts.map((product) => (
                         <Link to={`/product/${product.id}`} key={product.id}>
                           <li className=" w-[20rem] p-2 hover:bg-gray-200">

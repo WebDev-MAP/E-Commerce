@@ -16,6 +16,7 @@ import { FaFacebook } from 'react-icons/fa'
 import { FaInstagram } from 'react-icons/fa'
 import { FaGithub } from 'react-icons/fa'
 import { useShopContext } from '../context/ShopContext'
+import { MdKeyboardArrowDown } from 'react-icons/md'
 
 function Navbar() {
   const [menuIsOpen, setMenuIsOpen] = useState(false)
@@ -23,6 +24,8 @@ function Navbar() {
   const [mobileQuery, setMobileQuery] = useState('')
   const [searchbarIsOpen, setSearchbarIsOpen] = useState(false)
   const [mobileSearchIsOpen, setMobileSearchIsOpen] = useState(false)
+  const [isLoggedin, setIsLoggedin] = useState(false)
+  const [userMenuIsOpen, setUserMenuIsOpen] = useState(false)
   const { cartQuantity } = useShopContext()
 
   const filteredProducts = products
@@ -196,7 +199,7 @@ function Navbar() {
 
           {/* Searchbar */}
           <form
-            className="mt-2 flex w-screen"
+            className="mt-2 flex w-1/3"
             onClick={() => setSearchbarIsOpen(true)}
           >
             <button className="ml-4 hidden rounded-l-full bg-background px-2  lg:inline-block">
@@ -263,6 +266,47 @@ function Navbar() {
                 </div>
               )}
             </div>
+
+            <div className="relative mt-[1px] flex items-center justify-center gap-2 pr-2 font-satoshi_regular text-base">
+              {isLoggedin ? (
+                <>
+                  <p>Welcome User</p>
+                  <div
+                    className={`r-0 absolute z-10 mt-14 flex flex-col  items-center justify-start font-satoshi_regular  transition-all duration-500 ease-in-out  ${userMenuIsOpen ? '  block h-full' : 'hidden h-0'}`}
+                  >
+                    <ul
+                      className={`flex flex-col items-start hover:cursor-pointer`}
+                    >
+                      <li>My Account</li>
+                      <li>My Orders</li>
+                      <li>Settings</li>
+                      <li>Logout</li>
+                    </ul>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div
+                    className={`r-0 absolute z-10 mt-14 flex flex-col  items-center justify-start font-satoshi_regular  transition-all duration-500 ease-in-out  ${userMenuIsOpen ? '  block h-full' : 'hidden h-0'}`}
+                  >
+                    <ul
+                      className={`flex flex-col items-start hover:cursor-pointer`}
+                    >
+                      <li>Login</li>
+                      <li>Register</li>
+                    </ul>
+                  </div>
+                </>
+              )}
+              <NavLink to="/login" className="flex">
+                <CgProfile className="text-xl" />
+                <MdKeyboardArrowDown
+                  className="text-xl"
+                  onClick={() => setUserMenuIsOpen(!userMenuIsOpen)}
+                />
+                {/* Dropdown Menu User */}
+              </NavLink>
+            </div>
             <div>
               <NavLink to="/cart">
                 <button className="relative flex">
@@ -273,11 +317,6 @@ function Navbar() {
                     </div>
                   )}
                 </button>
-              </NavLink>
-            </div>
-            <div className="mt-[1px]">
-              <NavLink to="/login">
-                <CgProfile />
               </NavLink>
             </div>
           </div>

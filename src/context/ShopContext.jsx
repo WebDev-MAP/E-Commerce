@@ -9,6 +9,8 @@ function Provider({ children }) {
   const [filterAuswahl, setFilterAuswahl] = useState([])
   const [filterOpen, setFilterOpen] = useState('false')
   const [selectedDressStyle, setSelectedDressStyle] = useState([])
+  const [isLoggedin, setIsLoggedin] = useState(false)
+  const [userData, setUserData] = useState({})
 
   const valueToShare = {
     filterAuswahl,
@@ -85,13 +87,13 @@ function Provider({ children }) {
     const cartItemsUpdate = () => {
       if (
         cartItems.find(
-          (item) => item._id === id && item.size === size && item.color === color
+          (item) => item.id === id && item.size === size && item.color === color
         ) == null
       ) {
         return [...cartItems, { id, quantity: quantity, size, color }]
       } else {
         return cartItems.map((item) => {
-          if (item._id == id && item.size == size && item.color == color) {
+          if (item.id == id && item.size == size && item.color == color) {
             return { ...item, quantity: item.quantity + quantity }
           } else {
             return item
@@ -108,15 +110,15 @@ function Provider({ children }) {
     const cartItemsUpdate = () => {
       if (
         cartItems.find(
-          (item) => item._id == id && item.size == size && item.color == color
+          (item) => item.id == id && item.size == size && item.color == color
         ).quantity === 1
       ) {
         return cartItems.filter(
-          (item) => !(item._id == id && item.size == size && item.color == color)
+          (item) => !(item.id == id && item.size == size && item.color == color)
         )
       } else {
         return cartItems.map((item) => {
-          if (item._id == id && item.size == size && item.color == color) {
+          if (item.id == id && item.size == size && item.color == color) {
             return { ...item, quantity: item.quantity - 1 }
           } else {
             return item
@@ -133,12 +135,12 @@ function Provider({ children }) {
     console.log(id, size, color)
     console.log(
       cartItems.filter(
-        (item) => item._id !== id && item.size !== size && item.color !== color
+        (item) => item.id !== id && item.size !== size && item.color !== color
       )
     )
     setCartItems(
       cartItems.filter(
-        (item) => !(item._id == id && item.size == size && item.color == color)
+        (item) => !(item.id == id && item.size == size && item.color == color)
       )
     )
   }
@@ -166,7 +168,10 @@ function Provider({ children }) {
         warnText,
         applyPromoCode,
         setPromoCode,
-        products
+        isLoggedin,
+        setIsLoggedin,
+        userData,
+        setUserData,
       }}
     >
       {children}

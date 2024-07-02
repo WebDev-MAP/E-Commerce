@@ -1,6 +1,4 @@
-import { createContext, useContext, useState } from 'react'
-
-import { products } from '../data/products'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
 const ShopContext = createContext()
@@ -30,6 +28,23 @@ function Provider({ children }) {
     price: [],
     dressStyle: [],
   })
+  const [products, setProducts] = useState([])
+
+  // Fetching Products from the API
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch('http://localhost:3002/products/')
+      const data = await response.json()
+      setProducts(data)
+    } catch (error) {
+      console.error('Error fetching products', error.message)
+    }
+  }
+  useEffect(() => {
+    fetchProducts()
+  }, [])
+
+  console.log({products})
 
   function applyPromoCode() {
     if (!promoCode) {
@@ -68,11 +83,15 @@ function Provider({ children }) {
   // To Add a Product in the Cart or Increase Quantity of an Item in the Cart
   const increaseCartQuantity = (id, size, color, quantity = 1) => {
     const cartItemsUpdate = () => {
-      if (cartItems.find((item) => item.id === id && item.size === size && item.color === color) == null) {
-        return [...cartItems, { id, quantity: quantity, size, color}]
+      if (
+        cartItems.find(
+          (item) => item._id === id && item.size === size && item.color === color
+        ) == null
+      ) {
+        return [...cartItems, { id, quantity: quantity, size, color }]
       } else {
         return cartItems.map((item) => {
-          if ((item.id == id && item.size == size && item.color == color)) {
+          if (item._id == id && item.size == size && item.color == color) {
             return { ...item, quantity: item.quantity + quantity }
           } else {
             return item
@@ -87,11 +106,17 @@ function Provider({ children }) {
   // To Decrease Quantity of an Item in the Cart
   const decreaseCartQuantity = (id, size, color) => {
     const cartItemsUpdate = () => {
-      if (cartItems.find((item) => item.id == id && item.size == size && item.color == color).quantity === 1) {
-        return cartItems.filter((item) => !(item.id == id && item.size == size && item.color == color))
+      if (
+        cartItems.find(
+          (item) => item._id == id && item.size == size && item.color == color
+        ).quantity === 1
+      ) {
+        return cartItems.filter(
+          (item) => !(item._id == id && item.size == size && item.color == color)
+        )
       } else {
         return cartItems.map((item) => {
-          if ((item.id == id && item.size == size && item.color == color)) {
+          if (item._id == id && item.size == size && item.color == color) {
             return { ...item, quantity: item.quantity - 1 }
           } else {
             return item
@@ -106,8 +131,16 @@ function Provider({ children }) {
   // To Remove an Item from the Cart
   const removeCartItem = (id, size, color) => {
     console.log(id, size, color)
-    console.log(cartItems.filter((item) => item.id !== id && item.size !== size && item.color !== color))
-    setCartItems(cartItems.filter((item) => !(item.id == id && item.size == size && item.color == color)))
+    console.log(
+      cartItems.filter(
+        (item) => item._id !== id && item.size !== size && item.color !== color
+      )
+    )
+    setCartItems(
+      cartItems.filter(
+        (item) => !(item._id == id && item.size == size && item.color == color)
+      )
+    )
   }
 
   return (
@@ -133,6 +166,7 @@ function Provider({ children }) {
         warnText,
         applyPromoCode,
         setPromoCode,
+        products
       }}
     >
       {children}

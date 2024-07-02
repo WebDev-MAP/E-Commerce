@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { FaAngleDown } from 'react-icons/fa'
 import Button from './Button'
 import { useShopContext } from '../context/ShopContext'
-import { set } from 'mongoose'
 
 // wählbare optionen
 const sizes = [

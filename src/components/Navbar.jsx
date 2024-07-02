@@ -4,6 +4,7 @@ import Popup from './Popup'
 import Newsletter from '../components/Newsletter'
 import Footer from './Footer'
 import { products } from '../data/products'
+import { useShopContext } from '../context/ShopContext'
 
 // Icons
 import { RxHamburgerMenu } from 'react-icons/rx'
@@ -15,7 +16,6 @@ import { FaTwitter } from 'react-icons/fa'
 import { FaFacebook } from 'react-icons/fa'
 import { FaInstagram } from 'react-icons/fa'
 import { FaGithub } from 'react-icons/fa'
-import { useShopContext } from '../context/ShopContext'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 
 function Navbar() {
@@ -24,7 +24,8 @@ function Navbar() {
   const [mobileQuery, setMobileQuery] = useState('')
   const [searchbarIsOpen, setSearchbarIsOpen] = useState(false)
   const [mobileSearchIsOpen, setMobileSearchIsOpen] = useState(false)
-  const [isLoggedin, setIsLoggedin] = useState(false)
+  const { isLoggedin, setIsLoggedin } = useShopContext()
+
   const [userMenuIsOpen, setUserMenuIsOpen] = useState(false)
   const { cartQuantity } = useShopContext()
 

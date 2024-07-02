@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useShopContext } from '../context/ShopContext'
 
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
+  const { setIsLoggedin } = useShopContext()
 
   const loginUser = async (email, password) => {
     try {
@@ -38,7 +40,9 @@ function Login() {
       setError('Please fill in all fields.')
       return
     }
+
     loginUser(email, password)
+    setIsLoggedin(true)
   }
 
   return (

@@ -1,26 +1,50 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { registerUser } from '../data/api'
 
 function Register() {
-  const [name, setName] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
+  const registerUser = async (firstName, lastName, email, password) => {
+    try {
+      const response = await fetch('http://localhost:3002/user/register', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          password: password,
+        }),
+      })
+      if (response.ok) {
+        console.log('Registration successful')
+        navigate('/')
+      } else {
+        console.log('Registration failed')
+        setError('This email is already registered.')
+      }
+    } catch (error) {
+      console.error('Error registering user:', error)
+    }
+  }
+
   const handleRegister = async (e) => {
     e.preventDefault()
-    // Überprüfen, ob alle Felder ausgefüllt sind
-    if (!name || !email || !password) {
+
+    if (!firstName | !lastName || !email || !password) {
       setError('Please fill in all fields.')
       return
-    }
-    const success = await registerUser(name, email, password)
-    if (success) {
-      navigate('/')
     } else {
-      setError('Registration failed. Please try again.')
+      registerUser(firstName, lastName, email, password)
     }
   }
 
@@ -29,11 +53,19 @@ function Register() {
       {error && <p className="mb-2 text-red-500">{error}</p>}
       <input
         type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
         className="mb-2 rounded-md border border-gray-500 px-16 py-2 text-center font-satoshi_regular placeholder-black placeholder-opacity-70
       focus:outline-none focus:ring-2 focus:ring-gray-500"
-        placeholder="Name"
+        placeholder="First name"
+      />
+      <input
+        type="text"
+        value={lastName}
+        onChange={(e) => setLastName(e.target.value)}
+        className="mb-2 rounded-md border border-gray-500 px-16 py-2 text-center font-satoshi_regular placeholder-black placeholder-opacity-70
+      focus:outline-none focus:ring-2 focus:ring-gray-500"
+        placeholder="Last name"
       />
       <input
         type="email"

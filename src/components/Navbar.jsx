@@ -46,7 +46,7 @@ function Navbar() {
 
       {/* Navbar */}
       <nav
-        className={` z-10 bg-white transition-all duration-500 ease-out ${menuIsOpen ? '  h-64 ' : 'h-16 '}`}
+        className={` z-10 bg-white transition-all duration-500 ease-out ${menuIsOpen ? '  h-64 ' : 'h-16 '} ${userMenuIsOpen && isLoggedin ? 'h-56 md:h-44 ' : 'h-16 '} ${userMenuIsOpen && !isLoggedin ? ' h-24 ' : 'h-16 '} ${mobileSearchIsOpen ? ' h-32 ' : 'h-16 '}`}
       >
         <div className="relative mx-auto flex min-h-16 max-w-[1440px] items-center px-4  lg:px-0 ">
           {/* Burgermenu */}
@@ -247,10 +247,9 @@ function Navbar() {
                       setMobileQuery(e.target.value)
                     }}
                     onBlur={() => {
-                      setTimeout(() => {
-                        setMobileSearchIsOpen(false), setMobileQuery('')
-                      }, 200)
+                      setMobileQuery(''), setMobileSearchIsOpen(false)
                     }}
+                    tabIndex="0"
                   />
                   {mobileSearchIsOpen && mobileQuery && (
                     <ul className="sm:mr-12">
@@ -266,13 +265,17 @@ function Navbar() {
                 </div>
               )}
             </div>
-
-            <div className="relative mt-[1px] flex items-center justify-center gap-2 pr-2 font-satoshi_regular text-base">
+            {/* Dropdown Menu User */}
+            <div
+              className="relative mt-[1px] flex items-center justify-center gap-2 pr-2 font-satoshi_regular text-base"
+              onBlur={() => setTimeout(() => setUserMenuIsOpen(false), 300)}
+              tabIndex="0"
+            >
               {isLoggedin ? (
                 <>
-                  <p>Welcome User</p>
+                  <p className="hidden md:block">Welcome User</p>
                   <div
-                    className={`r-0 absolute z-10 mt-14 flex flex-col  items-center justify-start font-satoshi_regular  transition-all duration-500 ease-in-out  ${userMenuIsOpen ? '  block h-full' : 'hidden h-0'}`}
+                    className={`r-0 absolute z-50 mt-16 flex flex-col  items-center justify-start font-satoshi_regular  transition-all duration-500 ease-in-out ${userMenuIsOpen ? '  block h-full' : 'hidden h-0'}`}
                   >
                     <ul
                       className={`flex flex-col items-start hover:cursor-pointer`}
@@ -292,20 +295,20 @@ function Navbar() {
                     <ul
                       className={`flex flex-col items-start hover:cursor-pointer`}
                     >
-                      <li>Login</li>
-                      <li>Register</li>
+                      <NavLink to="/login">
+                        <li>Login/Register</li>
+                      </NavLink>
                     </ul>
                   </div>
                 </>
               )}
-              <NavLink to="/login" className="flex">
+              <div
+                className="flex cursor-pointer"
+                onClick={() => setUserMenuIsOpen(!userMenuIsOpen)}
+              >
                 <CgProfile className="text-xl" />
-                <MdKeyboardArrowDown
-                  className="text-xl"
-                  onClick={() => setUserMenuIsOpen(!userMenuIsOpen)}
-                />
-                {/* Dropdown Menu User */}
-              </NavLink>
+                <MdKeyboardArrowDown className="text-xl" />
+              </div>
             </div>
             <div>
               <NavLink to="/cart">

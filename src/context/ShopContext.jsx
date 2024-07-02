@@ -1,6 +1,4 @@
-import { createContext, useContext, useState } from 'react'
-
-import { products } from '../data/products'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
 const ShopContext = createContext()
@@ -32,6 +30,23 @@ function Provider({ children }) {
     price: [],
     dressStyle: [],
   })
+  const [products, setProducts] = useState([])
+
+  // Fetching Products from the API
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch('http://localhost:3002/products/')
+      const data = await response.json()
+      setProducts(data)
+    } catch (error) {
+      console.error('Error fetching products', error.message)
+    }
+  }
+  useEffect(() => {
+    fetchProducts()
+  }, [])
+
+  console.log({products})
 
   function applyPromoCode() {
     if (!promoCode) {

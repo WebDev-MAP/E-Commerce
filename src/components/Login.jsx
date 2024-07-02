@@ -7,7 +7,7 @@ function Login() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
-  const { setIsLoggedin } = useShopContext()
+  const { setIsLoggedin, setUserData } = useShopContext()
 
   const loginUser = async (email, password) => {
     try {
@@ -22,6 +22,9 @@ function Login() {
           password: password,
         }),
       })
+      const userData = await response.json()
+      setUserData(userData)
+      console.log(userData)
 
       if (response.status !== 200) {
         setError('Login failed. Please try again.')
@@ -30,7 +33,7 @@ function Login() {
         navigate('/')
       }
     } catch (error) {
-      setError('An error occurred. Please try again.')
+      setError('Login failed. Please try again.')
     }
   }
 

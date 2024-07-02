@@ -24,10 +24,28 @@ function Navbar() {
   const [mobileQuery, setMobileQuery] = useState('')
   const [searchbarIsOpen, setSearchbarIsOpen] = useState(false)
   const [mobileSearchIsOpen, setMobileSearchIsOpen] = useState(false)
-  const { isLoggedin, setIsLoggedin } = useShopContext()
+  const { isLoggedin, userData, setIsLoggedin } = useShopContext()
 
   const [userMenuIsOpen, setUserMenuIsOpen] = useState(false)
   const { cartQuantity } = useShopContext()
+
+  const userLogout = async (user) => {
+    try {
+      const response = await fetch('http://localhost:3002/user/logout', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          token: user.token,
+        }),
+      })
+      setIsLoggedin(false)
+      setUserMenuIsOpen(false)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
   const filteredProducts = products
     .filter((product) => {
@@ -274,7 +292,9 @@ function Navbar() {
             >
               {isLoggedin ? (
                 <>
-                  <p className="hidden md:block">Welcome User</p>
+                  <p className="hidden md:block">
+                    Welcome {userData.first_name}
+                  </p>
                   <div
                     className={`r-0 absolute z-50 mt-16 flex flex-col  items-center justify-start font-satoshi_regular  transition-all duration-500 ease-in-out ${userMenuIsOpen ? '  block h-full' : 'hidden h-0'}`}
                   >
@@ -284,7 +304,7 @@ function Navbar() {
                       <li>My Account</li>
                       <li>My Orders</li>
                       <li>Settings</li>
-                      <li>Logout</li>
+                      <li onClick={() => userLogout(userData)}>Logout</li>
                     </ul>
                   </div>
                 </>

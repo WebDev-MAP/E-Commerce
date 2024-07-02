@@ -12,6 +12,7 @@ function Provider({ children }) {
   const [filterOpen, setFilterOpen] = useState('false')
   const [selectedDressStyle, setSelectedDressStyle] = useState([])
   const [isLoggedin, setIsLoggedin] = useState(false)
+  const [userData, setUserData] = useState({})
 
   const valueToShare = {
     filterAuswahl,
@@ -154,6 +155,8 @@ function Provider({ children }) {
         setPromoCode,
         isLoggedin,
         setIsLoggedin,
+        userData,
+        setUserData,
       }}
     >
       {children}

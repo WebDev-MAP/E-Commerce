@@ -21,6 +21,7 @@ function Login() {
           email: email,
           password: password,
         }),
+        credentials: 'include',
       })
       const userData = await response.json()
       setUserData(userData)

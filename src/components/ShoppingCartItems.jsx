@@ -1,7 +1,7 @@
 import { PiTrashFill } from 'react-icons/pi'
 import { formatCurrency } from '../utilities/formatCurrency'
 import { useShopContext } from '../context/ShopContext'
-import { products } from '../data/products'
+// import { products } from '../data/products'
 import { Link } from 'react-router-dom'
 import Button from './Button'
 
@@ -11,7 +11,10 @@ function ShoppingCartItems() {
     increaseCartQuantity,
     decreaseCartQuantity,
     removeCartItem,
+    products
   } = useShopContext()
+  
+  console.log({cartItems, products})
 
   return (
     <>
@@ -20,9 +23,9 @@ function ShoppingCartItems() {
           {cartItems.length > 0 ? (
             cartItems.map((cartItem) =>
               products.map((product) => {
-                if (product.id === cartItem.id) {
+                if (product._id === cartItem._id) {
                   return (
-                    <li key={cartItem.id.toString()}>
+                    <li key={cartItem._id.toString()}>
                       <section className="my-3 flex w-full gap-3 md:my-6">
                         <div>
                           <img
@@ -56,7 +59,7 @@ function ShoppingCartItems() {
                                 <PiTrashFill
                                   onClick={() =>
                                     removeCartItem(
-                                      product.id,
+                                      product._id,
                                       cartItem.size,
                                       cartItem.color
                                     )
@@ -76,7 +79,7 @@ function ShoppingCartItems() {
                               <button
                                 onClick={() =>
                                   decreaseCartQuantity(
-                                    product.id,
+                                    product._id,
                                     cartItem.size,
                                     cartItem.color
                                   )
@@ -94,7 +97,7 @@ function ShoppingCartItems() {
                               <button
                                 onClick={() =>
                                   increaseCartQuantity(
-                                    product.id,
+                                    product._id,
                                     cartItem.size,
                                     cartItem.color
                                   )

@@ -1,14 +1,16 @@
-import { products } from '../data/products'
+// import { products } from '../data/products'
 import Card from './Card'
 import { useRef, useState } from 'react'
 import Slider from 'react-slick'
 import React from 'react'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import { useShopContext } from '../context/ShopContext'
 
 import { Link, NavLink } from 'react-router-dom'
 
 const CardList = () => {
+  const { products } = useShopContext()
   const [isDragging, setIsDragging] = useState(false)
   let sliderRef = useRef(null)
   const play = () => {
@@ -77,17 +79,21 @@ const CardList = () => {
             {...settings}
             className="mx-auto max-w-[80rem]"
           >
-            {products.map((product) => {
-              if (product.id < 4 || product.id === 12) {
+            {products
+              .filter(
+                (product, index) =>
+                  index > 4 && index < 9
+              )
+              .map((product) => {
                 return (
                   <div
-                    key={product.id}
+                    key={product._id}
                     className="w-[300px] pr-2 md:w-[300px]"
                     onMouseDown={() => setIsDragging(false)}
                     onMouseMove={() => setIsDragging(true)}
                   >
                     <Link
-                      to={`/product/${product.id}`}
+                      to={`/product/${product._id}`}
                       className=""
                       draggable="false"
                       onClick={(event) => {
@@ -101,8 +107,7 @@ const CardList = () => {
                     </Link>
                   </div>
                 )
-              }
-            })}
+              })}
           </Slider>
         </div>
         <div className="flex justify-center">
@@ -122,17 +127,18 @@ const CardList = () => {
             {...settings}
             className="mx-auto max-w-[80rem]"
           >
-            {products.map((product) => {
-              if (product.id > 4 && product.id < 9) {
+            {products
+              .filter((product, index) => index < 4)
+              .map((product) => {
                 return (
                   <div
-                    key={product.id}
+                    key={product._id}
                     className="w-[300px] pr-2 md:w-[300px]"
                     onMouseDown={() => setIsDragging(false)}
                     onMouseMove={() => setIsDragging(true)}
                   >
                     <Link
-                      to={`/product/${product.id}`}
+                      to={`/product/${product._id}`}
                       className=""
                       draggable="false"
                       onClick={(event) => {
@@ -146,8 +152,7 @@ const CardList = () => {
                     </Link>
                   </div>
                 )
-              }
-            })}
+              })}
           </Slider>
         </div>
         <div className="flex justify-center">

@@ -1,4 +1,4 @@
-import { products } from '../data/products'
+// import { products } from '../data/products'
 import { MdOutlineDiscount } from 'react-icons/md'
 import { IoMdArrowForward } from 'react-icons/io'
 import { formatCurrency } from '../utilities/formatCurrency'
@@ -14,14 +14,16 @@ function OrderSummary() {
     warnText,
     applyPromoCode,
     setPromoCode,
+    products,
   } = useShopContext()
 
   let subTotal = cartItems.reduce(
     (total, item) =>
       total +
-      products.find((product) => product.id === item.id).price * item.quantity,
+      products.find((product) => product._id === item._id).price * item.quantity,
     0
   )
+  console.log(subTotal)
   let deliveryFee = 15
   let discount = subTotal * discountRate
   let total = subTotal + deliveryFee - discount

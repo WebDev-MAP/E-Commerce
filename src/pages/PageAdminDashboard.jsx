@@ -23,6 +23,7 @@ const PageAdminDashboard = () => {
   const [sidebarDropdown, setSidebarDropdown] = useState(null)
   const [sidebarCategory, setSidebarCategory] = useState(null)
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false)
+  const [showAddProduct, setShowAddProduct] = useState(false)
   return (
     <>
       <div>
@@ -82,6 +83,7 @@ const PageAdminDashboard = () => {
                         onClick={() => {
                           setSidebarActive(null),
                             setSidebarCategory('add-product')
+                          setShowAddProduct(false)
                         }}
                       >
                         <NavLink to="/admin">Add Product</NavLink>
@@ -91,6 +93,7 @@ const PageAdminDashboard = () => {
                         onClick={() => {
                           setSidebarActive(null),
                             setSidebarCategory('product-list')
+                          setShowAddProduct(false)
                         }}
                       >
                         <NavLink to="/admin">Product list</NavLink>
@@ -203,7 +206,12 @@ const PageAdminDashboard = () => {
             <div className="h-[50rem] w-full px-5 py-10 md:px-20">
               {sidebarActive === 'dashboard' && <AdminDashboard />}
               {sidebarCategory === 'add-product' && <AdminAddProduct />}
-              {sidebarCategory === 'product-list' && <AdminProductList />}
+              {sidebarCategory === 'product-list' && (
+                <AdminProductList
+                  showAddProduct={showAddProduct}
+                  setShowAddProduct={setShowAddProduct}
+                />
+              )}
               {sidebarCategory === 'all-orders' && <AdminAllOrders />}
               {sidebarCategory === 'all-customers' && <AdminAllCustomers />}
               {sidebarActive === 'reviews' && <AdminReviews />}

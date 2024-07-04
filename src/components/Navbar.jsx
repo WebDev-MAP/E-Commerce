@@ -24,7 +24,7 @@ function Navbar() {
   const [mobileQuery, setMobileQuery] = useState('')
   const [searchbarIsOpen, setSearchbarIsOpen] = useState(false)
   const [mobileSearchIsOpen, setMobileSearchIsOpen] = useState(false)
-  const { isLoggedin, userData, setIsLoggedin } = useShopContext()
+  const { isLoggedin, userData, setIsLoggedin, setUserData } = useShopContext()
 
   const [userMenuIsOpen, setUserMenuIsOpen] = useState(false)
   const { cartQuantity } = useShopContext()
@@ -41,10 +41,12 @@ function Navbar() {
         }),
       })
       setIsLoggedin(false)
+      setUserData({})
       setUserMenuIsOpen(false)
     } catch (error) {
       console.log(error.message)
     }
+    console.log(userData)
   }
 
   const filteredProducts = products

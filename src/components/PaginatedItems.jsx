@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import ReactPaginate from 'react-paginate'
 import Card from './Card'
-import { products } from '../data/products'
+// import { products } from '../data/products'
 import { useShopContext } from '../context/ShopContext'
 import { Link } from 'react-router-dom'
 
 function PaginatedItems({ itemsPerPage }) {
   const [itemOffset, setItemOffset] = useState(0)
   const { filterOpen, setFilterOpen } = useShopContext()
-  const { criteria } = useShopContext()
+  const { criteria, products } = useShopContext()
 
   useEffect(() => {
     setItemOffset(0)
@@ -17,142 +17,142 @@ function PaginatedItems({ itemsPerPage }) {
   // Filterlogic
   let filteredProducts = products.filter((product) => {
     switch (true) {
-      // Kleidungsstück, Größe, DressStyle, Price
-      case criteria.kleidungsstueck.length > 0 &&
+      // Kleidungsstück, Größe, style, Price
+      case criteria.type.length > 0 &&
         criteria.size.length > 0 &&
-        criteria.dressStyle.length > 0 &&
+        criteria.style.length > 0 &&
         criteria.price.length > 0:
         if (product.isDiscounted) {
           return (
-            criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+            criteria.type.includes(product.type) &&
             criteria.size.includes(product.sizes) &&
-            criteria.dressStyle.includes(product.dressStyle) &&
+            criteria.style.includes(product.style) &&
             criteria.price[0] <= product.discountedPrice &&
             criteria.price[1] >= product.discountedPrice
           )
         } else {
           return (
-            criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+            criteria.type.includes(product.type) &&
             criteria.size.includes(product.sizes) &&
-            criteria.dressStyle.includes(product.dressStyle) &&
+            criteria.style.includes(product.style) &&
             criteria.price[0] <= product.price &&
             criteria.price[1] >= product.price
           )
         }
-      // Kleidungsstück, Größe, DressStyle
-      case criteria.kleidungsstueck.length > 0 &&
+      // Kleidungsstück, Größe, style
+      case criteria.type.length > 0 &&
         criteria.size.length > 0 &&
-        criteria.dressStyle.length > 0:
+        criteria.style.length > 0:
         return (
-          criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+          criteria.type.includes(product.type) &&
           criteria.size.includes(product.sizes) &&
-          criteria.dressStyle.includes(product.dressStyle)
+          criteria.style.includes(product.style)
         )
       // Kleidungsstück, Größe, Price
-      case criteria.kleidungsstueck.length > 0 &&
+      case criteria.type.length > 0 &&
         criteria.size.length > 0 &&
         criteria.price.length > 0:
         if (product.isDiscounted) {
           return (
-            criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+            criteria.type.includes(product.type) &&
             criteria.size.includes(product.sizes) &&
             criteria.price[0] <= product.discountedPrice &&
             criteria.price[1] >= product.discountedPrice
           )
         } else {
           return (
-            criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+            criteria.type.includes(product.type) &&
             criteria.size.includes(product.sizes) &&
             criteria.price[0] <= product.price &&
             criteria.price[1] >= product.price
           )
         }
-      // Größe, DressStyle, Price
+      // Größe, style, Price
       case criteria.size.length > 0 &&
-        criteria.dressStyle.length > 0 &&
+        criteria.style.length > 0 &&
         criteria.price.length > 0:
         if (product.isDiscounted) {
           return (
             criteria.size.includes(product.sizes) &&
-            criteria.dressStyle.includes(product.dressStyle) &&
+            criteria.style.includes(product.style) &&
             criteria.price[0] <= product.discountedPrice &&
             criteria.price[1] >= product.discountedPrice
           )
         } else {
           return (
             criteria.size.includes(product.sizes) &&
-            criteria.dressStyle.includes(product.dressStyle) &&
+            criteria.style.includes(product.style) &&
             criteria.price[0] <= product.price &&
             criteria.price[1] >= product.price
           )
         }
-      // Kleidungsstück, DressStyle, Price
-      case criteria.kleidungsstueck.length > 0 &&
-        criteria.dressStyle.length > 0 &&
+      // Kleidungsstück, style, Price
+      case criteria.type.length > 0 &&
+        criteria.style.length > 0 &&
         criteria.price.length > 0:
         if (product.isDiscounted) {
           return (
-            criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
-            criteria.dressStyle.includes(product.dressStyle) &&
+            criteria.type.includes(product.type) &&
+            criteria.style.includes(product.style) &&
             criteria.price[0] <= product.discountedPrice &&
             criteria.price[1] >= product.discountedPrice
           )
         } else {
           return (
-            criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
-            criteria.dressStyle.includes(product.dressStyle) &&
+            criteria.type.includes(product.type) &&
+            criteria.style.includes(product.style) &&
             criteria.price[0] <= product.price &&
             criteria.price[1] >= product.price
           )
         }
       // Kleidungsstück, Größe
-      case criteria.kleidungsstueck.length > 0 && criteria.size.length > 0:
+      case criteria.type.length > 0 && criteria.size.length > 0:
         return (
-          criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
+          criteria.type.includes(product.type) &&
           criteria.size.includes(product.sizes)
         )
-      // Kleidungsstück, DressStyle
-      case criteria.kleidungsstueck.length > 0 &&
-        criteria.dressStyle.length > 0:
+      // Kleidungsstück, style
+      case criteria.type.length > 0 &&
+        criteria.style.length > 0:
         return (
-          criteria.kleidungsstueck.includes(product.kleidungsstueck) &&
-          criteria.dressStyle.includes(product.dressStyle)
+          criteria.type.includes(product.type) &&
+          criteria.style.includes(product.style)
         )
 
-      // Größe, DressStyle
-      case criteria.size.length > 0 && criteria.dressStyle.length > 0:
+      // Größe, style
+      case criteria.size.length > 0 && criteria.style.length > 0:
         return (
           criteria.size.includes(product.sizes) &&
-          criteria.dressStyle.includes(product.dressStyle)
+          criteria.style.includes(product.style)
         )
-      // Price, DressStyle
-      case criteria.price.length > 0 && criteria.dressStyle.length > 0:
+      // Price, style
+      case criteria.price.length > 0 && criteria.style.length > 0:
         if (product.isDiscounted) {
           return (
             criteria.price[0] <= product.discountedPrice &&
             criteria.price[1] >= product.discountedPrice &&
-            criteria.dressStyle.includes(product.dressStyle)
+            criteria.style.includes(product.style)
           )
         } else {
           return (
             criteria.price[0] <= product.price &&
             criteria.price[1] >= product.price &&
-            criteria.dressStyle.includes(product.dressStyle)
+            criteria.style.includes(product.style)
           )
         }
       // Price, Kleidungsstück
-      case criteria.price.length > 0 && criteria.kleidungsstueck.length > 0:
+      case criteria.price.length > 0 && criteria.type.length > 0:
         if (product.isDiscounted) {
           return (
             criteria.price[0] <= product.discountedPrice &&
             criteria.price[1] >= product.discountedPrice &&
-            criteria.kleidungsstueck.includes(product.kleidungsstueck)
+            criteria.type.includes(product.type)
           )
         } else {
           return (
             criteria.price[0] <= product.price &&
             criteria.price[1] >= product.price &&
-            criteria.kleidungsstueck.includes(product.kleidungsstueck)
+            criteria.type.includes(product.type)
           )
         }
 
@@ -172,14 +172,14 @@ function PaginatedItems({ itemsPerPage }) {
           )
         }
       // Kleidungsstück
-      case criteria.kleidungsstueck.length > 0:
-        return criteria.kleidungsstueck.includes(product.kleidungsstueck)
+      case criteria.type.length > 0:
+        return criteria.type.includes(product.type)
       // Größe
       case criteria.size.length > 0:
         return criteria.size.includes(product.sizes)
-      // DressStyle
-      case criteria.dressStyle.length > 0:
-        return criteria.dressStyle.includes(product.dressStyle)
+      // style
+      case criteria.style.length > 0:
+        return criteria.style.includes(product.style)
       // Price
       case criteria.price.length > 0:
         if (product.isDiscounted) {
@@ -208,7 +208,7 @@ function PaginatedItems({ itemsPerPage }) {
           {currentItems.length > 0 ? (
             currentItems.map((item, index) => (
               <li className="hover:pointer" key={index}>
-                <Link to={`/product/${item.id}`}>
+                <Link to={`/product/${item._id}`}>
                   <Card product={item} />
                 </Link>
               </li>

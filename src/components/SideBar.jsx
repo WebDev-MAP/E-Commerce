@@ -15,8 +15,8 @@ const sizes = [
   '3X-Large',
   '4X-Large',
 ]
-const dressStyles = ['Casual', 'Formal', 'Party', 'Gym']
-const kleidungsstuecke = ['T-shirts', 'Shorts', 'Shirts', 'Hoodie', 'Jeans']
+const styles = ['Casual', 'Formal', 'Party', 'Gym']
+const type = ['T-shirts', 'Shorts', 'Shirts', 'Hoodie', 'Jeans']
 const colors = [
   { color: 'Black', className: 'bg-black' },
   { color: 'Red', className: 'bg-red-600' },
@@ -29,22 +29,21 @@ const colors = [
 
 function SideBar() {
   const { criteria, setCriteria } = useShopContext()
-  console.log(criteria, criteria.dressStyle)
+  console.log(criteria, criteria.style)
   // open and close accordion
   const [priceAccordionIsOpen, setPriceAccordionIsOpen] = useState(true)
   // const [colorsAccordionIsOpen, setColorsAccordionIsOpen] = useState(false)
   const [sizeAccordionIsOpen, setSizeAccordionIsOpen] = useState(true)
-  const [dressStyleAccordionIsOpen, setDressStyleAccordionIsOpen] =
-    useState(true)
+  const [styleAccordionIsOpen, setStyleAccordionIsOpen] = useState(true)
 
   // open filter
   const { filterOpen, setFilterOpen } = useShopContext()
   const [selectedPrice, setSelectedPrice] = useState([])
 
   // füge oder entferne filteroptionen onclick
-  const handleClickDressStyle = (e) => {
-    if (criteria.dressStyle.includes(e.target.innerText)) {
-      criteria.dressStyle = criteria.dressStyle.filter(
+  const handleClickstyle = (e) => {
+    if (criteria.style.includes(e.target.innerText)) {
+      criteria.style = criteria.style.filter(
         (style) => style !== e.target.innerText
       )
       e.target.classList.remove('text-black')
@@ -52,7 +51,7 @@ function SideBar() {
     } else {
       setCriteria({
         ...criteria,
-        dressStyle: [...criteria.dressStyle, e.target.innerText],
+        style: [...criteria.style, e.target.innerText],
       })
       e.target.classList.toggle('text-black')
       e.target.classList.toggle('font-bold')
@@ -60,9 +59,9 @@ function SideBar() {
     console.log(criteria)
   }
 
-  const handleClickKleidungsstueck = (e) => {
-    if (criteria.kleidungsstueck.includes(e.target.innerText)) {
-      criteria.kleidungsstueck = criteria.kleidungsstueck.filter(
+  const handleClicktype = (e) => {
+    if (criteria.type.includes(e.target.innerText)) {
+      criteria.type = criteria.type.filter(
         (string) => string !== e.target.innerText
       )
       e.target.classList.remove('text-black')
@@ -70,7 +69,7 @@ function SideBar() {
     } else {
       setCriteria({
         ...criteria,
-        kleidungsstueck: [...criteria.kleidungsstueck, e.target.innerText],
+        type: [...criteria.type, e.target.innerText],
       })
       e.target.classList.toggle('text-black')
       e.target.classList.toggle('font-bold')
@@ -120,14 +119,14 @@ function SideBar() {
           </button>
         </div>
         <div className="font-satoshi_regular text-base text-gray-400">
-          {kleidungsstuecke.map((kleidungsstueck, index) => {
+          {type.map((type, index) => {
             return (
               <p
-                onClick={handleClickKleidungsstueck}
+                onClick={handleClicktype}
                 key={index}
                 className="hover:cursor-pointer"
               >
-                {kleidungsstueck}
+                {type}
               </p>
             )
           })}
@@ -239,16 +238,14 @@ function SideBar() {
             )
           })}
         </div>
-        {/* Dressstyle accordion */}
+        {/* style accordion */}
         <h4
           className="flex font-satoshi_bold text-xl"
-          onClick={() =>
-            setDressStyleAccordionIsOpen(!dressStyleAccordionIsOpen)
-          }
+          onClick={() => setStyleAccordionIsOpen(!styleAccordionIsOpen)}
         >
-          <p className="mr-auto inline-block">DressStyle </p>
+          <p className="mr-auto inline-block">style </p>
           <div>
-            {dressStyleAccordionIsOpen ? (
+            {styleAccordionIsOpen ? (
               <FaAngleDown className="inline   transition-transform duration-500 hover:cursor-pointer" />
             ) : (
               <FaAngleDown className="inline rotate-90  transition-transform duration-500 hover:cursor-pointer" />
@@ -256,16 +253,16 @@ function SideBar() {
           </div>
         </h4>{' '}
         <div
-          className={`${dressStyleAccordionIsOpen ? 'block' : 'hidden'} font-satoshi_regular text-base text-gray-400`}
+          className={`${styleAccordionIsOpen ? 'block' : 'hidden'} font-satoshi_regular text-base text-gray-400`}
         >
-          {dressStyles.map((dressStyle, index) => {
+          {styles.map((style, index) => {
             return (
               <p
-                onClick={handleClickDressStyle}
+                onClick={handleClickstyle}
                 key={index}
                 className="hover:cursor-pointer"
               >
-                {dressStyle}
+                {style}
               </p>
             )
           })}

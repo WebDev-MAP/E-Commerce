@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Popup from './Popup'
 import Newsletter from '../components/Newsletter'
 import Footer from './Footer'
-import { products } from '../data/products'
+// import { products } from '../data/products'
 import { useShopContext } from '../context/ShopContext'
 
 // Icons
@@ -27,7 +27,7 @@ function Navbar() {
   const { isLoggedin, userData, setIsLoggedin, setUserData } = useShopContext()
 
   const [userMenuIsOpen, setUserMenuIsOpen] = useState(false)
-  const { cartQuantity } = useShopContext()
+  const { cartQuantity, products } = useShopContext()
 
   const userLogout = async (user) => {
     try {
@@ -53,13 +53,13 @@ function Navbar() {
     .filter((product) => {
       return product.title.toLowerCase().includes(query.toLowerCase())
     })
-    .map((product) => ({ id: product.id, title: product.title }))
+    .map((product) => ({ _id: product._id, title: product.title }))
 
   const mobileFilteredProducts = products
     .filter((product) => {
       return product.title.toLowerCase().includes(mobileQuery.toLowerCase())
     })
-    .map((product) => ({ id: product.id, title: product.title }))
+    .map((product) => ({ _id: product._id, title: product.title }))
 
   return (
     <>
@@ -243,7 +243,7 @@ function Navbar() {
             {searchbarIsOpen && query && (
               <ul className=" absolute z-20 ml-[3rem] mt-8 w-full max-w-96 rounded-md bg-white shadow-lg">
                 {filteredProducts.map((product) => (
-                  <Link to={`/product/${product.id}`} key={product.id}>
+                  <Link to={`/product/${product._id}`} key={product._id}>
                     <li className="p-2 hover:bg-gray-200">{product.title}</li>
                   </Link>
                 ))}
@@ -275,7 +275,7 @@ function Navbar() {
                   {mobileSearchIsOpen && mobileQuery && (
                     <ul className="sm:mr-12">
                       {mobileFilteredProducts.map((product) => (
-                        <Link to={`/product/${product.id}`} key={product.id}>
+                        <Link to={`/product/${product._id}`} key={product._id}>
                           <li className=" w-[20rem] p-2 hover:bg-gray-200">
                             {product.title}
                           </li>

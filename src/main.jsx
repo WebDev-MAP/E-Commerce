@@ -11,6 +11,7 @@ import PageDetails from './pages/PageDetails.jsx'
 import AuthPage from './pages/AuthPage.jsx'
 import PageContact from './pages/PageContact.jsx'
 import PageAbout from './pages/PageAbout.jsx'
+import PageAdminDashboard from './pages/PageAdminDashboard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -46,12 +47,16 @@ const router = createBrowserRouter([
         path: '/product/:id',
         element: <PageDetails />,
       },
+      {
+        path: '/admin',
+        element: <PageAdminDashboard />,
+      },
     ],
   },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <Provider>
+  <>
     <RouterProvider router={router} />
-  </Provider>
+  </>
 )

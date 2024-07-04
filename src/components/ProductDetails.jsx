@@ -56,7 +56,7 @@ const ProductDetails = ({ product }) => {
       alert('Please select a size')
       return
     }
-    increaseCartQuantity(product.id, selectedSize, selectedColor, quantity)
+    increaseCartQuantity(product._id, selectedSize, selectedColor, quantity)
     notify()
   }
 
@@ -75,7 +75,7 @@ const ProductDetails = ({ product }) => {
             <div className="flex flex-row justify-center gap-2 md:justify-normal md:gap-4 lg:flex-col">
               <img
                 src={
-                  product.id === 12
+                  product._id === "6682b056a9a8fa03a17aa311"
                     ? '/images/products/product-12-1.png'
                     : '/images/products/broken-image.png'
                 }
@@ -85,7 +85,7 @@ const ProductDetails = ({ product }) => {
               />
               <img
                 src={
-                  product.id === 12
+                  product._id === "6682b056a9a8fa03a17aa311"
                     ? '/images/products/product-12-2.png'
                     : '/images/products/broken-image.png'
                 }
@@ -95,7 +95,7 @@ const ProductDetails = ({ product }) => {
               />
               <img
                 src={
-                  product.id === 12
+                  product._id === "6682b056a9a8fa03a17aa311"
                     ? '/images/products/product-12-3.png'
                     : '/images/products/broken-image.png'
                 }

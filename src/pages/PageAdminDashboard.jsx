@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import AdminDashboard from '../components/AdminDashboard'
-import AdminAddProduct from '../components/AdminAddProduct'
-import AdminProductList from '../components/AdminProductList'
-import AdminAllOrders from '../components/AdminAllOrders'
-import AdminAllCustomers from '../components/AdminAllCustomers'
-import AdminReviews from '../components/AdminReviews'
+import AdminDashboard from '../components/adminDashboard/AdminDashboard'
+import AdminAddProduct from '../components/adminDashboard/AdminAddProduct'
+import AdminProductList from '../components/adminDashboard/AdminProductList'
+import AdminAllOrders from '../components/adminDashboard/AdminAllOrders'
+import AdminAllCustomers from '../components/adminDashboard/AdminAllCustomers'
+import AdminReviews from '../components/adminDashboard/AdminReviews'
 
 // Icons
 import { FaBoxArchive } from 'react-icons/fa6'

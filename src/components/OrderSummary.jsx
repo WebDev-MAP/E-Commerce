@@ -15,12 +15,22 @@ function OrderSummary() {
     applyPromoCode,
     setPromoCode,
     products,
+    loading,
   } = useShopContext()
+
+  if (loading) {
+    return <p>Products loading...</p>
+  }
+
+  if (!products) {
+    return <p>Product not found.</p>
+  }
 
   let subTotal = cartItems.reduce(
     (total, item) =>
       total +
-      products.find((product) => product._id === item._id).price * item.quantity,
+      products.find((product) => product._id === item._id).price *
+        item.quantity,
     0
   )
   console.log(subTotal)

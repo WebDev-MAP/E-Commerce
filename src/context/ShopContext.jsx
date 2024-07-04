@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react'
 
-import { products } from '../data/products'
+// import { products } from '../data/products'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
 const ShopContext = createContext()

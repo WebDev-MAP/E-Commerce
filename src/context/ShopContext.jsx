@@ -46,7 +46,9 @@ function Provider({ children }) {
     fetchProducts()
   }, [])
 
-  console.log({products})
+
+  console.log({ products })
+
 
   function applyPromoCode() {
     if (!promoCode) {
@@ -87,7 +89,9 @@ function Provider({ children }) {
     const cartItemsUpdate = () => {
       if (
         cartItems.find(
-          (item) => item._id === _id && item.size === size && item.color === color
+
+          (item) =>
+            item._id === _id && item.size === size && item.color === color
         ) == null
       ) {
         return [...cartItems, { _id, quantity: quantity, size, color }]
@@ -114,7 +118,10 @@ function Provider({ children }) {
         ).quantity === 1
       ) {
         return cartItems.filter(
-          (item) => !(item._id == _id && item.size == size && item.color == color)
+
+          (item) =>
+            !(item._id == _id && item.size == size && item.color == color)
+
         )
       } else {
         return cartItems.map((item) => {
@@ -173,7 +180,9 @@ function Provider({ children }) {
         userData,
         setUserData,
         products,
-        setProducts
+
+        setProducts,
+
       }}
     >
       {children}

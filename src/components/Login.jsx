@@ -21,15 +21,19 @@ function Login() {
           email: email,
           password: password,
         }),
+        credentials: 'include',
       })
       const userData = await response.json()
-      setUserData(userData)
+
       console.log(userData)
 
       if (response.status !== 200) {
         setError('Login failed. Please try again.')
       } else {
         console.log('Logged in successfully:')
+        setUserData(userData)
+
+        setIsLoggedin(true)
         navigate('/')
       }
     } catch (error) {
@@ -45,7 +49,6 @@ function Login() {
     }
 
     loginUser(email, password)
-    setIsLoggedin(true)
   }
 
   return (

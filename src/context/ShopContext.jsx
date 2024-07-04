@@ -31,6 +31,7 @@ function Provider({ children }) {
     style: [],
   })
   const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
 
   // Fetching Products from the API
   const fetchProducts = async () => {
@@ -40,13 +41,13 @@ function Provider({ children }) {
       setProducts(data)
     } catch (error) {
       console.error('Error fetching products', error.message)
+    } finally {
+      setLoading(false)
     }
   }
   useEffect(() => {
     fetchProducts()
   }, [])
-
-  console.log({products})
 
   function applyPromoCode() {
     if (!promoCode) {
@@ -87,13 +88,14 @@ function Provider({ children }) {
     const cartItemsUpdate = () => {
       if (
         cartItems.find(
-          (item) => item._id === _id && item.size === size && item.color === color
+          (item) =>
+            item._id === _id && item.size === size && item.color === color
         ) == null
       ) {
         return [...cartItems, { _id, quantity: quantity, size, color }]
       } else {
         return cartItems.map((item) => {
-          if (item._id == id && item.size == size && item.color == color) {
+          if (item._id == _id && item.size == size && item.color == color) {
             return { ...item, quantity: item.quantity + quantity }
           } else {
             return item
@@ -114,7 +116,8 @@ function Provider({ children }) {
         ).quantity === 1
       ) {
         return cartItems.filter(
-          (item) => !(item._id == _id && item.size == size && item.color == color)
+          (item) =>
+            !(item._id == _id && item.size == size && item.color == color)
         )
       } else {
         return cartItems.map((item) => {
@@ -173,7 +176,7 @@ function Provider({ children }) {
         userData,
         setUserData,
         products,
-        setProducts
+        loading,
       }}
     >
       {children}

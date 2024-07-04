@@ -11,10 +11,19 @@ function ShoppingCartItems() {
     increaseCartQuantity,
     decreaseCartQuantity,
     removeCartItem,
-    products
+    products,
+    loading,
   } = useShopContext()
-  
-  console.log({cartItems, products})
+
+  console.log({ cartItems, products })
+
+  if (loading) {
+    return <p>Products loading...</p>
+  }
+
+  if (!products) {
+    return <p>Product not found.</p>
+  }
 
   return (
     <>

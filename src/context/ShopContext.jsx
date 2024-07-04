@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
+import Cookies from 'js-cookie'
 
 const ShopContext = createContext()
 
@@ -18,6 +19,24 @@ function Provider({ children }) {
     filterOpen,
     setFilterOpen,
   }
+
+  // cookies
+  useEffect(() => {
+    const authToken = Cookies.get('authToken')
+    if (authToken) {
+      fetch('http://localhost:3002/user/tokenLogin', {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+        method: 'POST',
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setUserData(data)
+          setIsLoggedin(true)
+        })
+    }
+  }, [])
 
   const [promoCode, setPromoCode] = useState('')
   const [discountRate, setDiscountRate] = useLocalStorage('discount-rate', 0)

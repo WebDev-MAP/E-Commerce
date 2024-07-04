@@ -5,6 +5,7 @@ import Newsletter from '../components/Newsletter'
 import Footer from './Footer'
 // import { products } from '../data/products'
 import { useShopContext } from '../context/ShopContext'
+import Cookies from 'js-cookie'
 
 // Icons
 import { RxHamburgerMenu } from 'react-icons/rx'
@@ -43,6 +44,7 @@ function Navbar() {
       setIsLoggedin(false)
       setUserData({})
       setUserMenuIsOpen(false)
+      Cookies.remove('authToken')
     } catch (error) {
       console.log(error.message)
     }

@@ -32,9 +32,9 @@ function ShoppingCartItems() {
           {cartItems.length > 0 ? (
             cartItems.map((cartItem) =>
               products.map((product) => {
-                if (product._id === cartItem._id) {
+                if (product._id === cartItem.productId) {
                   return (
-                    <li key={cartItem._id.toString()}>
+                    <li key={cartItem.productId}>
                       <section className="my-3 flex w-full gap-3 md:my-6">
                         <div>
                           <img

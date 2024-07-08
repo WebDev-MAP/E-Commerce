@@ -3,7 +3,6 @@ import { MdOutlineDiscount } from 'react-icons/md'
 import { IoMdArrowForward } from 'react-icons/io'
 import { formatCurrency } from '../utilities/formatCurrency'
 import { useShopContext } from '../context/ShopContext'
-import { useState } from 'react'
 
 function OrderSummary() {
   const {
@@ -29,7 +28,7 @@ function OrderSummary() {
   let subTotal = cartItems.reduce(
     (total, item) =>
       total +
-      products.find((product) => product._id === item._id).price *
+      products.find((product) => product._id === item.productId).price *
         item.quantity,
     0
   )

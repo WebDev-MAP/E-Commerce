@@ -4,6 +4,7 @@ import { useShopContext } from '../context/ShopContext'
 // import { products } from '../data/products'
 import { Link } from 'react-router-dom'
 import Button from './Button'
+import { useCartContext } from '../context/CartContext'
 
 function ShoppingCartItems() {
   const {
@@ -11,9 +12,9 @@ function ShoppingCartItems() {
     increaseCartQuantity,
     decreaseCartQuantity,
     removeCartItem,
-    products,
-    loading,
-  } = useShopContext()
+  } = useCartContext()
+
+  const { products, loading } = useShopContext()
 
   console.log({ cartItems, products })
 

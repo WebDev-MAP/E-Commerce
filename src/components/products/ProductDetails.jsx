@@ -4,6 +4,7 @@ import { TiTick } from 'react-icons/ti'
 import { useShopContext } from '../../context/ShopContext'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { useCartContext } from '../../context/CartContext'
 
 const ProductDetails = ({ product }) => {
   const [quantity, setQuantity] = useState(1)
@@ -11,7 +12,7 @@ const ProductDetails = ({ product }) => {
   const [selectedColor, setSelectedColor] = useState('')
   const [selectedSize, setSelectedSize] = useState('')
 
-  const { increaseCartQuantity } = useShopContext()
+  const { increaseCartQuantity } = useCartContext()
 
   const notify = () => {
     toast.success('Added to cart!', {

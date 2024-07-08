@@ -18,6 +18,7 @@ import { FaFacebook } from 'react-icons/fa'
 import { FaInstagram } from 'react-icons/fa'
 import { FaGithub } from 'react-icons/fa'
 import { MdKeyboardArrowDown } from 'react-icons/md'
+import { useCartContext } from '../context/CartContext'
 
 function Navbar() {
   const [menuIsOpen, setMenuIsOpen] = useState(false)
@@ -25,10 +26,10 @@ function Navbar() {
   const [mobileQuery, setMobileQuery] = useState('')
   const [searchbarIsOpen, setSearchbarIsOpen] = useState(false)
   const [mobileSearchIsOpen, setMobileSearchIsOpen] = useState(false)
-  const { isLoggedin, userData, setIsLoggedin, setUserData } = useShopContext()
+  const { isLoggedin, userData, setIsLoggedin, setUserData, products } = useShopContext()
+  const { cartQuantity } = useCartContext()
 
   const [userMenuIsOpen, setUserMenuIsOpen] = useState(false)
-  const { cartQuantity, products } = useShopContext()
 
   const userLogout = async (user) => {
     try {

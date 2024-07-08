@@ -12,6 +12,7 @@ import AuthPage from './pages/AuthPage.jsx'
 import PageContact from './pages/PageContact.jsx'
 import PageAbout from './pages/PageAbout.jsx'
 import PageAdminDashboard from './pages/PageAdminDashboard.jsx'
+import PageUserDashboard from './pages/PageUserDashboard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: '/admin',
         element: <PageAdminDashboard />,
+      },
+      {
+        path: '/user',
+        element: <PageUserDashboard />,
       },
     ],
   },

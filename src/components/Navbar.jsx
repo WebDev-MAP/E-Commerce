@@ -1,9 +1,8 @@
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import Popup from './Popup'
 import Newsletter from '../components/Newsletter'
 import Footer from './Footer'
-// import { products } from '../data/products'
 import { useShopContext } from '../context/ShopContext'
 import Cookies from 'js-cookie'
 
@@ -27,6 +26,8 @@ function Navbar() {
   const [mobileSearchIsOpen, setMobileSearchIsOpen] = useState(false)
   const { isLoggedin, userData, setIsLoggedin, setUserData } = useShopContext()
 
+  const navigate = useNavigate()
+
   const [userMenuIsOpen, setUserMenuIsOpen] = useState(false)
   const { cartQuantity, products } = useShopContext()
 
@@ -45,6 +46,7 @@ function Navbar() {
       setUserData({})
       setUserMenuIsOpen(false)
       Cookies.remove('authToken')
+      navigate('/')
     } catch (error) {
       console.log(error.message)
     }
@@ -305,10 +307,22 @@ function Navbar() {
                     <ul
                       className={`flex flex-col items-start hover:cursor-pointer`}
                     >
-                      <li>My Account</li>
-                      <li>My Orders</li>
-                      <li>Settings</li>
-                      <li onClick={() => userLogout(userData)}>Logout</li>
+                      <NavLink to="/user">
+                        <li>My Account</li>
+                      </NavLink>
+                      <NavLink to="/user">
+                        <li>My Orders</li>
+                      </NavLink>
+                      <NavLink to="/user">
+                        <li>Settings</li>
+                      </NavLink>
+                      <li
+                        onClick={() => {
+                          userLogout(userData)
+                        }}
+                      >
+                        Logout
+                      </li>
                     </ul>
                   </div>
                 </>

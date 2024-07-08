@@ -7,8 +7,7 @@ import { Link } from 'react-router-dom'
 
 function PaginatedItems({ itemsPerPage }) {
   const [itemOffset, setItemOffset] = useState(0)
-  const { filterOpen, setFilterOpen } = useShopContext()
-  const { criteria, products } = useShopContext()
+  const { filterOpen, setFilterOpen, criteria, products } = useShopContext()
 
   useEffect(() => {
     setItemOffset(0)
@@ -112,8 +111,7 @@ function PaginatedItems({ itemsPerPage }) {
           criteria.size.includes(product.sizes)
         )
       // Kleidungsstück, style
-      case criteria.type.length > 0 &&
-        criteria.style.length > 0:
+      case criteria.type.length > 0 && criteria.style.length > 0:
         return (
           criteria.type.includes(product.type) &&
           criteria.style.includes(product.style)

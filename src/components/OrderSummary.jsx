@@ -3,6 +3,7 @@ import { MdOutlineDiscount } from 'react-icons/md'
 import { IoMdArrowForward } from 'react-icons/io'
 import { formatCurrency } from '../utilities/formatCurrency'
 import { useShopContext } from '../context/ShopContext'
+import { useCartContext } from '../context/CartContext'
 
 function OrderSummary() {
   const {
@@ -13,9 +14,9 @@ function OrderSummary() {
     warnText,
     applyPromoCode,
     setPromoCode,
-    products,
-    loading,
-  } = useShopContext()
+  } = useCartContext()
+
+  const { products, loading } = useShopContext()
 
   if (loading) {
     return <p>Products loading...</p>

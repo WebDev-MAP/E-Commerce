@@ -1,9 +1,9 @@
 // import { products } from '../data/products'
 import { MdOutlineDiscount } from 'react-icons/md'
 import { IoMdArrowForward } from 'react-icons/io'
-import { formatCurrency } from '../utilities/formatCurrency'
-import { useShopContext } from '../context/ShopContext'
-import { useCartContext } from '../context/CartContext'
+import { formatCurrency } from '../../utilities/formatCurrency'
+import { useCartContext } from '../../context/CartContext'
+import { useShopContext } from '../../context/ShopContext'
 
 function OrderSummary() {
   const {

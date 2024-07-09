@@ -1,10 +1,10 @@
 import { PiTrashFill } from 'react-icons/pi'
-import { formatCurrency } from '../utilities/formatCurrency'
-import { useShopContext } from '../context/ShopContext'
+import { formatCurrency } from '../../utilities/formatCurrency'
+import { useShopContext } from '../../context/ShopContext'
 // import { products } from '../data/products'
 import { Link } from 'react-router-dom'
-import Button from './Button'
-import { useCartContext } from '../context/CartContext'
+import Button from '../Button'
+import { useCartContext } from '../../context/CartContext'
 
 function ShoppingCartItems() {
   const {

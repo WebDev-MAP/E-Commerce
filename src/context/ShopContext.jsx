@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import CartProvider from './CartContext'
+import Cookies from 'js-cookie'
 
 const ShopContext = createContext()
 
@@ -19,6 +20,24 @@ function ShopProvider({ children }) {
   })
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
+
+  // cookies
+  useEffect(() => {
+    const authToken = Cookies.get('authToken')
+    if (authToken) {
+      fetch('http://localhost:3002/user/tokenLogin', {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+        method: 'POST',
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setUserData(data)
+          setIsLoggedin(true)
+        })
+    }
+  }, [])
 
   // Fetching Products from the API
   const fetchProducts = async () => {

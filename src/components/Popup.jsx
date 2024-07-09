@@ -1,13 +1,9 @@
 import { useState } from 'react'
 import { IoClose } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
-import { useShopContext } from '../context/ShopContext'
 
 function Popup() {
   const [panelIsOpen, setOpen] = useState(true)
-  const { isLoggedIn } = useShopContext()
-
-  isLoggedIn && setOpen(false)
 
   return (
     panelIsOpen && (

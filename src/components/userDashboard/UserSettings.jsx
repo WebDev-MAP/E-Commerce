@@ -3,9 +3,10 @@ import { useShopContext } from '../../context/ShopContext'
 import { useState } from 'react'
 import Button from '../Button'
 import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 const UserSettings = () => {
-  const { userData, setUserData } = useShopContext()
+  const { userData, setUserData, setIsLoggedin } = useShopContext()
   const { first_name, last_name, email } = userData
   const [editFirstName, setEditFirstName] = useState(false)
   const [editLastName, setEditLastName] = useState(false)
@@ -44,7 +45,10 @@ const UserSettings = () => {
       fetch(`http://localhost:3002/user/${userID}`, {
         method: 'DELETE',
       })
-      navigate('/')
+      setUserData({})
+      setIsLoggedin(false)
+      Cookies.remove('authToken')
+      return navigate('/')
     } catch (error) {
       console.error('Error deleting user account', error.message)
     }

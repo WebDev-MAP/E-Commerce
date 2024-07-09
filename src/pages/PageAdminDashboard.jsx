@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import AdminDashboard from '../components/adminDashboard/AdminDashboard'
 import AdminAddProduct from '../components/adminDashboard/AdminAddProduct'
 import AdminProductList from '../components/adminDashboard/AdminProductList'
 import AdminAllOrders from '../components/adminDashboard/AdminAllOrders'
 import AdminAllCustomers from '../components/adminDashboard/AdminAllCustomers'
 import AdminReviews from '../components/adminDashboard/AdminReviews'
+import AdminEditProduct from '../components/adminDashboard/AdminEditProduct'
 
 // Icons
 import { FaBoxArchive } from 'react-icons/fa6'
@@ -24,13 +25,15 @@ const PageAdminDashboard = () => {
   const [sidebarCategory, setSidebarCategory] = useState(null)
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false)
   const [showAddProduct, setShowAddProduct] = useState(false)
+  const { id } = useParams()
+  console.log(id)
   return (
     <>
       <div>
         <div>
           <div className="flex flex-row">
             <div
-              className={`relative flex h-[50rem] flex-col items-start justify-between rounded-r-md border-r-4 bg-gray-200/50 py-12 pl-5 pr-8 font-satoshi_regular md:pl-8 lg:pl-20 ${isSidebarMinimized ? 'w-[3.8rem] overflow-hidden' : 'w-[20rem]'}`}
+              className={`relative flex h-[65.8rem] flex-col items-start justify-between rounded-r-md border-r-4 bg-gray-200/50 py-12 pl-5 pr-8 font-satoshi_regular md:pl-8 lg:pl-20 ${isSidebarMinimized ? 'w-[3.8rem] overflow-hidden' : 'w-[20rem]'}`}
             >
               {isSidebarMinimized ? (
                 <button
@@ -203,15 +206,16 @@ const PageAdminDashboard = () => {
                 <NavLink to="/admin">Settings</NavLink>
               </div>
             </div>
-            <div className="h-[50rem] w-full px-5 py-10 md:px-20">
+            <div className="h-[65.8rem] w-full px-5 py-5 md:px-20">
               {sidebarActive === 'dashboard' && <AdminDashboard />}
               {sidebarCategory === 'add-product' && <AdminAddProduct />}
-              {sidebarCategory === 'product-list' && (
+              {sidebarCategory === 'product-list' && !id && (
                 <AdminProductList
                   showAddProduct={showAddProduct}
                   setShowAddProduct={setShowAddProduct}
                 />
               )}
+              {id && <AdminEditProduct id={id} />}
               {sidebarCategory === 'all-orders' && <AdminAllOrders />}
               {sidebarCategory === 'all-customers' && <AdminAllCustomers />}
               {sidebarActive === 'reviews' && <AdminReviews />}

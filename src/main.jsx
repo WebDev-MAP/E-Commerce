@@ -52,6 +52,10 @@ const router = createBrowserRouter([
         element: <PageAdminDashboard />,
       },
       {
+        path: '/admin/:id',
+        element: <PageAdminDashboard />,
+		},
+		{
         path: '/user',
         element: <PageUserDashboard />,
       },

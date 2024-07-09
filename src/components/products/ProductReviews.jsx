@@ -1,7 +1,7 @@
 import { PiSlidersLight } from 'react-icons/pi'
 import { FaChevronDown } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
-import { reviews } from '../data/reviews'
+import { reviews } from '../../data/reviews'
 import { FaStar } from 'react-icons/fa'
 import { IoCheckmarkCircle } from 'react-icons/io5'
 import { BsThreeDots } from 'react-icons/bs'

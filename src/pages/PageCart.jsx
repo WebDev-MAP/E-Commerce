@@ -1,6 +1,6 @@
 import Breadcrumbs from '../components/Breadcrumbs'
-import OrderSummary from '../components/OrderSummary'
-import ShoppingCartItems from '../components/ShoppingCartItems'
+import OrderSummary from '../components/cart/OrderSummary'
+import ShoppingCartItems from '../components/cart/ShoppingCartItems'
 
 function PageCart() {
   return (

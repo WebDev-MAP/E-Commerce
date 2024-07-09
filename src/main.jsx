@@ -1,6 +1,5 @@
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import Provider from './context/ShopContext.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import Page404 from './pages/Page404.jsx'
@@ -12,6 +11,7 @@ import AuthPage from './pages/AuthPage.jsx'
 import PageContact from './pages/PageContact.jsx'
 import PageAbout from './pages/PageAbout.jsx'
 import PageAdminDashboard from './pages/PageAdminDashboard.jsx'
+import PageUserDashboard from './pages/PageUserDashboard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -54,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: '/admin/:id',
         element: <PageAdminDashboard />,
+		},
+		{
+        path: '/user',
+        element: <PageUserDashboard />,
       },
     ],
   },

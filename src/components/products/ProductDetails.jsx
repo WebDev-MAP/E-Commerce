@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { FaPlus, FaMinus, FaStar } from 'react-icons/fa'
 import { TiTick } from 'react-icons/ti'
-import { useShopContext } from '../context/ShopContext'
+import { useShopContext } from '../../context/ShopContext'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { useCartContext } from '../../context/CartContext'
 
 const ProductDetails = ({ product }) => {
   const [quantity, setQuantity] = useState(1)
@@ -11,7 +12,7 @@ const ProductDetails = ({ product }) => {
   const [selectedColor, setSelectedColor] = useState('')
   const [selectedSize, setSelectedSize] = useState('')
 
-  const { increaseCartQuantity } = useShopContext()
+  const { increaseCartQuantity } = useCartContext()
 
   const notify = () => {
     toast.success('Added to cart!', {
@@ -75,7 +76,7 @@ const ProductDetails = ({ product }) => {
             <div className="flex flex-row justify-center gap-2 md:justify-normal md:gap-4 lg:flex-col">
               <img
                 src={
-                  product._id === "6682b056a9a8fa03a17aa311"
+                  product._id === '6682b056a9a8fa03a17aa311'
                     ? '/images/products/product-12-1.png'
                     : '/images/products/broken-image.png'
                 }
@@ -85,7 +86,7 @@ const ProductDetails = ({ product }) => {
               />
               <img
                 src={
-                  product._id === "6682b056a9a8fa03a17aa311"
+                  product._id === '6682b056a9a8fa03a17aa311'
                     ? '/images/products/product-12-2.png'
                     : '/images/products/broken-image.png'
                 }
@@ -95,7 +96,7 @@ const ProductDetails = ({ product }) => {
               />
               <img
                 src={
-                  product._id === "6682b056a9a8fa03a17aa311"
+                  product._id === '6682b056a9a8fa03a17aa311'
                     ? '/images/products/product-12-3.png'
                     : '/images/products/broken-image.png'
                 }

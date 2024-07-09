@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useShopContext } from '../context/ShopContext'
+import Cookies from 'js-cookie'
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -25,14 +26,12 @@ function Login() {
       })
       const userData = await response.json()
 
-      console.log(userData)
-
       if (response.status !== 200) {
         setError('Login failed. Please try again.')
       } else {
         console.log('Logged in successfully:')
         setUserData(userData)
-
+        Cookies.set('authToken', userData.token)
         setIsLoggedin(true)
         navigate('/')
       }

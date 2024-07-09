@@ -1,10 +1,10 @@
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import Popup from './Popup'
 import Newsletter from '../components/Newsletter'
 import Footer from './Footer'
-// import { products } from '../data/products'
 import { useShopContext } from '../context/ShopContext'
+import Cookies from 'js-cookie'
 
 // Icons
 import { RxHamburgerMenu } from 'react-icons/rx'
@@ -17,6 +17,7 @@ import { FaFacebook } from 'react-icons/fa'
 import { FaInstagram } from 'react-icons/fa'
 import { FaGithub } from 'react-icons/fa'
 import { MdKeyboardArrowDown } from 'react-icons/md'
+import { useCartContext } from '../context/CartContext'
 
 function Navbar() {
   const [menuIsOpen, setMenuIsOpen] = useState(false)
@@ -24,10 +25,12 @@ function Navbar() {
   const [mobileQuery, setMobileQuery] = useState('')
   const [searchbarIsOpen, setSearchbarIsOpen] = useState(false)
   const [mobileSearchIsOpen, setMobileSearchIsOpen] = useState(false)
-  const { isLoggedin, userData, setIsLoggedin, setUserData } = useShopContext()
+  const { isLoggedin, userData, setIsLoggedin, setUserData, products } = useShopContext()
+  const { cartQuantity } = useCartContext()
+
+  const navigate = useNavigate()
 
   const [userMenuIsOpen, setUserMenuIsOpen] = useState(false)
-  const { cartQuantity, products } = useShopContext()
 
   const userLogout = async (user) => {
     try {
@@ -43,6 +46,8 @@ function Navbar() {
       setIsLoggedin(false)
       setUserData({})
       setUserMenuIsOpen(false)
+      Cookies.remove('authToken')
+      navigate('/')
     } catch (error) {
       console.log(error.message)
     }
@@ -303,10 +308,22 @@ function Navbar() {
                     <ul
                       className={`flex flex-col items-start hover:cursor-pointer`}
                     >
-                      <li>My Account</li>
-                      <li>My Orders</li>
-                      <li>Settings</li>
-                      <li onClick={() => userLogout(userData)}>Logout</li>
+                      <NavLink to="/user">
+                        <li>My Account</li>
+                      </NavLink>
+                      <NavLink to="/user">
+                        <li>My Orders</li>
+                      </NavLink>
+                      <NavLink to="/user">
+                        <li>Settings</li>
+                      </NavLink>
+                      <li
+                        onClick={() => {
+                          userLogout(userData)
+                        }}
+                      >
+                        Logout
+                      </li>
                     </ul>
                   </div>
                 </>

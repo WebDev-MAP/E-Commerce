@@ -1,9 +1,10 @@
 import { PiTrashFill } from 'react-icons/pi'
-import { formatCurrency } from '../utilities/formatCurrency'
-import { useShopContext } from '../context/ShopContext'
+import { formatCurrency } from '../../utilities/formatCurrency'
+import { useShopContext } from '../../context/ShopContext'
 // import { products } from '../data/products'
 import { Link } from 'react-router-dom'
-import Button from './Button'
+import Button from '../Button'
+import { useCartContext } from '../../context/CartContext'
 
 function ShoppingCartItems() {
   const {
@@ -11,9 +12,9 @@ function ShoppingCartItems() {
     increaseCartQuantity,
     decreaseCartQuantity,
     removeCartItem,
-    products,
-    loading,
-  } = useShopContext()
+  } = useCartContext()
+
+  const { products, loading } = useShopContext()
 
   console.log({ cartItems, products })
 
@@ -32,9 +33,9 @@ function ShoppingCartItems() {
           {cartItems.length > 0 ? (
             cartItems.map((cartItem) =>
               products.map((product) => {
-                if (product._id === cartItem._id) {
+                if (product._id === cartItem.productId) {
                   return (
-                    <li key={cartItem._id.toString()}>
+                    <li key={cartItem.productId}>
                       <section className="my-3 flex w-full gap-3 md:my-6">
                         <div>
                           <img

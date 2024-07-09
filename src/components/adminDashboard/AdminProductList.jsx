@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import AdminAddProduct from './AdminAddProduct'
-import { useShopContext } from '../context/ShopContext'
+import { useShopContext } from '../../context/ShopContext'
 import ReactPaginate from 'react-paginate'
 import { Link } from 'react-router-dom'
 

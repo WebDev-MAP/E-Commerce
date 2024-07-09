@@ -1,11 +1,11 @@
 import Navbar from './components/Navbar.jsx'
-import Provider from './context/ShopContext.jsx'
+import ShopProvider from './context/ShopContext.jsx'
 
 function App() {
   return (
-    <Provider>
+    <ShopProvider>
       <Navbar />
-    </Provider>
+    </ShopProvider>
   )
 }
 

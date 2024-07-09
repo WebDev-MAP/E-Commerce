@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import AdminDashboard from '../components/adminDashboard/AdminDashboard'
 import AdminAddProduct from '../components/adminDashboard/AdminAddProduct'
@@ -26,7 +26,24 @@ const PageAdminDashboard = () => {
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false)
   const [showAddProduct, setShowAddProduct] = useState(false)
   const { id } = useParams()
-  console.log(id)
+
+  useEffect(() => {
+    if (isSidebarMinimized) {
+      setSidebarDropdown(null)
+    }
+  }, [isSidebarMinimized])
+
+  useEffect(() => {
+    const checkResize = () => {
+      if (window.innerWidth >= 760) {
+        setIsSidebarMinimized(false)
+      }
+    }
+    window.addEventListener('resize', checkResize)
+
+    return () => window.removeEventListener('resize', checkResize)
+  }, [])
+
   return (
     <>
       <div>
@@ -206,7 +223,7 @@ const PageAdminDashboard = () => {
                 <NavLink to="/admin">Settings</NavLink>
               </div>
             </div>
-            <div className="h-[65.8rem] w-full px-5 py-5 md:px-20">
+            <div className={`${id? `h-full` : `h-[65.8rem]` } w-full px-5 py-5 md:px-20`}>
               {sidebarActive === 'dashboard' && <AdminDashboard />}
               {sidebarCategory === 'add-product' && <AdminAddProduct />}
               {sidebarCategory === 'product-list' && !id && (
@@ -215,10 +232,11 @@ const PageAdminDashboard = () => {
                   setShowAddProduct={setShowAddProduct}
                 />
               )}
-              {id && <AdminEditProduct id={id} />}
+              {id && <AdminEditProduct />}
               {sidebarCategory === 'all-orders' && <AdminAllOrders />}
               {sidebarCategory === 'all-customers' && <AdminAllCustomers />}
               {sidebarActive === 'reviews' && <AdminReviews />}
+              {!sidebarActive && !sidebarCategory && !id && <AdminDashboard />}
             </div>
           </div>
         </div>

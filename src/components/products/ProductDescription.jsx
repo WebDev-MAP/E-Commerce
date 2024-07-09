@@ -15,13 +15,15 @@ const ProductDescription = ({ product }) => {
         <p className="mb-2 font-satoshi_regular text-base md:text-lg">
           Style: {product.style}
         </p>
-        {product.details.map((detail, index) => {
+        {product.details.split('.').map((detail, index) => {
+          if (detail.trim() === '') return null
+
           return (
             <p
               key={index}
               className="mb-2 font-satoshi_regular text-base md:text-lg"
             >
-              {detail}
+              {detail.trim()}.
             </p>
           )
         })}

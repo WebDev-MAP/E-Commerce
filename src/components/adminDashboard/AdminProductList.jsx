@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AdminAddProduct from './AdminAddProduct'
 import { useShopContext } from '../../context/ShopContext'
 import ReactPaginate from 'react-paginate'
@@ -27,6 +27,7 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
     }))
 
   const itemsPerPage = 10
+
   function Items({ currentItems }) {
     return (
       <div className=" mb-10 flex">

@@ -89,12 +89,6 @@ const PageUserDashboard = () => {
                       <div className="flex items-center gap-4 text-lg">
                         <NavLink to="/user">Shipments</NavLink>
                       </div>
-                      <div className="flex items-center gap-4 text-lg">
-                        <NavLink to="/user">Invoices</NavLink>
-                      </div>
-                      <div className="flex items-center gap-4 text-lg">
-                        <NavLink to="/user">Refunds</NavLink>
-                      </div>
                     </div>
                   )}
                   <div

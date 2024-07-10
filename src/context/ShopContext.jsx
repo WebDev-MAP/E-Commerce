@@ -19,6 +19,7 @@ function ShopProvider({ children }) {
     style: [],
   })
   const [products, setProducts] = useState([])
+  const [reviews, setReviews] = useState([])
   const [loading, setLoading] = useState(true)
 
   // cookies
@@ -39,6 +40,17 @@ function ShopProvider({ children }) {
     }
   }, [])
 
+  //fetching all reviews from api
+  const fetchReviews = async () => {
+    try {
+      const response = await fetch('http://localhost:3002/reviews')
+      const data = await response.json()
+      setReviews(data)
+    } catch (error) {
+      console.error('Error fetching reviews:', error)
+    }
+  }
+
   // Fetching Products from the API
   const fetchProducts = async () => {
     try {
@@ -53,6 +65,7 @@ function ShopProvider({ children }) {
   }
   useEffect(() => {
     fetchProducts()
+    fetchReviews()
   }, [])
 
   return (
@@ -72,6 +85,7 @@ function ShopProvider({ children }) {
         setUserData,
         products,
         loading,
+        reviews,
       }}
     >
       <CartProvider userData={userData}>{children}</CartProvider>

@@ -6,18 +6,31 @@ import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
 const UserSettings = () => {
-  const { userData, setUserData, setIsLoggedin } = useShopContext()
-  const { first_name, last_name, email } = userData
+  const { userData, setUserData, setIsLoggedin, reviews } = useShopContext()
+  console.log(reviews)
+  const [currentUserData, setCurrentUserData] = useState(userData)
+  const { first_name, last_name, email } = currentUserData
   const [editFirstName, setEditFirstName] = useState(false)
   const [editLastName, setEditLastName] = useState(false)
   const [editEmail, setEditEmail] = useState(false)
   const navigate = useNavigate()
 
   const handleChange = (fieldName, value) => {
-    setUserData({
-      ...userData,
+    setCurrentUserData({
+      ...currentUserData,
       [fieldName]: value,
     })
+  }
+
+  const checkEmailUnique = async (email) => {
+    try {
+      const response = await fetch(`http://localhost:3002/user/`)
+      const data = await response.json()
+      const emailExists = data.some((user) => user.email === email)
+      return emailExists
+    } catch (error) {
+      console.error('Error checking email uniqueness', error.message)
+    }
   }
 
   const updateUserData = async (fieldName, value) => {
@@ -54,27 +67,33 @@ const UserSettings = () => {
     }
   }
 
-  const userSettings = [
+  let userSettings = [
     {
       label: 'Firstname',
       value: first_name,
+      currentValue: first_name,
       edit: editFirstName,
       setEdit: setEditFirstName,
       field: 'first_name',
+      type: 'text',
     },
     {
       label: 'Lastname',
       value: last_name,
+      currentValue: last_name,
       edit: editLastName,
       setEdit: setEditLastName,
       field: 'last_name',
+      type: 'text',
     },
     {
       label: 'Email',
       value: email,
+      currentValue: email,
       edit: editEmail,
       setEdit: setEditEmail,
       field: 'email',
+      type: 'email',
     },
   ]
 
@@ -98,13 +117,27 @@ const UserSettings = () => {
                   <input
                     autoFocus
                     value={setting.value}
-                    type="text"
-                    onBlur={(e) => {
-                      if (e.target.value <= 0) {
-                        setUserData({
-                          ...userData,
-                        })
+                    type={setting.type}
+                    onBlur={async (e) => {
+                      if (e.target.value.length <= 3) {
+                        setCurrentUserData(userData)
+                        setting.setEdit(!setting.edit)
                         return alert('Please enter a valid value')
+                      } else if (setting.field === 'email') {
+                        if (await checkEmailUnique(e.target.value)) {
+                          console.log(e.target.value)
+                          setCurrentUserData(userData)
+                          setting.setEdit(!setting.edit)
+                          return alert('Email already exists')
+                        } else {
+                          Cookies.remove('authToken')
+                          setting.setEdit(!setting.edit)
+                          setUserData({
+                            ...userData,
+                            [setting.field]: e.target.value,
+                          })
+                          updateUserData(setting.field, e.target.value)
+                        }
                       } else {
                         setting.setEdit(!setting.edit)
                         setUserData({
@@ -133,7 +166,7 @@ const UserSettings = () => {
         )
       })}
 
-      <div>
+      <div className="mt-6">
         <p className="text-2xl">Delete your account</p>
         <p>
           This action cannot be undone. Please be certain before proceeding.

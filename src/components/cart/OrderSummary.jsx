@@ -33,7 +33,6 @@ function OrderSummary() {
         item.quantity,
     0
   )
-  console.log(subTotal)
   let deliveryFee = 15
   let discount = subTotal * discountRate
   let total = subTotal + deliveryFee - discount

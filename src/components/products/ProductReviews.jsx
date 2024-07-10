@@ -1,14 +1,19 @@
 import { PiSlidersLight } from 'react-icons/pi'
 import { FaChevronDown } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
-import { reviews } from '../../data/reviews'
+// import { reviews } from '../../data/reviews'
 import { FaStar } from 'react-icons/fa'
 import { IoCheckmarkCircle } from 'react-icons/io5'
 import { BsThreeDots } from 'react-icons/bs'
+import { useShopContext } from '../../context/ShopContext'
+import { useParams } from 'react-router-dom'
 
-const ProductReviews = ({ productId }) => {
+const ProductReviews = () => {
+  const { reviews } = useShopContext()
+  const { id: productId } = useParams()
   const [width, setWidth] = useState(window.innerWidth)
   const [displayCount, setDisplayCount] = useState(width >= 768 ? 6 : 3)
+
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth)
@@ -36,8 +41,9 @@ const ProductReviews = ({ productId }) => {
   }, [])
 
   const filteredReviews = reviews.filter(
-    (review) => review.productId === productId
+    (review) => review.productId._id === productId
   )
+  console.log(filteredReviews, productId)
 
   return (
     <>
@@ -91,7 +97,8 @@ const ProductReviews = ({ productId }) => {
                     </div>
                     <div className="flex items-center">
                       <h4 className="font-satoshi_bold text-xl">
-                        {review.firstname} {review.lastname.charAt(0)}.
+                        {review.createdBy.first_name}{' '}
+                        {review.createdBy.last_name.charAt(0)}.
                       </h4>
                       <div className="pl-2">
                         {review.verified && (

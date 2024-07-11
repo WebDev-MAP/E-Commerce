@@ -14,6 +14,7 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
   const [categoryOpen, setCategoryOpen] = useState(false)
   const { products } = useShopContext()
   const [itemOffset, setItemOffset] = useState(0)
+  const [itemsPerPage, setItemsPerPage] = useState(10)
 
   const filteredProducts = products
     .filter((product) => {
@@ -26,16 +27,35 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
       mainImage: product.mainImage,
     }))
 
-  const itemsPerPage = 10
+  useEffect(() => {
+    const checkResize = () => {
+      if (window.innerWidth < 948) {
+        setItemsPerPage(2)
+      } else if (window.innerWidth < 1260) {
+        setItemsPerPage(4)
+      } else if (window.innerWidth < 1596) {
+        setItemsPerPage(6)
+      } else if (window.innerWidth < 1870) {
+        setItemsPerPage(8)
+      } else {
+        setItemsPerPage(10)
+      }
+    }
+
+    checkResize()
+    window.addEventListener('resize', checkResize)
+
+    return () => window.removeEventListener('resize', checkResize)
+  }, [])
 
   function Items({ currentItems }) {
     return (
-      <div className=" mb-10 flex">
+      <div className=" mb-2 flex lg:mb-6 xl:mb-10">
         <ul className="product-container flex grow flex-wrap justify-center gap-4">
           {currentItems.length > 0 ? (
             currentItems.map((item, index) => (
               <div
-                className="mx-2 mt-5 flex max-w-[15rem]  flex-col items-center justify-between rounded-xl border-2 border-gray-200 p-4"
+                className="md:mx-2 md:mt-5 flex max-w-[15rem]  flex-col items-center justify-between rounded-xl border-2 border-gray-200 md:p-4"
                 key={item._id}
               >
                 <img
@@ -106,15 +126,15 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
               Product List
             </h3>
             <button
-              className="rounded-xl bg-black px-4 py-3 font-satoshi_regular text-white"
+              className="rounded-xl bg-black px-4 py-3 font-satoshi_regular text-white hidden md:block"
               onClick={() => setShowAddProduct(true)}
             >
               Create new Product
             </button>
           </div>
-          <div className="mt-10 rounded-lg bg-slate-200/50 px-10 py-5">
+          <div className="mt-10 rounded-lg bg-slate-200/50 px-2 py-5 2xl:px-10">
             <div className="flex w-full flex-row justify-between">
-              <form className="w-1/3">
+              <form className=" w-3/4 lg:w-1/3">
                 <input
                   type="text"
                   placeholder="Search Product"
@@ -125,7 +145,7 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
                   }}
                 />
               </form>
-              <div>
+              <div className='hidden md:block pl-4 lg:pl-0'>
                 <div
                   className="relative flex w-full cursor-pointer items-center gap-2 rounded-xl border-2 border-slate-500/30 px-3 py-2"
                   onClick={() => setCategoryOpen(!categoryOpen)}
@@ -159,7 +179,7 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
                 </div>
               </div>
             </div>
-            <div className="mt-8 w-full rounded-lg border-t-4 border-white"></div>
+            <div className="mt-4 w-full rounded-lg border-t-4 border-white lg:mt-8"></div>
             <div className="h-full">
               <div className="flex flex-wrap justify-around">
                 <Items currentItems={query ? filteredProducts : currentItems} />

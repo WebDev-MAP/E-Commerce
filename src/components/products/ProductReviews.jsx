@@ -87,7 +87,7 @@ const ProductReviews = () => {
 
               // cardcomponent
               return (
-                <div key={review.id} className="min-w-[100px] md:w-1/2">
+                <div key={review._id} className="min-w-[100px] md:w-1/2">
                   <div className="mx-2 mb-5 flex flex-col items-start space-y-3 rounded-2xl border border-black/10 px-8 pb-4 pt-7 font-satoshi_regular text-base md:h-[295px] lg:h-[240px] xl:pb-2">
                     <div className="flex w-full flex-row justify-between">
                       <div className="flex text-lg">{sterne}</div>
@@ -108,7 +108,7 @@ const ProductReviews = () => {
                     </div>
                     <p className="  opacity-60">"{review.review}"</p>
                     <p className="font-satoshi_medium text-base text-black/40">
-                      Posted on {review.datePosted}
+                      Posted on {review.createdAt.slice(0, 10)}
                     </p>
                   </div>
                 </div>

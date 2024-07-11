@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
+import { useShopContext } from './ShopContext'
 
 const CartContext = createContext()
 
 export const useCartContext = () => useContext(CartContext)
 
-function CartProvider({ children, userData }) {
+function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([])
   const [localCartItems, setLocalCartItems] = useLocalStorage(
     'shopping-cart',
@@ -15,6 +16,8 @@ function CartProvider({ children, userData }) {
   const [discountRate, setDiscountRate] = useLocalStorage('discount-rate', 0)
   const [promoApplied, setPromoApplied] = useState(false)
   const [warnText, setWarnText] = useState('')
+
+  const { userData, setUserData } = useShopContext()
 
   useEffect(() => {
     const localCartItems =
@@ -62,6 +65,10 @@ function CartProvider({ children, userData }) {
     } catch (error) {
       console.error('Failed to update the cart', error.message)
     }
+  }
+
+  function clearCart() {
+    setCartItems([])
   }
 
   const applyPromoCode = () => {
@@ -187,6 +194,7 @@ function CartProvider({ children, userData }) {
         warnText,
         applyPromoCode,
         setPromoCode,
+        clearCart,
       }}
     >
       {children}

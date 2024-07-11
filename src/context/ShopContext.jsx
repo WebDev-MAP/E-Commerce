@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import CartProvider from './CartContext'
+import OrderProvider from './OrderContext'
 import Cookies from 'js-cookie'
 
 const ShopContext = createContext()
@@ -88,7 +89,9 @@ function ShopProvider({ children }) {
         reviews,
       }}
     >
-      <CartProvider userData={userData}>{children}</CartProvider>
+      <CartProvider>
+        <OrderProvider>{children}</OrderProvider>
+      </CartProvider>
     </ShopContext.Provider>
   )
 }

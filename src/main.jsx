@@ -12,6 +12,7 @@ import PageContact from './pages/PageContact.jsx'
 import PageAbout from './pages/PageAbout.jsx'
 import PageAdminDashboard from './pages/PageAdminDashboard.jsx'
 import PageUserDashboard from './pages/PageUserDashboard.jsx'
+import PageCheckout from './pages/PageCheckout.jsx'
 
 const router = createBrowserRouter([
   {
@@ -54,11 +55,15 @@ const router = createBrowserRouter([
       {
         path: '/admin/:id',
         element: <PageAdminDashboard />,
-		},
-		{
+      },
+      {
         path: '/user',
         element: <PageUserDashboard />,
       },
+      {
+        path: '/checkout',
+        element: <PageCheckout />,
+      }
     ],
   },
 ])

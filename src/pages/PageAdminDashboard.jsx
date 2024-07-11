@@ -37,6 +37,8 @@ const PageAdminDashboard = () => {
     const checkResize = () => {
       if (window.innerWidth >= 760) {
         setIsSidebarMinimized(false)
+      } else {
+        setIsSidebarMinimized(true)
       }
     }
     window.addEventListener('resize', checkResize)
@@ -223,7 +225,9 @@ const PageAdminDashboard = () => {
                 <NavLink to="/admin">Settings</NavLink>
               </div>
             </div>
-            <div className={`${id? `h-full` : `h-[65.8rem]` } w-full px-5 py-5 md:px-20`}>
+            <div
+              className={`${id ? `h-full` : `h-[65.8rem]`} w-full  px-3 py-5 sm:px-5 md:px-20`}
+            >
               {sidebarActive === 'dashboard' && <AdminDashboard />}
               {sidebarCategory === 'add-product' && <AdminAddProduct />}
               {sidebarCategory === 'product-list' && !id && (

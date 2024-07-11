@@ -1,5 +1,5 @@
 import Breadcrumbs from '../components/Breadcrumbs'
-import OrderSummary from '../components/cart/OrderSummary'
+import OrderSummaryMain from '../components/cart/OrderSummaryMain'
 import ShoppingCartItems from '../components/cart/ShoppingCartItems'
 
 function PageCart() {
@@ -16,8 +16,7 @@ function PageCart() {
           <h2 className="mb-5 font-integral_cf text-3xl">Your Cart</h2>
           <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-center">
             <ShoppingCartItems />
-            <OrderSummary />
-
+            <OrderSummaryMain />
           </div>
         </div>
       </div>

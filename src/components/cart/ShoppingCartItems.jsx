@@ -16,7 +16,7 @@ function ShoppingCartItems() {
 
   const { products, loading } = useShopContext()
 
-  console.log({ cartItems, products })
+  // console.log({ cartItems, products })
 
   if (loading) {
     return <p>Products loading...</p>

@@ -32,7 +32,7 @@ const AdminDashboard = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch('http://localhost:3002/orders/')
+      const response = await fetch('http://localhost:3002/orders/admin')
       const data = await response.json()
       setOrders(data)
     } catch (error) {

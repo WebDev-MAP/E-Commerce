@@ -2,13 +2,12 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import UserDashboard from '../components/userDashboard/UserDashboard'
 
-import UserAllOrders from '../components/userDashboard/UserOrders'
+import UserOrders from '../components/userDashboard/UserOrders'
 import UserReviews from '../components/userDashboard/UserReviews'
 import UserSettings from '../components/userDashboard/UserSettings'
 
 // Icons
 import { FaShoppingCart } from 'react-icons/fa'
-
 import { BsChatLeftTextFill } from 'react-icons/bs'
 import { IoMdSettings } from 'react-icons/io'
 import { MdKeyboardArrowDown } from 'react-icons/md'
@@ -124,7 +123,7 @@ const PageUserDashboard = () => {
               {sidebarActive === 'dashboard' && <UserDashboard />}
               {sidebarActive === 'reviews' && <UserReviews />}
               {sidebarActive === 'settings' && <UserSettings />}
-              {sidebarCategory === 'all-orders' && <UserAllOrders />}
+              {sidebarCategory === 'all-orders' && <UserOrders />}
             </div>
           </div>
         </div>

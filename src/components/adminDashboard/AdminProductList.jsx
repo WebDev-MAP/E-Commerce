@@ -84,7 +84,7 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
           {currentItems.length > 0 ? (
             currentItems.map((item) => (
               <div
-                className="flex max-w-[15rem] flex-col items-center  justify-between rounded-xl border-2 border-gray-200 md:mx-2 md:mt-5 md:p-4"
+                className="flex max-w-[15rem] flex-col items-center  justify-between rounded-xl border-2 border-gray-200 md:mx-1 md:mt-5 md:p-4"
                 key={item._id}
               >
                 <img

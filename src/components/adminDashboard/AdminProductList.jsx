@@ -3,6 +3,7 @@ import AdminAddProduct from './AdminAddProduct'
 import { useShopContext } from '../../context/ShopContext'
 import ReactPaginate from 'react-paginate'
 import { Link } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
 
 // Icons
 import { IoIosArrowDown } from 'react-icons/io'
@@ -16,6 +17,18 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
   const [itemOffset, setItemOffset] = useState(0)
   const [itemsPerPage, setItemsPerPage] = useState(10)
 
+  const notify = () => {
+    toast.success('Product deleted!', {
+      position: 'bottom-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
+  }
+
   const filteredProducts = products
     .filter((product) => {
       return product.title.toLowerCase().includes(query.toLowerCase())
@@ -26,6 +39,22 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
       price: product.price,
       mainImage: product.mainImage,
     }))
+
+  const handleDeleteProduct = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3002/products/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      const data = await response.json()
+      console.log('Product deleted', data)
+      notify()
+    } catch (error) {
+      console.error('Error:', error.message)
+    }
+  }
 
   useEffect(() => {
     const checkResize = () => {
@@ -53,9 +82,9 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
       <div className=" mb-2 flex lg:mb-6 xl:mb-10">
         <ul className="product-container flex grow flex-wrap justify-center gap-4">
           {currentItems.length > 0 ? (
-            currentItems.map((item, index) => (
+            currentItems.map((item) => (
               <div
-                className="md:mx-2 md:mt-5 flex max-w-[15rem]  flex-col items-center justify-between rounded-xl border-2 border-gray-200 md:p-4"
+                className="flex max-w-[15rem] flex-col items-center  justify-between rounded-xl border-2 border-gray-200 md:mx-2 md:mt-5 md:p-4"
                 key={item._id}
               >
                 <img
@@ -79,14 +108,16 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
                         Edit
                       </button>
                     </Link>
-                    <Link>
-                      <button className="flex items-center gap-1 rounded-lg bg-red-500 px-3 py-1 font-satoshi_regular text-base text-white">
-                        <span>
-                          <MdDelete />
-                        </span>
-                        Delete
-                      </button>
-                    </Link>
+
+                    <button
+                      className="flex items-center gap-1 rounded-lg bg-red-500 px-3 py-1 font-satoshi_regular text-base text-white"
+                      onClick={() => handleDeleteProduct(item._id)}
+                    >
+                      <span>
+                        <MdDelete />
+                      </span>
+                      Delete
+                    </button>
                   </div>
                 </div>
               </div>
@@ -126,7 +157,7 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
               Product List
             </h3>
             <button
-              className="rounded-xl bg-black px-4 py-3 font-satoshi_regular text-white hidden md:block"
+              className="hidden rounded-xl bg-black px-4 py-3 font-satoshi_regular text-white md:block"
               onClick={() => setShowAddProduct(true)}
             >
               Create new Product
@@ -145,7 +176,7 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
                   }}
                 />
               </form>
-              <div className='hidden md:block pl-4 lg:pl-0'>
+              <div className="hidden pl-4 md:block lg:pl-0">
                 <div
                   className="relative flex w-full cursor-pointer items-center gap-2 rounded-xl border-2 border-slate-500/30 px-3 py-2"
                   onClick={() => setCategoryOpen(!categoryOpen)}
@@ -196,6 +227,19 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
                 renderOnZeroPageCount={null}
               />
             </div>
+            <ToastContainer
+              position="bottom-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+              transition:Bounce
+            />
           </div>
         </div>
       )}

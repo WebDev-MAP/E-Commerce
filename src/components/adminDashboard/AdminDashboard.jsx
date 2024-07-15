@@ -193,8 +193,8 @@ const AdminDashboard = () => {
           </h3>
         </div>
         <div className="rounded-lg bg-slate-200/50 py-8 md:mt-10 md:px-4 lg:px-16">
-          <div className="flex w-full flex-row flex-wrap justify-between gap-5 font-satoshi_regular lg:px-10">
-            <div className="flex w-[15rem] flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:w-[22rem] md:p-4">
+          <div className="m-2 flex w-full flex-row flex-wrap justify-between gap-5 font-satoshi_regular lg:px-10">
+            <div className="flex min-w-[13rem] max-w-[30rem] flex-shrink flex-grow flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
               <div className="flex w-full items-center justify-between gap-2">
                 <div className="flex gap-1 md:gap-2">
                   <h3 className="text-lg font-bold md:text-xl">Sales</h3>
@@ -246,7 +246,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="flex w-[15rem] flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:w-[22rem] md:p-4">
+            <div className="flex min-w-[13rem] max-w-[30rem] flex-shrink flex-grow flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
               <div className="flex w-full items-center justify-between gap-2">
                 <div className="flex gap-1 md:gap-2">
                   <h3 className="text-lg font-bold md:text-xl">Revenue</h3>
@@ -298,7 +298,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="flex w-[15rem] flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-2.5 md:w-[22rem] md:p-4">
+            <div className="flex min-w-[13rem] max-w-[30rem] flex-shrink flex-grow flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
               <div className="flex w-full items-center justify-between gap-0 md:gap-2">
                 <div className="flex  gap-1 md:gap-2">
                   <h3 className="text-lg font-bold md:text-xl">Customers</h3>
@@ -360,12 +360,15 @@ const AdminDashboard = () => {
                 <ul>
                   {recentOrders.map((order) => (
                     <li key={order._id} className="my-2">
-                      {moment(order.createdAt).fromNow()}{' '}
+                      {moment(order.createdAt).fromNow()},{' '}
                       <span className="font-semibold">
                         {order.products.length} Product
                         {order.products.length > 1 ? 's' : ''}
                       </span>{' '}
-                      ordered for a total amount of{' '}
+                      {order.products.length > 1 ? 'were' : 'was'} ordered for
+                      {order.products.length > 1
+                        ? ' a total amount of'
+                        : ' an amount of'}{' '}
                       <span className="font-semibold">
                         {' '}
                         ${order.totalAmount}

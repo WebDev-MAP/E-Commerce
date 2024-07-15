@@ -12,12 +12,10 @@ const UserOrders = () => {
         `http://localhost:3002/orders/myorders/${userId}`
       )
       const data = await response.json()
-      setUserOrders(data)
+      setUserOrders(data.userOrders)
     }
     fetchOrder()
   }, [])
-
-  console.log(userOrders)
 
   return (
     <div className="scroll">
@@ -32,13 +30,14 @@ const UserOrders = () => {
               <p>Status: {order.status}</p>
             </div>
 
-            {/* all prodcts of the order */}
+            {/* all products of the order */}
             <div className="flex flex-wrap gap-x-4 p-2">
               {order.products.map((product) => (
                 <img
                   src={product.productId.mainImage}
                   alt="product image"
                   className="flex h-20"
+                  key={product._id}
                 />
               ))}
             </div>

@@ -120,12 +120,12 @@ const PageAdminDashboard = () => {
                       >
                         <NavLink to="/admin">Product list</NavLink>
                       </div>
-                      <div className="flex items-center gap-4 text-lg">
+                      {/* <div className="flex items-center gap-4 text-lg">
                         <NavLink to="/admin">Categories</NavLink>
                       </div>
                       <div className="flex items-center gap-4 text-lg">
                         <NavLink to="/admin">Brands</NavLink>
-                      </div>
+                      </div> */}
                     </div>
                   )}
                   <div
@@ -155,12 +155,12 @@ const PageAdminDashboard = () => {
                       >
                         <NavLink to="/admin">All Orders</NavLink>
                       </div>
-                      <div className="flex items-center gap-4 text-lg">
+                      {/* <div className="flex items-center gap-4 text-lg">
                         <NavLink to="/admin">Shipments</NavLink>
                       </div>
                       <div className="flex items-center gap-4 text-lg">
                         <NavLink to="/admin">Invoices</NavLink>
-                      </div>
+                      </div> */}
                       <div className="flex items-center gap-4 text-lg">
                         <NavLink to="/admin">Refunds</NavLink>
                       </div>
@@ -193,7 +193,7 @@ const PageAdminDashboard = () => {
                       >
                         <NavLink to="/admin">All Customers</NavLink>
                       </div>
-                      <div className="flex items-center gap-4 text-lg">
+                      {/* <div className="flex items-center gap-4 text-lg">
                         <NavLink to="/admin">x</NavLink>
                       </div>
                       <div className="flex items-center gap-4 text-lg">
@@ -201,7 +201,7 @@ const PageAdminDashboard = () => {
                       </div>
                       <div className="flex items-center gap-4 text-lg">
                         <NavLink to="/admin">x</NavLink>
-                      </div>
+                      </div> */}
                     </div>
                   )}
                   <div

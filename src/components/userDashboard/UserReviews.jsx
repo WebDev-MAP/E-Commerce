@@ -28,7 +28,7 @@ const UserReviews = () => {
   return (
     <div className="scroll flex flex-col  font-satoshi_regular">
       <h2 className="my-6 text-2xl font-bold">My Reviews</h2>
-      <div className="h-[50rem] space-y-4 overflow-y-auto rounded-lg bg-background p-4 md:p-8">
+      <div className="h-[45rem] space-y-4 overflow-y-auto rounded-lg bg-background p-4 md:p-8">
         <div className="rounded-lg  px-2 ">
           <div className="flex w-full flex-row justify-between">
             <form className=" w-3/4 lg:w-1/3">

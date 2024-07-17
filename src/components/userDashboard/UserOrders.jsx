@@ -121,7 +121,7 @@ const UserOrders = () => {
   return (
     <div className="scroll font-satoshi_regular">
       <h2 className="my-6 text-2xl font-bold">My Orders</h2>
-      <div className="h-[50rem] space-y-4 overflow-y-auto rounded-lg bg-background p-4 md:p-8">
+      <div className="h-[45rem] space-y-4 overflow-y-auto rounded-lg bg-background p-4 md:p-8">
         {/* searchbar and filter by category */}
         <div className=" rounded-lg  px-2  ">
           <div className="flex w-full flex-row justify-between">

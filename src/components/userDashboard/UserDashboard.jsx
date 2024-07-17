@@ -191,7 +191,7 @@ const UserDashboard = () => {
       <div className=" font-satoshi_regular">
         {/* Heading */}
         <h2 className="my-6 text-2xl font-bold">User Dashboard</h2>
-        <div className=" h-[50rem]  items-center justify-start space-y-4 overflow-y-auto rounded-lg bg-background p-4 md:p-8">
+        <div className=" h-[45rem]  items-center justify-start space-y-4 overflow-y-auto rounded-lg bg-background p-4 md:p-8">
           <div className="  ">
             <div className=" flex w-full flex-row flex-wrap justify-between gap-5 font-satoshi_regular ">
               <div className="flex min-w-[13rem] max-w-[30rem] flex-shrink flex-grow flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">

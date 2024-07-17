@@ -1,48 +1,66 @@
 import { useState, useEffect } from 'react'
 import moment from 'moment'
+import { useShopContext } from '../../context/ShopContext'
 
 // Icons
 import { BsThreeDots } from 'react-icons/bs'
 import { FaShoppingCart } from 'react-icons/fa'
-import { FaDollarSign } from 'react-icons/fa'
+import { FaStar } from 'react-icons/fa'
 import { FaUsers } from 'react-icons/fa'
 
 const UserDashboard = () => {
-  const [salesDropdownOpen, setSalesDropdownOpen] = useState(false)
-  const [salesSelectedTime, setSalesSelectedTime] = useState('Today')
-  const [revenueDropdownOpen, setRevenueDropdownOpen] = useState(false)
-  const [revenueSelectedTime, setRevenueSelectedTime] = useState('Today')
-  const [customersDropdownOpen, setCustomersDropdownOpen] = useState(false)
-  const [customersSelectedTime, setCustomersSelectedTime] = useState('Today')
-  const [customers, setCustomers] = useState([])
-  const [orders, setOrders] = useState([])
-  const [totalQuantity, setTotalQuantity] = useState(0)
-  const [totalRevenue, setTotalRevenue] = useState(0)
-  const [uniqueCustomers, setUniqueCustomers] = useState(new Set())
+  const { userData } = useShopContext()
+  const [ordersDropdownOpen, setOrdersDropdownOpen] = useState(false)
+  const [ordersSelectedTime, setOrdersSelectedTime] = useState('Today')
 
-  const fetchUsers = async () => {
+  const [reviewsDropdownOpen, setReviewsDropdownOpen] = useState(false)
+  const [reviewsSelectedTime, setReviewsSelectedTime] = useState('Today')
+
+  const [lastOrderDropdownOpen, setLastOrderDropdownOpen] = useState(false)
+  const [lastOrderSelectedTime, setLastOrderSelectedTime] = useState('Status')
+
+  const [orders, setOrders] = useState([])
+  const [userReview, setUserReview] = useState([])
+  const [lastOrder, setLastOrder] = useState('')
+
+  const [totalQuantity, setTotalQuantity] = useState(0)
+  const [totalReviews, setTotalReviews] = useState(0)
+
+  console.log(userData)
+
+  // fetch all orders from user
+  const fetchOrders = async () => {
+    const userId = userData._id
     try {
-      const response = await fetch('http://localhost:3002/user/')
+      const response = await fetch(
+        `http://localhost:3002/orders/myorders/${userId}`
+      )
       const data = await response.json()
-      setCustomers(data)
+      console.log(data)
+      setOrders(data.userOrders)
+      console.log(data.userOrders)
     } catch (error) {
-      console.error('Error fetching users', error.message)
+      console.error('Error fetching orders', error.message)
     }
   }
 
-  const fetchOrders = async () => {
+  // fetch all reviews from user
+  const fetchReviews = async () => {
+    const userId = userData._id
+
     try {
-      const response = await fetch('http://localhost:3002/orders/admin')
+      const response = await fetch(`http://localhost:3002/reviews/${userId}`)
       const data = await response.json()
-      setOrders(data)
+      setUserReview(data)
+      console.log(data)
     } catch (error) {
       console.error('Error fetching orders', error.message)
     }
   }
 
   useEffect(() => {
-    fetchUsers()
     fetchOrders()
+    fetchReviews()
   }, [])
 
   function formatDate(date) {
@@ -52,14 +70,14 @@ const UserDashboard = () => {
     return `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`
   }
 
-  // Set totalQuantity based on salesSelectedTime
+  // Set totalOrders based on ordersSelectedTime
   useEffect(() => {
     let filteredOrders = []
 
     const today = new Date()
     const formattedToday = formatDate(today)
 
-    switch (salesSelectedTime) {
+    switch (ordersSelectedTime) {
       case 'Today':
         filteredOrders = orders.filter((order) => {
           const orderDate = new Date(order.createdAt)
@@ -94,140 +112,127 @@ const UserDashboard = () => {
       )
     }, 0)
 
+    console.log(filteredOrders)
     setTotalQuantity(newTotalQuantity)
-  }, [salesSelectedTime, orders])
+  }, [ordersSelectedTime, orders])
 
-  // Set totalRevenue based on revenueSelectedTime
+  // Set totalReviews based on reviewsSelectedTime
   useEffect(() => {
-    let filteredOrders = []
+    let filteredReviews = []
 
     const today = new Date()
     const formattedToday = formatDate(today)
 
-    switch (revenueSelectedTime) {
+    switch (reviewsSelectedTime) {
       case 'Today':
-        filteredOrders = orders.filter((order) => {
-          const orderDate = new Date(order.createdAt)
-          return formatDate(orderDate) === formattedToday
+        filteredReviews = userReview.filter((review) => {
+          const reviewDate = new Date(review.createdAt)
+          return formatDate(reviewDate) === formattedToday
         })
         break
       case 'Month':
-        filteredOrders = orders.filter((order) => {
-          const orderDate = new Date(order.createdAt)
+        filteredReviews = userReview.filter((review) => {
+          const reviewDate = new Date(review.createdAt)
           return (
-            formatDate(orderDate).slice(0, 7) === formattedToday.slice(0, 7)
+            formatDate(reviewDate).slice(0, 7) === formattedToday.slice(0, 7)
           )
         })
         break
       case 'Year':
-        filteredOrders = orders.filter((order) => {
-          const orderDate = new Date(order.createdAt)
+        filteredReviews = userReview.filter((review) => {
+          const reviewDate = new Date(review.createdAt)
           return (
-            formatDate(orderDate).slice(0, 4) === formattedToday.slice(0, 4)
+            formatDate(reviewDate).slice(0, 4) === formattedToday.slice(0, 4)
           )
         })
         break
     }
 
-    const newTotalRevenue = filteredOrders.reduce((total, order) => {
-      return total + order.totalAmount
-    }, 0)
+    console.log(filteredReviews)
 
-    setTotalRevenue(newTotalRevenue)
-  }, [revenueSelectedTime, orders])
+    const reviewCount = filteredReviews.length
 
-  // Set uniqueCustomers based on customersSelectedTime
+    setTotalReviews(reviewCount)
+  }, [userReview, reviewsSelectedTime])
+
+  // Set lastOrder based on lastOrderSelectedTime
   useEffect(() => {
-    let filteredOrders = []
+    if (orders.length === 0) return
 
-    const today = new Date()
-    const formattedToday = formatDate(today)
+    // Sort orders by createdAt date in descending order
+    let sortedOrders = orders.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    )
 
-    switch (customersSelectedTime) {
-      case 'Today':
-        filteredOrders = orders.filter((order) => {
-          const orderDate = new Date(order.createdAt)
-          return formatDate(orderDate) === formattedToday
-        })
+    // Get the most recent order
+
+    let recentOrder = sortedOrders[0]
+
+    // Set the status or price based on the selected time
+    switch (lastOrderSelectedTime) {
+      case 'Status':
+        setLastOrder(recentOrder.status)
         break
-      case 'Month':
-        filteredOrders = orders.filter((order) => {
-          const orderDate = new Date(order.createdAt)
-          return (
-            formatDate(orderDate).slice(0, 7) === formattedToday.slice(0, 7)
-          )
-        })
+      case 'Price':
+        setLastOrder(`${recentOrder.totalAmount}$`)
         break
-      case 'Year':
-        filteredOrders = orders.filter((order) => {
-          const orderDate = new Date(order.createdAt)
-          return (
-            formatDate(orderDate).slice(0, 4) === formattedToday.slice(0, 4)
-          )
-        })
+      default:
         break
     }
-
-    let newUniqueCustomers = new Set()
-
-    filteredOrders.forEach((order) => {
-      newUniqueCustomers.add(order.user)
-    })
-
-    setUniqueCustomers(newUniqueCustomers)
-  }, [customersSelectedTime, orders])
+  }, [orders, lastOrderSelectedTime])
 
   let sortedOrders = orders.sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   )
   let recentOrders = sortedOrders.slice(0, 5)
+  console.log(recentOrders)
 
   return (
     <>
-      <div>
+      <div className=" font-satoshi_regular">
+        {/* Heading */}
         <div className="flex flex-row items-center justify-start">
-          <h3 className="font-satoshi_regular text-2xl font-bold">
-            User Dashboard
-          </h3>
+          <h3 className="font-satoshi_regular text-2xl ">User Dashboard</h3>
         </div>
+
         <div className="rounded-lg bg-slate-200/50 py-8 md:mt-10 md:px-4 lg:px-16">
           <div className="m-2 flex w-full flex-row flex-wrap justify-between gap-5 font-satoshi_regular lg:px-10">
             <div className="flex min-w-[13rem] max-w-[30rem] flex-shrink flex-grow flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
               <div className="flex w-full items-center justify-between gap-2">
                 <div className="flex gap-1 md:gap-2">
-                  <h3 className="text-lg font-bold md:text-xl">Sales</h3>
-                  <p className="text-lg">| {salesSelectedTime}</p>
+                  <h3 className="text-lg font-bold md:text-xl">My Orders</h3>
+                  <p className="text-lg">| {ordersSelectedTime}</p>
                 </div>
                 <div
                   className="relative flex w-[4rem] cursor-pointer justify-end px-3 py-2"
-                  onClick={() => setSalesDropdownOpen(!salesDropdownOpen)}
+                  onClick={() => setOrdersDropdownOpen(!ordersDropdownOpen)}
                   onBlur={() =>
-                    setTimeout(() => setSalesDropdownOpen(false), 300)
+                    setTimeout(() => setOrdersDropdownOpen(false), 300)
                   }
                   tabIndex="0"
                 >
                   <BsThreeDots />
                   <div
-                    className={`absolute right-0 top-4 z-50 mt-2 flex flex-col  items-center justify-start font-satoshi_regular ${salesDropdownOpen ? ' block h-full w-full' : 'hidden h-0 w-0'}`}
+                    className={`absolute right-0 top-4 z-50 mt-2 flex flex-col  items-center justify-start font-satoshi_regular ${ordersDropdownOpen ? ' block h-full w-full' : 'hidden h-0 w-0'}`}
                   >
                     <ul
                       className={`flex w-full flex-col items-start justify-center rounded-md bg-white hover:cursor-pointer `}
                     >
                       <li
                         className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setSalesSelectedTime('Today')}
+                        onClick={() => setOrdersSelectedTime('Today')}
                       >
                         Today
                       </li>
                       <li
                         className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setSalesSelectedTime('Month')}
+                        onClick={() => setOrdersSelectedTime('Month')}
                       >
                         Month
                       </li>
                       <li
                         className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setSalesSelectedTime('Year')}
+                        onClick={() => setOrdersSelectedTime('Year')}
                       >
                         Year
                       </li>
@@ -244,42 +249,43 @@ const UserDashboard = () => {
                 </div>
               </div>
             </div>
+            {/* My Reviews */}
             <div className="flex min-w-[13rem] max-w-[30rem] flex-shrink flex-grow flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
               <div className="flex w-full items-center justify-between gap-2">
                 <div className="flex gap-1 md:gap-2">
-                  <h3 className="text-lg font-bold md:text-xl">Revenue</h3>
-                  <p className="text-lg">| {revenueSelectedTime}</p>
+                  <h3 className="text-lg font-bold md:text-xl">My Reviews</h3>
+                  <p className="text-lg">| {reviewsSelectedTime}</p>
                 </div>
                 <div
                   className="relative flex w-[4rem] cursor-pointer justify-end px-3 py-2"
-                  onClick={() => setRevenueDropdownOpen(!revenueDropdownOpen)}
+                  onClick={() => setReviewsDropdownOpen(!reviewsDropdownOpen)}
                   onBlur={() =>
-                    setTimeout(() => setRevenueDropdownOpen(false), 300)
+                    setTimeout(() => setReviewsDropdownOpen(false), 300)
                   }
                   tabIndex="0"
                 >
                   <BsThreeDots />
                   <div
-                    className={`absolute right-0 top-4 z-50 mt-2 flex flex-col  items-center justify-start font-satoshi_regular ${revenueDropdownOpen ? ' block h-full w-full' : 'hidden h-0 w-0'}`}
+                    className={`absolute right-0 top-4 z-50 mt-2 flex flex-col  items-center justify-start font-satoshi_regular ${reviewsDropdownOpen ? ' block h-full w-full' : 'hidden h-0 w-0'}`}
                   >
                     <ul
                       className={`flex w-full flex-col items-start justify-center rounded-md bg-white hover:cursor-pointer `}
                     >
                       <li
                         className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setRevenueSelectedTime('Today')}
+                        onClick={() => setReviewsSelectedTime('Today')}
                       >
                         Today
                       </li>
                       <li
                         className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setRevenueSelectedTime('Month')}
+                        onClick={() => setReviewsSelectedTime('Month')}
                       >
                         Month
                       </li>
                       <li
                         className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setRevenueSelectedTime('Year')}
+                        onClick={() => setReviewsSelectedTime('Year')}
                       >
                         Year
                       </li>
@@ -288,54 +294,49 @@ const UserDashboard = () => {
                 </div>
               </div>
               <div className="flex w-full items-center gap-8 py-3">
-                <div className="rounded-2xl bg-green-400/20 p-3">
-                  <FaDollarSign className="text-4xl text-green-900" />
+                <div className="rounded-2xl bg-yellow-200/20 p-3">
+                  <FaStar className="text-4xl text-yellow-400" />
                 </div>
                 <div>
-                  <p className="text-3xl font-bold">${totalRevenue}</p>
+                  <p className="text-3xl font-bold">{totalReviews}</p>
                 </div>
               </div>
             </div>
+            {/* Last Order */}
             <div className="flex min-w-[13rem] max-w-[30rem] flex-shrink flex-grow flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
               <div className="flex w-full items-center justify-between gap-0 md:gap-2">
                 <div className="flex  gap-1 md:gap-2">
-                  <h3 className="text-lg font-bold md:text-xl">Customers</h3>
-                  <p className="text-lg">| {customersSelectedTime}</p>
+                  <h3 className="text-lg font-bold md:text-xl">Last Order</h3>
+                  <p className="text-lg">| {lastOrderSelectedTime}</p>
                 </div>
                 <div
                   className="relative flex w-[4rem] cursor-pointer justify-end px-3 py-2"
                   onClick={() =>
-                    setCustomersDropdownOpen(!customersDropdownOpen)
+                    setLastOrderDropdownOpen(!lastOrderDropdownOpen)
                   }
                   onBlur={() =>
-                    setTimeout(() => setCustomersDropdownOpen(false), 300)
+                    setTimeout(() => setLastOrderDropdownOpen(false), 300)
                   }
                   tabIndex="0"
                 >
                   <BsThreeDots />
                   <div
-                    className={`absolute right-0 top-4 z-50 mt-2 flex flex-col items-center justify-start font-satoshi_regular ${customersDropdownOpen ? ' block h-full w-full' : 'hidden h-0 w-0'}`}
+                    className={`absolute right-0 top-4 z-50 mt-2 flex flex-col items-center justify-start font-satoshi_regular ${lastOrderDropdownOpen ? ' block h-full w-full' : 'hidden h-0 w-0'}`}
                   >
                     <ul
                       className={`flex w-full flex-col items-start justify-center rounded-md bg-white hover:cursor-pointer `}
                     >
                       <li
                         className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setCustomersSelectedTime('Today')}
+                        onClick={() => setLastOrderSelectedTime('Status')}
                       >
-                        Today
+                        Status
                       </li>
                       <li
                         className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setCustomersSelectedTime('Month')}
+                        onClick={() => setLastOrderSelectedTime('Price')}
                       >
-                        Month
-                      </li>
-                      <li
-                        className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setCustomersSelectedTime('Year')}
-                      >
-                        Year
+                        Price
                       </li>
                     </ul>
                   </div>
@@ -346,11 +347,13 @@ const UserDashboard = () => {
                   <FaUsers className="text-4xl text-orange-900" />
                 </div>
                 <div>
-                  <p className="text-3xl font-bold">{uniqueCustomers.size}</p>
+                  <p className="text-3xl font-bold">{lastOrder}</p>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Recent Activity */}
           <div className="mt-10 w-full font-satoshi_regular lg:px-10">
             <div className="flex flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
               <h3 className="text-xl font-bold">Recent Activity</h3>

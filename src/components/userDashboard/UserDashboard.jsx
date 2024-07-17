@@ -165,7 +165,6 @@ const UserDashboard = () => {
     )
 
     // Get the most recent order
-
     let recentOrder = sortedOrders[0]
 
     // Set the status or price based on the selected time
@@ -191,194 +190,193 @@ const UserDashboard = () => {
     <>
       <div className=" font-satoshi_regular">
         {/* Heading */}
-        <div className="flex flex-row items-center justify-start">
-          <h3 className="font-satoshi_regular text-2xl ">User Dashboard</h3>
-        </div>
+        <h2 className="my-6 text-2xl font-bold">User Dashboard</h2>
+        <div className=" h-[50rem]  items-center justify-start space-y-4 overflow-y-auto rounded-lg bg-background p-4 md:p-8">
+          <div className="  ">
+            <div className=" flex w-full flex-row flex-wrap justify-between gap-5 font-satoshi_regular ">
+              <div className="flex min-w-[13rem] max-w-[30rem] flex-shrink flex-grow flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
+                <div className="flex w-full items-center justify-between gap-2">
+                  <div className="flex gap-1 md:gap-2">
+                    <h3 className="text-lg font-bold md:text-xl">My Orders</h3>
+                    <p className="text-lg">| {ordersSelectedTime}</p>
+                  </div>
+                  <div
+                    className="relative flex w-[4rem] cursor-pointer justify-end px-3 py-2"
+                    onClick={() => setOrdersDropdownOpen(!ordersDropdownOpen)}
+                    onBlur={() =>
+                      setTimeout(() => setOrdersDropdownOpen(false), 300)
+                    }
+                    tabIndex="0"
+                  >
+                    <BsThreeDots />
+                    <div
+                      className={`absolute right-0 top-4 z-50 mt-2 flex flex-col  items-center justify-start font-satoshi_regular ${ordersDropdownOpen ? ' block h-full w-full' : 'hidden h-0 w-0'}`}
+                    >
+                      <ul
+                        className={`flex w-full flex-col items-start justify-center rounded-md bg-white hover:cursor-pointer `}
+                      >
+                        <li
+                          className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
+                          onClick={() => setOrdersSelectedTime('Today')}
+                        >
+                          Today
+                        </li>
+                        <li
+                          className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
+                          onClick={() => setOrdersSelectedTime('Month')}
+                        >
+                          Month
+                        </li>
+                        <li
+                          className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
+                          onClick={() => setOrdersSelectedTime('Year')}
+                        >
+                          Year
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex w-full items-center gap-8 py-3">
+                  <div className="rounded-2xl bg-blue-400/20 p-3">
+                    <FaShoppingCart className="text-4xl text-blue-900" />
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold">{totalQuantity}</p>
+                  </div>
+                </div>
+              </div>
+              {/* My Reviews */}
+              <div className="flex min-w-[13rem] max-w-[30rem] flex-shrink flex-grow flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
+                <div className="flex w-full items-center justify-between gap-2">
+                  <div className="flex gap-1 md:gap-2">
+                    <h3 className="text-lg font-bold md:text-xl">My Reviews</h3>
+                    <p className="text-lg">| {reviewsSelectedTime}</p>
+                  </div>
+                  <div
+                    className="relative flex w-[4rem] cursor-pointer justify-end px-3 py-2"
+                    onClick={() => setReviewsDropdownOpen(!reviewsDropdownOpen)}
+                    onBlur={() =>
+                      setTimeout(() => setReviewsDropdownOpen(false), 300)
+                    }
+                    tabIndex="0"
+                  >
+                    <BsThreeDots />
+                    <div
+                      className={`absolute right-0 top-4 z-50 mt-2 flex flex-col  items-center justify-start font-satoshi_regular ${reviewsDropdownOpen ? ' block h-full w-full' : 'hidden h-0 w-0'}`}
+                    >
+                      <ul
+                        className={`flex w-full flex-col items-start justify-center rounded-md bg-white hover:cursor-pointer `}
+                      >
+                        <li
+                          className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
+                          onClick={() => setReviewsSelectedTime('Today')}
+                        >
+                          Today
+                        </li>
+                        <li
+                          className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
+                          onClick={() => setReviewsSelectedTime('Month')}
+                        >
+                          Month
+                        </li>
+                        <li
+                          className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
+                          onClick={() => setReviewsSelectedTime('Year')}
+                        >
+                          Year
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex w-full items-center gap-8 py-3">
+                  <div className="rounded-2xl bg-yellow-200/20 p-3">
+                    <FaStar className="text-4xl text-yellow-400" />
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold">{totalReviews}</p>
+                  </div>
+                </div>
+              </div>
+              {/* Last Order */}
+              <div className="flex min-w-[13rem] max-w-[30rem] flex-shrink flex-grow flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
+                <div className="flex w-full items-center justify-between gap-0 md:gap-2">
+                  <div className="flex  gap-1 md:gap-2">
+                    <h3 className="text-lg font-bold md:text-xl">Last Order</h3>
+                    <p className="text-lg">| {lastOrderSelectedTime}</p>
+                  </div>
+                  <div
+                    className="relative flex w-[4rem] cursor-pointer justify-end px-3 py-2"
+                    onClick={() =>
+                      setLastOrderDropdownOpen(!lastOrderDropdownOpen)
+                    }
+                    onBlur={() =>
+                      setTimeout(() => setLastOrderDropdownOpen(false), 300)
+                    }
+                    tabIndex="0"
+                  >
+                    <BsThreeDots />
+                    <div
+                      className={`absolute right-0 top-4 z-50 mt-2 flex flex-col items-center justify-start font-satoshi_regular ${lastOrderDropdownOpen ? ' block h-full w-full' : 'hidden h-0 w-0'}`}
+                    >
+                      <ul
+                        className={`flex w-full flex-col items-start justify-center rounded-md bg-white hover:cursor-pointer `}
+                      >
+                        <li
+                          className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
+                          onClick={() => setLastOrderSelectedTime('Status')}
+                        >
+                          Status
+                        </li>
+                        <li
+                          className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
+                          onClick={() => setLastOrderSelectedTime('Price')}
+                        >
+                          Price
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex w-full items-center gap-8 py-3">
+                  <div className="rounded-2xl bg-orange-400/20 p-3">
+                    <FaUsers className="text-4xl text-orange-900" />
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold">{lastOrder}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <div className="rounded-lg bg-slate-200/50 py-8 md:mt-10 md:px-4 lg:px-16">
-          <div className="m-2 flex w-full flex-row flex-wrap justify-between gap-5 font-satoshi_regular lg:px-10">
-            <div className="flex min-w-[13rem] max-w-[30rem] flex-shrink flex-grow flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
-              <div className="flex w-full items-center justify-between gap-2">
-                <div className="flex gap-1 md:gap-2">
-                  <h3 className="text-lg font-bold md:text-xl">My Orders</h3>
-                  <p className="text-lg">| {ordersSelectedTime}</p>
-                </div>
-                <div
-                  className="relative flex w-[4rem] cursor-pointer justify-end px-3 py-2"
-                  onClick={() => setOrdersDropdownOpen(!ordersDropdownOpen)}
-                  onBlur={() =>
-                    setTimeout(() => setOrdersDropdownOpen(false), 300)
-                  }
-                  tabIndex="0"
-                >
-                  <BsThreeDots />
-                  <div
-                    className={`absolute right-0 top-4 z-50 mt-2 flex flex-col  items-center justify-start font-satoshi_regular ${ordersDropdownOpen ? ' block h-full w-full' : 'hidden h-0 w-0'}`}
-                  >
-                    <ul
-                      className={`flex w-full flex-col items-start justify-center rounded-md bg-white hover:cursor-pointer `}
-                    >
-                      <li
-                        className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setOrdersSelectedTime('Today')}
-                      >
-                        Today
-                      </li>
-                      <li
-                        className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setOrdersSelectedTime('Month')}
-                      >
-                        Month
-                      </li>
-                      <li
-                        className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setOrdersSelectedTime('Year')}
-                      >
-                        Year
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div className="flex w-full items-center gap-8 py-3">
-                <div className="rounded-2xl bg-blue-400/20 p-3">
-                  <FaShoppingCart className="text-4xl text-blue-900" />
-                </div>
+            {/* Recent Activity */}
+            <div className="mt-10 w-full font-satoshi_regular ">
+              <div className="flex flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
+                <h3 className="text-xl font-bold">Recent Activity</h3>
                 <div>
-                  <p className="text-3xl font-bold">{totalQuantity}</p>
-                </div>
-              </div>
-            </div>
-            {/* My Reviews */}
-            <div className="flex min-w-[13rem] max-w-[30rem] flex-shrink flex-grow flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
-              <div className="flex w-full items-center justify-between gap-2">
-                <div className="flex gap-1 md:gap-2">
-                  <h3 className="text-lg font-bold md:text-xl">My Reviews</h3>
-                  <p className="text-lg">| {reviewsSelectedTime}</p>
-                </div>
-                <div
-                  className="relative flex w-[4rem] cursor-pointer justify-end px-3 py-2"
-                  onClick={() => setReviewsDropdownOpen(!reviewsDropdownOpen)}
-                  onBlur={() =>
-                    setTimeout(() => setReviewsDropdownOpen(false), 300)
-                  }
-                  tabIndex="0"
-                >
-                  <BsThreeDots />
-                  <div
-                    className={`absolute right-0 top-4 z-50 mt-2 flex flex-col  items-center justify-start font-satoshi_regular ${reviewsDropdownOpen ? ' block h-full w-full' : 'hidden h-0 w-0'}`}
-                  >
-                    <ul
-                      className={`flex w-full flex-col items-start justify-center rounded-md bg-white hover:cursor-pointer `}
-                    >
-                      <li
-                        className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setReviewsSelectedTime('Today')}
-                      >
-                        Today
+                  <ul>
+                    {recentOrders.map((order) => (
+                      <li key={order._id} className="my-2">
+                        {moment(order.createdAt).fromNow()},{' '}
+                        <span className="font-semibold">
+                          {order.products.length} Product
+                          {order.products.length > 1 ? 's' : ''}
+                        </span>{' '}
+                        {order.products.length > 1 ? 'were' : 'was'} ordered for
+                        {order.products.length > 1
+                          ? ' a total amount of'
+                          : ' an amount of'}{' '}
+                        <span className="font-semibold">
+                          {' '}
+                          ${order.totalAmount}
+                        </span>{' '}
+                        | Current Status:{' '}
+                        <span className="font-semibold">{order.status}</span>
                       </li>
-                      <li
-                        className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setReviewsSelectedTime('Month')}
-                      >
-                        Month
-                      </li>
-                      <li
-                        className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setReviewsSelectedTime('Year')}
-                      >
-                        Year
-                      </li>
-                    </ul>
-                  </div>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-              <div className="flex w-full items-center gap-8 py-3">
-                <div className="rounded-2xl bg-yellow-200/20 p-3">
-                  <FaStar className="text-4xl text-yellow-400" />
-                </div>
-                <div>
-                  <p className="text-3xl font-bold">{totalReviews}</p>
-                </div>
-              </div>
-            </div>
-            {/* Last Order */}
-            <div className="flex min-w-[13rem] max-w-[30rem] flex-shrink flex-grow flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
-              <div className="flex w-full items-center justify-between gap-0 md:gap-2">
-                <div className="flex  gap-1 md:gap-2">
-                  <h3 className="text-lg font-bold md:text-xl">Last Order</h3>
-                  <p className="text-lg">| {lastOrderSelectedTime}</p>
-                </div>
-                <div
-                  className="relative flex w-[4rem] cursor-pointer justify-end px-3 py-2"
-                  onClick={() =>
-                    setLastOrderDropdownOpen(!lastOrderDropdownOpen)
-                  }
-                  onBlur={() =>
-                    setTimeout(() => setLastOrderDropdownOpen(false), 300)
-                  }
-                  tabIndex="0"
-                >
-                  <BsThreeDots />
-                  <div
-                    className={`absolute right-0 top-4 z-50 mt-2 flex flex-col items-center justify-start font-satoshi_regular ${lastOrderDropdownOpen ? ' block h-full w-full' : 'hidden h-0 w-0'}`}
-                  >
-                    <ul
-                      className={`flex w-full flex-col items-start justify-center rounded-md bg-white hover:cursor-pointer `}
-                    >
-                      <li
-                        className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setLastOrderSelectedTime('Status')}
-                      >
-                        Status
-                      </li>
-                      <li
-                        className="w-full px-2 py-1 hover:rounded-md hover:bg-gray-50"
-                        onClick={() => setLastOrderSelectedTime('Price')}
-                      >
-                        Price
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div className="flex w-full items-center gap-8 py-3">
-                <div className="rounded-2xl bg-orange-400/20 p-3">
-                  <FaUsers className="text-4xl text-orange-900" />
-                </div>
-                <div>
-                  <p className="text-3xl font-bold">{lastOrder}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Recent Activity */}
-          <div className="mt-10 w-full font-satoshi_regular lg:px-10">
-            <div className="flex flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
-              <h3 className="text-xl font-bold">Recent Activity</h3>
-              <div>
-                <ul>
-                  {recentOrders.map((order) => (
-                    <li key={order._id} className="my-2">
-                      {moment(order.createdAt).fromNow()},{' '}
-                      <span className="font-semibold">
-                        {order.products.length} Product
-                        {order.products.length > 1 ? 's' : ''}
-                      </span>{' '}
-                      {order.products.length > 1 ? 'were' : 'was'} ordered for
-                      {order.products.length > 1
-                        ? ' a total amount of'
-                        : ' an amount of'}{' '}
-                      <span className="font-semibold">
-                        {' '}
-                        ${order.totalAmount}
-                      </span>{' '}
-                      | Current Status:{' '}
-                      <span className="font-semibold">{order.status}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
           </div>

@@ -97,40 +97,51 @@ const UserSettings = () => {
     },
   ]
 
+  {
+    /* <div className="mt-8 h-1/2 rounded-lg bg-slate-200/50 p-4 md:p-8">
+<h2 className="mb-4 text-2xl font-bold">Edit User</h2> */
+  }
+
   return (
     <div className="font-satoshi_regular ">
-      <div className="mb-6">
-        <p className="text-2xl">Profile Settings</p>
-        <p>Adjust the key information of your account.</p>
-      </div>
-
-      {userSettings.map((setting, index) => {
-        return (
-          <div
-            key={index}
-            className="my-2 rounded-md border border-black px-4 py-2"
-          >
-            <div className="flex justify-between gap-10">
-              <label className="">{setting.label}</label>
-              <div className="flex w-1/2 items-center">
-                {setting.edit ? (
-                  <input
-                    autoFocus
-                    value={setting.value}
-                    type={setting.type}
-                    onBlur={async (e) => {
-                      if (e.target.value.length <= 3) {
-                        setCurrentUserData(userData)
-                        setting.setEdit(!setting.edit)
-                        return alert('Please enter a valid value')
-                      } else if (setting.field === 'email') {
-                        if (await checkEmailUnique(e.target.value)) {
-                          console.log(e.target.value)
+      <div className=" rounded-lg p-4 md:p-8">
+        <h2 className="text-2xl font-bold">Profile Settings</h2>
+        <p className="mb-4">Adjust the key information of your account.</p>
+        {userSettings.map((setting, index) => {
+          return (
+            <div
+              key={index}
+              className="my-2 rounded-md border border-black px-4 py-2"
+            >
+              <div className="flex justify-between gap-10">
+                <label className="">{setting.label}</label>
+                <div className="flex w-1/2 items-center">
+                  {setting.edit ? (
+                    <input
+                      autoFocus
+                      value={setting.value}
+                      type={setting.type}
+                      onBlur={async (e) => {
+                        if (e.target.value.length <= 3) {
                           setCurrentUserData(userData)
                           setting.setEdit(!setting.edit)
-                          return alert('Email already exists')
+                          return alert('Please enter a valid value')
+                        } else if (setting.field === 'email') {
+                          if (await checkEmailUnique(e.target.value)) {
+                            console.log(e.target.value)
+                            setCurrentUserData(userData)
+                            setting.setEdit(!setting.edit)
+                            return alert('Email already exists')
+                          } else {
+                            Cookies.remove('authToken')
+                            setting.setEdit(!setting.edit)
+                            setUserData({
+                              ...userData,
+                              [setting.field]: e.target.value,
+                            })
+                            updateUserData(setting.field, e.target.value)
+                          }
                         } else {
-                          Cookies.remove('authToken')
                           setting.setEdit(!setting.edit)
                           setUserData({
                             ...userData,
@@ -138,42 +149,34 @@ const UserSettings = () => {
                           })
                           updateUserData(setting.field, e.target.value)
                         }
-                      } else {
-                        setting.setEdit(!setting.edit)
-                        setUserData({
-                          ...userData,
-                          [setting.field]: e.target.value,
-                        })
-                        updateUserData(setting.field, e.target.value)
+                      }}
+                      onChange={(e) =>
+                        handleChange(setting.field, e.target.value)
                       }
-                    }}
-                    onChange={(e) =>
-                      handleChange(setting.field, e.target.value)
-                    }
-                    className=" px-2"
-                  />
-                ) : (
-                  <p className=" px-2">{setting.value}</p>
-                )}
+                      className=" px-2"
+                    />
+                  ) : (
+                    <p className=" px-2">{setting.value}</p>
+                  )}
 
-                <MdEdit
-                  onClick={() => setting.setEdit(!setting.edit)}
-                  className="cursor-pointer"
-                />
+                  <MdEdit
+                    onClick={() => setting.setEdit(!setting.edit)}
+                    className="cursor-pointer"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        )
-      })}
-
-      <div className="mt-6">
-        <p className="text-2xl">Delete your account</p>
-        <p>
-          This action cannot be undone. Please be certain before proceeding.
-        </p>
-        <Button danger className="mt-2" onClick={deleteAccount}>
-          Delete Account
-        </Button>
+          )
+        })}
+        <div className="mt-6">
+          <p className="text-2xl">Delete your account</p>
+          <p>
+            This action cannot be undone. Please be certain before proceeding.
+          </p>
+          <Button danger className="mt-2" onClick={deleteAccount}>
+            Delete Account
+          </Button>
+        </div>{' '}
       </div>
     </div>
   )

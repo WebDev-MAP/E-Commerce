@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import UserDashboard from '../components/userDashboard/UserDashboard'
 
+import UserDashboard from '../components/userDashboard/UserDashboard'
 import UserOrders from '../components/userDashboard/UserOrders'
 import UserReviews from '../components/userDashboard/UserReviews'
 import UserSettings from '../components/userDashboard/UserSettings'
@@ -10,7 +10,6 @@ import UserSettings from '../components/userDashboard/UserSettings'
 import { FaShoppingCart } from 'react-icons/fa'
 import { BsChatLeftTextFill } from 'react-icons/bs'
 import { IoMdSettings } from 'react-icons/io'
-import { MdKeyboardArrowDown } from 'react-icons/md'
 import { IoIosArrowBack } from 'react-icons/io'
 import { IoIosArrowForward } from 'react-icons/io'
 import { BiSolidDashboard } from 'react-icons/bi'
@@ -18,7 +17,6 @@ import { BiSolidDashboard } from 'react-icons/bi'
 const PageUserDashboard = () => {
   const [sidebarActive, setSidebarActive] = useState(null)
   const [sidebarDropdown, setSidebarDropdown] = useState(null)
-  const [sidebarCategory, setSidebarCategory] = useState(null)
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false)
 
   return (
@@ -27,7 +25,7 @@ const PageUserDashboard = () => {
         <div>
           <div className="flex flex-row">
             <div
-              className={`relative flex h-[50rem] flex-col items-start justify-between rounded-r-md border-r-4 bg-gray-200/50 py-12 pl-5 pr-8 font-satoshi_regular md:pl-8 lg:pl-20 ${isSidebarMinimized ? 'w-[3.8rem] overflow-hidden' : 'w-[20rem]'}`}
+              className={`relative flex h-[50rem] flex-col items-start justify-between rounded-r-md border-r-4 bg-background py-12 pl-5 pr-8 font-satoshi_regular md:pl-8 lg:pl-20 ${isSidebarMinimized ? 'w-[3.8rem] overflow-hidden' : 'w-[20rem]'}`}
             >
               {isSidebarMinimized ? (
                 <button
@@ -50,8 +48,7 @@ const PageUserDashboard = () => {
                   className="text flex items-center gap-3 text-2xl "
                   onClick={() => {
                     setSidebarActive('dashboard')
-                    // setSidebarDropdown(null)
-                    setSidebarCategory(null)
+                    // setSidebarCategory(null)
                   }}
                 >
                   <BiSolidDashboard className="text-3xl" />
@@ -66,36 +63,21 @@ const PageUserDashboard = () => {
                         : setSidebarDropdown('orders')
                     }}
                   >
-                    <div className="flex flex-row items-center gap-4">
+                    <div
+                      className={`flex cursor-pointer items-center justify-between gap-4 text-xl`}
+                      onClick={() => {
+                        setSidebarActive('orders')
+                      }}
+                    >
                       <FaShoppingCart />
                       <p>Orders</p>
                     </div>
-                    <div className="text-gray-500">
-                      <MdKeyboardArrowDown />
-                    </div>
                   </div>
-                  {sidebarDropdown === 'orders' && (
-                    <div className={`flex flex-col gap-4 pb-2 pl-8`}>
-                      <div
-                        className="flex items-center gap-4 text-lg"
-                        onClick={() => {
-                          setSidebarActive(null),
-                            setSidebarCategory('all-orders')
-                        }}
-                      >
-                        <NavLink to="/user">My Orders</NavLink>
-                      </div>
-                      <div className="flex items-center gap-4 text-lg">
-                        <NavLink to="/user">Shipments</NavLink>
-                      </div>
-                    </div>
-                  )}
+
                   <div
                     className={`flex cursor-pointer items-center justify-between gap-4 text-xl`}
                     onClick={() => {
                       setSidebarActive('reviews')
-                      // setSidebarDropdown(null)
-                      setSidebarCategory(null)
                     }}
                   >
                     <div className="flex flex-row items-center gap-4">
@@ -107,8 +89,6 @@ const PageUserDashboard = () => {
                     className={`flex cursor-pointer items-center justify-between gap-4 text-xl`}
                     onClick={() => {
                       setSidebarActive('settings')
-                      // setSidebarDropdown(null)
-                      setSidebarCategory(null)
                     }}
                   >
                     <div className="flex flex-row items-center gap-4 text-xl">
@@ -119,11 +99,11 @@ const PageUserDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="h-[50rem] w-full px-5 py-10 md:px-20">
+            <div className="h-[50rem] w-full px-5 py-10 pt-0 md:px-20">
               {sidebarActive === 'dashboard' && <UserDashboard />}
+              {sidebarActive === 'orders' && <UserOrders />}
               {sidebarActive === 'reviews' && <UserReviews />}
               {sidebarActive === 'settings' && <UserSettings />}
-              {sidebarCategory === 'all-orders' && <UserOrders />}
             </div>
           </div>
         </div>

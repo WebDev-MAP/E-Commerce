@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useShopContext } from './ShopContext'
 import { useNavigate } from 'react-router-dom'
+import { useCartContext } from './CartContext'
 
 const OrderContext = createContext()
 
@@ -12,6 +13,7 @@ function OrderProvider({ children }) {
   const [adminOrders, setAdminOrders] = useState([])
   const [loading, setLoading] = useState(true)
   const { userData, isLoggedin } = useShopContext()
+  const { discountRate } = useCartContext()
 
   // Fetch user orders from API
   const fetchUserOrders = async () => {
@@ -53,7 +55,7 @@ function OrderProvider({ children }) {
   useEffect(() => {
     if (isLoggedin && userData.role === 'user') {
       fetchUserOrders()
-      console.log({userOrders})
+      console.log({ userOrders })
     } else if (isLoggedin && userData.role === 'admin') {
       fetchAdminOrders()
     }
@@ -79,6 +81,7 @@ function OrderProvider({ children }) {
             orderData,
             userId: userData._id,
             paymentMethod: 'Paypal',
+            discount: discountRate,
           }),
         }
       )

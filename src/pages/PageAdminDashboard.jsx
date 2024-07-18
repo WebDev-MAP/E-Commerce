@@ -7,6 +7,7 @@ import AdminAllOrders from '../components/adminDashboard/AdminAllOrders'
 import AdminAllCustomers from '../components/adminDashboard/AdminAllCustomers'
 import AdminReviews from '../components/adminDashboard/AdminReviews'
 import AdminEditProduct from '../components/adminDashboard/AdminEditProduct'
+import AdminAnalytics from '../components/adminDashboard/AdminAnalytics'
 
 // Icons
 import { FaBoxArchive } from 'react-icons/fa6'
@@ -18,6 +19,7 @@ import { MdKeyboardArrowDown } from 'react-icons/md'
 import { IoIosArrowBack } from 'react-icons/io'
 import { IoIosArrowForward } from 'react-icons/io'
 import { BiSolidDashboard } from 'react-icons/bi'
+import { SiGoogleanalytics } from 'react-icons/si'
 
 const PageAdminDashboard = () => {
   const [sidebarActive, setSidebarActive] = useState(null)
@@ -82,6 +84,20 @@ const PageAdminDashboard = () => {
                   <NavLink to="/admin">Dashboard</NavLink>
                 </div>
                 <div className="flex flex-col gap-4">
+                  <div
+                    className={`flex cursor-pointer items-center justify-between gap-4 text-xl`}
+                    onClick={() => {
+                      setSidebarActive('analytics')
+                      setSidebarDropdown(null)
+                      setSidebarCategory(null)
+                    }}
+                  >
+                    <div className="flex flex-row items-center gap-4">
+                      <SiGoogleanalytics />
+
+                      <NavLink to="/admin">Analytics</NavLink>
+                    </div>
+                  </div>
                   <div
                     className={`flex cursor-pointer items-center justify-between gap-4 text-xl`}
                     onClick={() => {
@@ -226,7 +242,7 @@ const PageAdminDashboard = () => {
               </div>
             </div>
             <div
-              className={`${id ? `h-full` : `h-[65.8rem]`} w-full  px-3 py-5 sm:px-5 md:px-20`}
+              className={`${id ? `h-full` : `h-[65.8rem]`} w-full  px-3 py-5 sm:px-5 md:px-10 lg:px-20`}
             >
               {sidebarActive === 'dashboard' && <AdminDashboard />}
               {sidebarCategory === 'add-product' && <AdminAddProduct />}
@@ -240,6 +256,7 @@ const PageAdminDashboard = () => {
               {sidebarCategory === 'all-orders' && <AdminAllOrders />}
               {sidebarCategory === 'all-customers' && <AdminAllCustomers />}
               {sidebarActive === 'reviews' && <AdminReviews />}
+              {sidebarActive === 'analytics' && <AdminAnalytics />}
               {!sidebarActive && !sidebarCategory && !id && <AdminDashboard />}
             </div>
           </div>

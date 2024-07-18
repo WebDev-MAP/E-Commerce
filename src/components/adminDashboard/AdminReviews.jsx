@@ -8,6 +8,7 @@ import Button from '../Button'
 const AdminReviews = () => {
   const [reviews, setReviews] = useState([])
   const [query, setQuery] = useState('')
+  const [sortOrder, setSortOrder] = useState('newest')
 
   const notify = (message) => {
     toast.success(message, {
@@ -41,7 +42,27 @@ const AdminReviews = () => {
     )
   })
 
-  console.log(filteredReviews)
+  const sortedReviews = [...filteredReviews].sort((a, b) => {
+    if (sortOrder === 'newest') {
+      return new Date(b.createdAt) - new Date(a.createdAt)
+    } else if (sortOrder === 'oldest') {
+      return new Date(a.createdAt) - new Date(b.createdAt)
+    } else if (sortOrder === 'highest') {
+      return b.stars - a.stars
+    } else if (sortOrder === 'lowest') {
+      return a.stars - b.stars
+    } else if (sortOrder === 'verified') {
+      return b.verified - a.verified
+    } else if (sortOrder === 'unverified') {
+      return a.verified - b.verified
+    } else if (sortOrder === 'title-ascending') {
+      return a.product.title.localeCompare(b.product.title)
+    } else if (sortOrder === 'title-descending') {
+      return b.product.title.localeCompare(a.product.title)
+    }
+  })
+
+  console.log(sortedReviews)
 
   const fetchReviews = async () => {
     try {
@@ -93,12 +114,12 @@ const AdminReviews = () => {
 
   const ProductCard = ({ product }) => {
     return (
-      <div className="flex flex-col gap-3 border-b pb-3 lg:flex-row lg:border-none lg:w-80 xl:w-96">
+      <div className="flex flex-col gap-3 border-b pb-3 lg:w-80 lg:flex-row lg:border-none xl:w-96">
         <NavLink to={`/product/${product._id}`}>
           <img
             src={product.mainImage}
             alt={product.title}
-            className="pointer-events-none m-auto max-h-[300px] w-36 h-36 lg:w-32 lg:h-32 xl:w-40 xl:h-40"
+            className="pointer-events-none m-auto h-36 max-h-[300px] w-36 lg:h-32 lg:w-32 xl:h-40 xl:w-40"
           />
         </NavLink>
         <div className="space-y-3">
@@ -141,7 +162,7 @@ const AdminReviews = () => {
         key={review._id}
         className="my-4 flex flex-col overflow-hidden rounded-lg bg-white p-4 shadow-lg xl:flex-row xl:gap-3"
       >
-        <div className="flex flex-col xl:flex-row xl:gap-3 xl:w-full">
+        <div className="flex flex-col xl:w-full xl:flex-row xl:gap-3">
           <ProductCard product={review.product} />
           <div className="space-y-3 py-4 lg:border-none xl:w-2/3 xl:p-0">
             <p className="text-base text-gray-700">
@@ -172,7 +193,7 @@ const AdminReviews = () => {
           </div>
         </div>
         <div className="xl:flex xl:w-3/4">
-          <div className="mt-4 gap-3 lg:flex-col xl:m-0 xl:gap-0 xl:w-2/3">
+          <div className="mt-4 gap-3 lg:flex-col xl:m-0 xl:w-2/3 xl:gap-0">
             <div>
               <div className="mb-2 text-gray-700">
                 <span className="font-semibold">Reviewer: </span>
@@ -209,43 +230,58 @@ const AdminReviews = () => {
   }
 
   return (
-    <div className="h-full">
-      <h2 className="font-integral_cf text-2xl font-bold">All Reviews</h2>
-      <div className="h-full w-full overflow-y-auto rounded-lg bg-background p-4 md:p-8">
-        <div className="my-3">
-          <form className=" w-3/4 lg:w-1/3">
-            <input
-              type="text"
-              placeholder="Search User"
-              className="w-full rounded-xl border-2 border-slate-500/40 px-4 py-2"
-              value={query}
-              onChange={(e) => {
-                setQuery(e.target.value)
-              }}
-            />
-          </form>
+    <div className="scroll flex flex-col font-satoshi_regular">
+      <h2 className="my-6 text-2xl font-bold">All Reviews</h2>
+      <div className="h-[59.8rem] space-y-4 overflow-y-auto rounded-lg bg-background p-4 md:p-8">
+        <div className="rounded-lg  px-2 ">
+          <div className="flex w-full flex-row justify-between">
+            <form className=" w-3/4 lg:w-1/3">
+              <input
+                type="text"
+                placeholder="Search Review"
+                className="w-full rounded-xl border-2 border-slate-500/40 px-4 py-2"
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value)
+                }}
+              />
+            </form>
+            <div className="hidden pl-4 md:block lg:pl-0">
+              <select
+                className="relative flex w-full cursor-pointer items-center gap-2 rounded-xl border-2 border-slate-500/30 px-3 py-2"
+                onChange={(e) => setSortOrder(e.target.value)}
+                value={sortOrder}
+              >
+                <option value="newest">Newest first</option>
+                <option value="oldest">Oldest first</option>
+                <option value="highest">Highest rating</option>
+                <option value="lowest">Lowest rating</option>
+                <option value="verified">Verified</option>
+                <option value="unverified">Unverified</option>
+                <option value="title-ascending">Title A-Z</option>
+                <option value="title-descending">Title Z-A</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div className="overflow-x-auto">
-          <ReviewCard currentReviews={query ? filteredReviews : reviews} />
+          <ReviewCard currentReviews={sortedReviews} />
         </div>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
     </div>
   )
 }
 
 export default AdminReviews
-
-
-// Filter nach Datum neueste zuerst, ältetste zuletzt

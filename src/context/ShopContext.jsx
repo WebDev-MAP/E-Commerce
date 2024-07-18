@@ -13,6 +13,7 @@ function ShopProvider({ children }) {
   const [selectedDressStyle, setSelectedDressStyle] = useState([])
   const [isLoggedin, setIsLoggedin] = useState(false)
   const [userData, setUserData] = useState({})
+  const [sidebarActive, setSidebarActive] = useState(null)
   const [criteria, setCriteria] = useState({
     type: [],
     size: [],
@@ -87,6 +88,8 @@ function ShopProvider({ children }) {
         products,
         loading,
         reviews,
+        sidebarActive,
+        setSidebarActive,
       }}
     >
       <CartProvider>

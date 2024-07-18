@@ -25,7 +25,15 @@ function Navbar() {
   const [mobileQuery, setMobileQuery] = useState('')
   const [searchbarIsOpen, setSearchbarIsOpen] = useState(false)
   const [mobileSearchIsOpen, setMobileSearchIsOpen] = useState(false)
-  const { isLoggedin, userData, setIsLoggedin, setUserData, products } = useShopContext()
+  const {
+    isLoggedin,
+    userData,
+    setIsLoggedin,
+    setUserData,
+    products,
+    sidebarActive,
+    setSidebarActive,
+  } = useShopContext()
   const { cartQuantity } = useCartContext()
 
   const navigate = useNavigate()
@@ -308,13 +316,22 @@ function Navbar() {
                     <ul
                       className={`flex flex-col items-start hover:cursor-pointer`}
                     >
-                      <NavLink to="/user">
+                      <NavLink
+                        to="/user"
+                        onClick={() => setSidebarActive('dashboard')}
+                      >
                         <li>My Account</li>
                       </NavLink>
-                      <NavLink to="/user">
+                      <NavLink
+                        to="/user"
+                        onClick={() => setSidebarActive('orders')}
+                      >
                         <li>My Orders</li>
                       </NavLink>
-                      <NavLink to="/user">
+                      <NavLink
+                        to="/user"
+                        onClick={() => setSidebarActive('settings')}
+                      >
                         <li>Settings</li>
                       </NavLink>
                       <li

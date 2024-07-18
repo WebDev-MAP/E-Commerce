@@ -6,6 +6,8 @@ import UserOrders from '../components/userDashboard/UserOrders'
 import UserReviews from '../components/userDashboard/UserReviews'
 import UserSettings from '../components/userDashboard/UserSettings'
 
+import { useShopContext } from '../context/ShopContext'
+
 // Icons
 import { FaShoppingCart } from 'react-icons/fa'
 import { BsChatLeftTextFill } from 'react-icons/bs'
@@ -15,7 +17,8 @@ import { IoIosArrowForward } from 'react-icons/io'
 import { BiSolidDashboard } from 'react-icons/bi'
 
 const PageUserDashboard = () => {
-  const [sidebarActive, setSidebarActive] = useState(null)
+  const { sidebarActive, setSidebarActive } = useShopContext()
+
   const [sidebarDropdown, setSidebarDropdown] = useState(null)
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false)
 

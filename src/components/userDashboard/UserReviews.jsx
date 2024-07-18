@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import { useShopContext } from '../../context/ShopContext'
 import { IoCheckmarkCircle } from 'react-icons/io5'
 import { FaStar } from 'react-icons/fa'
-import Card from '../Card'
+
 import { IoIosArrowDown } from 'react-icons/io'
+import Button from '../Button'
 
 const UserReviews = () => {
   const { userData } = useShopContext()
@@ -20,16 +21,45 @@ const UserReviews = () => {
 
     return setReviews(data)
   }
-
   useEffect(() => {
     fetchReviewsById()
-  }, [])
+  }, [reviews])
+
+  const deleteReviewById = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3002/reviews/${id}`, {
+        method: 'DELETE',
+      })
+
+      if (response.ok) {
+        console.log(reviews)
+      } else {
+        console.log('Failed to delete the review')
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  useEffect(() => {
+    const reviewsCopy = [...reviews]
+    console.log(reviewsCopy, query.length)
+    if (query.length > 0) {
+      const filteredReviews = reviews.filter((review) =>
+        review.productId.title.includes(query)
+      )
+      console.log(filteredReviews)
+      return setReviews(filteredReviews)
+    } else if (query.length === 0) {
+      return setReviews(reviewsCopy)
+    }
+  }, [query])
 
   return (
     <div className="scroll flex flex-col  font-satoshi_regular">
       <h2 className="my-6 text-2xl font-bold">My Reviews</h2>
       <div className="h-[45rem] space-y-4 overflow-y-auto rounded-lg bg-background p-4 md:p-8">
-        <div className="rounded-lg  px-2 ">
+        <div className="rounded-lg ">
           <div className="flex w-full flex-row justify-between">
             <form className=" w-3/4 lg:w-1/3">
               <input
@@ -88,31 +118,62 @@ const UserReviews = () => {
             return (
               <div
                 key={review._id}
-                className="flex  rounded-md border border-black p-4 px-4 py-2"
+                className="flex flex-col gap-8 rounded-md  border border-slate-500/30 p-4 px-4 py-2"
               >
                 {/* product */}
+                <div className="flex  ">
+                  {/* <Card product={review.productId} /> */}
+                  <div className=" flex w-1/2 flex-col justify-center border-r-4 border-slate-500/30 xl:flex-row">
+                    <img
+                      className="h-fit max-h-[16rem]"
+                      src={review.productId.mainImage}
+                      alt="product Image"
+                    />
 
-                <div className="flex ">
-                  {' '}
-                  <Card product={review.productId} />
-                </div>
-                {/* review */}
-                <div className="mx-2  mb-16  flex h-[240px] w-1/2 flex-col items-start  space-y-3 rounded-2xl border border-black/10 px-8 pt-7 font-satoshi_regular text-base">
-                  <div className="flex">{stars}</div>
-                  <div className="flex items-center">
-                    <h4 className="font-satoshi_bold text-xl">
-                      {review.createdBy.first_name} {review.createdBy.last_name}
-                    </h4>
-                    <div className="pl-2">
-                      {review.verified && (
-                        <IoCheckmarkCircle className="text-xl text-green-600" />
-                      )}
+                    <div className="flex flex-col items-start gap-2  px-8 pt-7">
+                      {' '}
+                      <p className="font-satoshi_medium">
+                        {review.productId.title}
+                      </p>
+                      <p>Style: {review.productId.style} </p>
+                      <p>Type: {review.productId.type} </p>
+                      <p> Price: ${review.productId.price}</p>
                     </div>
                   </div>
-                  <p className="text-overflow-ellipsis max-h-[120px] overflow-hidden opacity-60">
-                    {review.review}
-                  </p>
-                </div>
+
+                  {/* review */}
+                  <div className="flex w-1/2 flex-col justify-between ">
+                    <div className="mx-2  mb-16  flex  flex-col items-start   space-y-3  rounded-2xl px-8 pt-7 font-satoshi_regular text-base ">
+                      <div className="flex">{stars}</div>
+                      <div className="flex  items-center">
+                        <h4 className="font-satoshi_bold text-xl">
+                          {review.createdBy.first_name}{' '}
+                          {review.createdBy.last_name}
+                        </h4>
+                        <div className="pl-2">
+                          {review.verified && (
+                            <IoCheckmarkCircle className="text-xl text-green-600" />
+                          )}
+                        </div>
+                      </div>
+                      <p className="text-overflow-ellipsis max-h-[120px] overflow-hidden opacity-60">
+                        {review.review}
+                      </p>
+                    </div>
+                    <div className=" flex justify-center gap-4">
+                      <Button primary onClick={() => console.log(review._id)}>
+                        {' '}
+                        Edit
+                      </Button>
+                      <Button
+                        danger
+                        onClick={() => deleteReviewById(review._id)}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </div>
+                </div>{' '}
               </div>
             )
           })

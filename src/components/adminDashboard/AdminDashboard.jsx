@@ -177,8 +177,6 @@ const AdminDashboard = () => {
     setUniqueCustomers(newUniqueCustomers)
   }, [customersSelectedTime, orders])
 
-  console.log(customers, orders)
-
   let sortedOrders = orders.sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   )
@@ -192,7 +190,7 @@ const AdminDashboard = () => {
             Admin Dashboard
           </h3>
         </div>
-        <div className="rounded-lg bg-slate-200/50 py-8 md:mt-10 md:px-4 lg:px-16">
+        <div className="rounded-lg bg-background py-8 md:mt-5 md:px-4 lg:px-16">
           <div className="m-2 flex w-full flex-row flex-wrap justify-between gap-5 font-satoshi_regular lg:px-10">
             <div className="flex min-w-[13rem] max-w-[30rem] flex-shrink flex-grow flex-col items-center gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
               <div className="flex w-full items-center justify-between gap-2">

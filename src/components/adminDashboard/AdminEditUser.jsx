@@ -142,7 +142,7 @@ const AdminEditUser = ({ userId, onUserEdited, notify }) => {
   }
 
   return (
-    <div className="mt-8 h-1/2 rounded-lg bg-slate-200/50 p-4 md:p-8">
+    <div className="mt-8 h-1/2 rounded-lg bg-background p-4 md:p-8">
       <h2 className="mb-4 text-2xl font-bold">Edit User</h2>
       {userSettings.map((setting, index) => (
         <div

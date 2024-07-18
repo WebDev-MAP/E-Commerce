@@ -186,7 +186,7 @@ const AdminAnalytics = () => {
   return (
     <>
       <div>
-        <div className="flex flex-row items-center justify-start">
+        <div className="flex flex-row items-center justify-start pl-3">
           <h3 className="font-satoshi_regular text-2xl font-bold">
             Admin Analytics
           </h3>
@@ -229,9 +229,9 @@ const AdminAnalytics = () => {
             </div>
           </div>
         </div>
-        <div className="rounded-lg bg-slate-200/50 py-8 md:mt-10 md:px-4 lg:px-16">
-          <div className="m-2 flex w-full lg:flex-row flex-wrap justify-between gap-5 font-satoshi_regular lg:px-10">
-            <div className="flex min-w-[8rem] max-w-[30rem] flex-shrink flex-grow flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4 xl:w-1/4">
+        <div className="rounded-lg bg-background md:mt-5 md:p-4 xl:px-16 xl:py-10">
+          <div className="m-2 flex w-full flex-wrap justify-between gap-1 lg:gap-5 font-satoshi_regular lg:flex-row xl:px-10">
+            <div className="mr-4 flex min-w-[8rem] max-w-[30rem] flex-shrink flex-grow flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4 xl:w-1/4">
               <div className="flex w-full items-center justify-between gap-2">
                 <div className="flex gap-1 md:gap-2">
                   <h3 className="text-lg font-bold md:text-xl">
@@ -272,7 +272,7 @@ const AdminAnalytics = () => {
                 {prevGrossRevenue}
               </h4>
             </div>
-            <div className="flex min-w-[8rem] max-w-[30rem] flex-shrink  flex-grow flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4 xl:w-1/4">
+            <div className="mr-4 flex min-w-[8rem] max-w-[30rem]  flex-shrink flex-grow flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4 xl:w-1/4">
               <div className="flex w-full items-center justify-between gap-2">
                 <div className="flex gap-1 md:gap-2">
                   <h3 className="text-lg font-bold md:text-xl">Refunds</h3>
@@ -311,7 +311,7 @@ const AdminAnalytics = () => {
                 {prevRefundCost}
               </h4>
             </div>
-            <div className="flex min-w-[8rem] max-w-[30rem] flex-shrink flex-grow flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4 xl:w-1/4">
+            <div className="mr-4 flex min-w-[8rem] max-w-[30rem] flex-shrink flex-grow flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4 xl:w-1/4">
               <div className="flex w-full items-center justify-between gap-2">
                 <div className="flex gap-1 md:gap-2">
                   <h3 className="text-lg font-bold md:text-xl">Discounts</h3>
@@ -350,7 +350,7 @@ const AdminAnalytics = () => {
                 {prevDiscountCost}
               </h4>
             </div>
-            <div className="flex min-w-[8rem] max-w-[30rem] flex-shrink flex-grow flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4 xl:w-1/4">
+            <div className="mr-4 flex min-w-[8rem] max-w-[30rem] flex-shrink flex-grow flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4 xl:w-1/4">
               <div className="flex w-full items-center justify-between gap-2">
                 <div className="flex gap-1 md:gap-2">
                   <h3 className="text-lg font-bold md:text-xl">Taxes</h3>
@@ -389,7 +389,7 @@ const AdminAnalytics = () => {
                 {prevTaxesCost.toFixed(0)}
               </h4>
             </div>
-            <div className="flex min-w-[8rem] max-w-[30rem] flex-shrink flex-grow flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4 xl:w-1/4">
+            <div className="mr-4 flex min-w-[8rem] max-w-[30rem] flex-shrink flex-grow flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4 xl:w-1/4">
               <div className="flex w-full items-center justify-between gap-2">
                 <div className="flex gap-1 md:gap-2">
                   <h3 className="text-lg font-bold md:text-xl">Shipping</h3>
@@ -428,7 +428,7 @@ const AdminAnalytics = () => {
                 {prevShippingCost}
               </h4>
             </div>
-            <div className="flex min-w-[8rem] max-w-[30rem] flex-shrink flex-grow flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4 xl:w-1/4">
+            <div className="mr-4 flex min-w-[8rem] max-w-[30rem] flex-shrink flex-grow flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4 xl:w-1/4">
               <div className="flex w-full items-center justify-between gap-2">
                 <div className="flex gap-1 md:gap-2">
                   <h3 className="text-lg font-bold md:text-xl">Net Revenue</h3>
@@ -470,7 +470,7 @@ const AdminAnalytics = () => {
               </h4>
             </div>
           </div>
-          <div className="mt-10 w-full font-satoshi_regular lg:px-10 md:px-4">
+          <div className="mt-10 hidden w-full font-satoshi_regular md:px-4 lg:block xl:px-8">
             <div className="flex flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4">
               {/* <h3 className="text-xl font-bold">Chart</h3> */}
               <div className="h-[28rem] w-full">

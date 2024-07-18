@@ -163,7 +163,7 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
               Create new Product
             </button>
           </div>
-          <div className="mt-10 rounded-lg bg-slate-200/50 px-2 py-5 2xl:px-10">
+          <div className="mt-10 rounded-lg bg-background px-2 py-5 2xl:px-10">
             <div className="flex w-full flex-row justify-between">
               <form className=" w-3/4 lg:w-1/3">
                 <input

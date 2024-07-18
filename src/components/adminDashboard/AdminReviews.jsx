@@ -143,7 +143,7 @@ const AdminReviews = () => {
       >
         <div className="flex flex-col xl:flex-row xl:gap-3 xl:w-full">
           <ProductCard product={review.product} />
-          <div className="space-y-3 py-4 lg:border-none lg:border-none xl:w-2/3 xl:p-0">
+          <div className="space-y-3 py-4 lg:border-none xl:w-2/3 xl:p-0">
             <p className="text-base text-gray-700">
               <span className="text-sm font-semibold text-gray-700">
                 Review:{' '}
@@ -211,7 +211,7 @@ const AdminReviews = () => {
   return (
     <div className="h-full">
       <h2 className="font-integral_cf text-2xl font-bold">All Reviews</h2>
-      <div className="h-full w-full overflow-y-auto rounded-lg bg-gray-200/50 p-4 md:p-8">
+      <div className="h-full w-full overflow-y-auto rounded-lg bg-background p-4 md:p-8">
         <div className="my-3">
           <form className=" w-3/4 lg:w-1/3">
             <input

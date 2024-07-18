@@ -154,7 +154,7 @@ const AdminAllCustomers = () => {
   return (
     <div className="h-full">
       <h2 className="mb-4 text-2xl font-bold">All Customers</h2>
-      <div className="mt-8 h-1/2 w-full overflow-y-auto rounded-lg bg-slate-200/50 p-4 md:p-8">
+      <div className="mt-8 h-1/2 w-full overflow-y-auto rounded-lg bg-background p-4 md:p-8">
         <div className="my-3">
           <form className=" w-3/4 lg:w-1/3">
             <input

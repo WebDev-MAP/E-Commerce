@@ -65,7 +65,7 @@ const AdminEditProduct = () => {
           Edit Product
         </h3>
       </div>
-      <div className="mt-10 rounded-lg bg-slate-200/50 px-8 py-8 lg:px-16">
+      <div className="mt-10 rounded-lg bg-background px-8 py-8 lg:px-16">
         <div className="flex w-full flex-row">
           <form className="w-full">
             <div className="flex flex-col gap-5">
@@ -82,7 +82,7 @@ const AdminEditProduct = () => {
                   name="title"
                   value={product.title}
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 />
               </div>
               <div className="flex flex-col gap-3 lg:flex-row">
@@ -97,7 +97,7 @@ const AdminEditProduct = () => {
                   id="mainImage"
                   name="mainImage"
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 />
               </div>
               <div className="flex flex-col gap-3 lg:flex-row">
@@ -113,7 +113,7 @@ const AdminEditProduct = () => {
                   name="price"
                   value={product.price}
                   onChange={(event) => handleChange(event)}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 />
               </div>
               <div className="flex flex-col gap-3 lg:flex-row">
@@ -130,7 +130,7 @@ const AdminEditProduct = () => {
                     name="isDiscounted"
                     checked={product.isDiscounted}
                     onChange={handleChange}
-                    className="scale-150 bg-slate-300/50"
+                    className="scale-150 bg-gray-300/50"
                   />
                 </div>
               </div>
@@ -147,7 +147,7 @@ const AdminEditProduct = () => {
                   name="discountPercentage"
                   value={product.discountPercentage}
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 />
               </div>
               <div className="flex flex-col gap-3 lg:flex-row">
@@ -162,7 +162,7 @@ const AdminEditProduct = () => {
                   name="type"
                   value={product.type}
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 >
                   <option value="T-shirts">T-shirts</option>
                   <option value="Shorts">Shorts</option>
@@ -183,7 +183,7 @@ const AdminEditProduct = () => {
                   name="style"
                   value={product.style}
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 >
                   <option value="Casual">Casual</option>
                   <option value="Formal">Formal</option>
@@ -204,7 +204,7 @@ const AdminEditProduct = () => {
                   rows={2}
                   value={product.description}
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 />
               </div>
               <div className="flex flex-col gap-3 lg:flex-row">
@@ -220,7 +220,7 @@ const AdminEditProduct = () => {
                   rows={4}
                   value={product.descriptionDetails}
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 />
               </div>
               <div className="flex flex-col gap-3 lg:flex-row">
@@ -236,7 +236,7 @@ const AdminEditProduct = () => {
                   rows={4}
                   value={product.details}
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 />
               </div>
             </div>

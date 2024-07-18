@@ -147,7 +147,7 @@ const AdminAddProduct = ({ id }) => {
       {message && (
         <p className="mt-3 text-xs font-bold text-green-500">{message}</p>
       )}
-      <div className="mt-10 rounded-lg bg-slate-200/50 px-16 py-8">
+      <div className="mt-10 rounded-lg bg-background px-16 py-8">
         <div className="flex w-full flex-row">
           <form className="w-full">
             <div className="flex flex-col gap-5 ">
@@ -167,7 +167,7 @@ const AdminAddProduct = ({ id }) => {
                   name="title"
                   value={product.title}
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 />
               </div>
               <div>
@@ -189,7 +189,7 @@ const AdminAddProduct = ({ id }) => {
                       id="mainImage"
                       name="mainImage"
                       onChange={handleChange}
-                      className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                      className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                     />
                     {product.mainImage && (
                       <img
@@ -217,7 +217,7 @@ const AdminAddProduct = ({ id }) => {
                   name="price"
                   value={product.price}
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 />
               </div>
               <div className="flex flex-row items-center gap-3">
@@ -251,7 +251,7 @@ const AdminAddProduct = ({ id }) => {
                     name="discountPercentage"
                     value={product.discountPercentage}
                     onChange={handleChange}
-                    className="w-full rounded-lg bg-slate-300/50 px-3 py-2 pl-10"
+                    className="w-full rounded-lg bg-gray-300/50 px-3 py-2 pl-10"
                   />
                 </div>
               </div>
@@ -267,7 +267,7 @@ const AdminAddProduct = ({ id }) => {
                   name="type"
                   value={product.type}
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 >
                   {['Shirts', 'Jeans', 'T-shirts', 'Shorts']
                     .sort()
@@ -290,7 +290,7 @@ const AdminAddProduct = ({ id }) => {
                   name="style"
                   value={product.style}
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 >
                   <option value="Casual">Casual</option>
                   <option value="Formal">Formal</option>
@@ -315,7 +315,7 @@ const AdminAddProduct = ({ id }) => {
                   name="description"
                   value={product.description}
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 ></textarea>
               </div>
               <div className="flex flex-row gap-3">
@@ -330,7 +330,7 @@ const AdminAddProduct = ({ id }) => {
                   name="descriptionDetails"
                   value={product.descriptionDetails}
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 ></textarea>
               </div>
               <div className="flex flex-row gap-3">
@@ -345,7 +345,7 @@ const AdminAddProduct = ({ id }) => {
                   name="details"
                   value={product.details}
                   onChange={handleChange}
-                  className="w-full rounded-lg bg-slate-300/50 px-3 py-2"
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 ></textarea>
               </div>
               <div className="flex flex-row gap-3">

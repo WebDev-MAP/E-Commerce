@@ -101,6 +101,7 @@ function OrderProvider({ children }) {
         adminOrders,
         loading,
         createOrder,
+        fetchAdminOrders,
       }}
     >
       {children}

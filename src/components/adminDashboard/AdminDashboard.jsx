@@ -360,8 +360,17 @@ const AdminDashboard = () => {
                     <li key={order._id} className="my-2">
                       {moment(order.createdAt).fromNow()},{' '}
                       <span className="font-semibold">
-                        {order.products.length} Product
-                        {order.products.length > 1 ? 's' : ''}
+                        {order.products.reduce(
+                          (total, product) => total + product.quantity,
+                          0
+                        )}{' '}
+                        Product
+                        {order.products.reduce(
+                          (total, product) => total + product.quantity,
+                          0
+                        ) > 1
+                          ? 's'
+                          : ''}
                       </span>{' '}
                       {order.products.length > 1 ? 'were' : 'was'} ordered for
                       {order.products.length > 1

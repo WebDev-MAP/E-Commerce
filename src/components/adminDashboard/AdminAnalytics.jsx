@@ -230,7 +230,7 @@ const AdminAnalytics = () => {
           </div>
         </div>
         <div className="rounded-lg bg-background md:mt-5 md:p-4 xl:px-16 xl:py-10">
-          <div className="m-2 flex w-full flex-wrap justify-between gap-1 lg:gap-5 font-satoshi_regular lg:flex-row xl:px-10">
+          <div className="m-2 flex w-full flex-wrap justify-between gap-1 font-satoshi_regular lg:flex-row lg:gap-5 xl:px-10">
             <div className="mr-4 flex min-w-[8rem] max-w-[30rem] flex-shrink flex-grow flex-col items-start gap-2 rounded-xl border-2 border-gray-200 p-3 md:p-4 xl:w-1/4">
               <div className="flex w-full items-center justify-between gap-2">
                 <div className="flex gap-1 md:gap-2">
@@ -252,13 +252,15 @@ const AdminAnalytics = () => {
                         <FaArrowTrendDown />
                       )}
                       <p>
-                        {Math.round(
-                          Math.abs(
-                            grossPercentageChange === -100
-                              ? grossPercentageChangeMinus
-                              : grossPercentageChange
-                          )
-                        )}
+                        {grossRevenue === 0 && prevGrossRevenue === 0
+                          ? 0
+                          : Math.round(
+                              Math.abs(
+                                grossPercentageChange === -100
+                                  ? grossPercentageChangeMinus
+                                  : grossPercentageChange
+                              )
+                            )}
                         %
                       </p>
                     </div>
@@ -291,13 +293,15 @@ const AdminAnalytics = () => {
                         <FaArrowTrendDown />
                       )}
                       <p>
-                        {Math.round(
-                          Math.abs(
-                            refundCostPercentageChange === -100
-                              ? refundCostPercentageChangeMinus
-                              : refundCostPercentageChange
-                          )
-                        )}
+                        {refundCost === 0 && prevRefundCost === 0
+                          ? 0
+                          : Math.round(
+                              Math.abs(
+                                refundCostPercentageChange === -100
+                                  ? refundCostPercentageChangeMinus
+                                  : refundCostPercentageChange
+                              )
+                            )}
                         %
                       </p>
                     </div>
@@ -330,13 +334,15 @@ const AdminAnalytics = () => {
                         <FaArrowTrendDown />
                       )}
                       <p>
-                        {Math.round(
-                          Math.abs(
-                            discountCostPercentageChange === -100
-                              ? discountCostPercentageChangeMinus
-                              : discountCostPercentageChange
-                          )
-                        )}
+                        {discountCost === 0 && prevDiscountCost === 0
+                          ? 0
+                          : Math.round(
+                              Math.abs(
+                                discountCostPercentageChange === -100
+                                  ? discountCostPercentageChangeMinus
+                                  : discountCostPercentageChange
+                              )
+                            )}
                         %
                       </p>
                     </div>
@@ -369,13 +375,15 @@ const AdminAnalytics = () => {
                         <FaArrowTrendDown />
                       )}
                       <p>
-                        {Math.round(
-                          Math.abs(
-                            taxesCostPercentageChange === -100
-                              ? taxesCostPercentageChangeMinus
-                              : taxesCostPercentageChange
-                          )
-                        )}
+                        {taxesCost === 0 && prevTaxesCost === 0
+                          ? 0
+                          : Math.round(
+                              Math.abs(
+                                taxesCostPercentageChange === -100
+                                  ? taxesCostPercentageChangeMinus
+                                  : taxesCostPercentageChange
+                              )
+                            )}
                         %
                       </p>
                     </div>
@@ -408,13 +416,15 @@ const AdminAnalytics = () => {
                         <FaArrowTrendDown />
                       )}
                       <p>
-                        {Math.round(
-                          Math.abs(
-                            shippingCostPercentageChange === -100
-                              ? shippingCostPercentageChangeMinus
-                              : shippingCostPercentageChange
-                          )
-                        )}
+                        {shippingCost === 0 && prevShippingCost === 0
+                          ? 0
+                          : Math.round(
+                              Math.abs(
+                                shippingCostPercentageChange === -100
+                                  ? shippingCostPercentageChangeMinus
+                                  : shippingCostPercentageChange
+                              )
+                            )}
                         %
                       </p>
                     </div>
@@ -449,13 +459,15 @@ const AdminAnalytics = () => {
                         <FaArrowTrendDown />
                       )}
                       <p>
-                        {Math.round(
-                          Math.abs(
-                            netRevenuePercentageChange === -100
-                              ? netRevenuePercentageChangeMinus
-                              : netRevenuePercentageChange
-                          )
-                        )}
+                        {netRevenue === 0 && prevNetRevenue === 0
+                          ? 0
+                          : Math.round(
+                              Math.abs(
+                                netRevenuePercentageChange === -100
+                                  ? netRevenuePercentageChangeMinus
+                                  : netRevenuePercentageChange
+                              )
+                            )}
                         %
                       </p>
                     </div>

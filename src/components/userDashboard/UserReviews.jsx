@@ -1,15 +1,34 @@
 import { useEffect, useState } from 'react'
 import { useShopContext } from '../../context/ShopContext'
+import { NavLink } from 'react-router-dom'
+import RatingReview from '../RatingReview'
+
+// Icons
 import { IoCheckmarkCircle } from 'react-icons/io5'
 import { FaStar } from 'react-icons/fa'
-import Card from '../Card'
 import { IoIosArrowDown } from 'react-icons/io'
+import Button from '../Button'
 
 const UserReviews = () => {
   const { userData } = useShopContext()
   const [reviews, setReviews] = useState([])
   const [query, setQuery] = useState('')
   const [categoryOpen, setCategoryOpen] = useState(false)
+
+  const [editingReviewId, setEditingReviewId] = useState(null)
+  const [newReview, setNewReview] = useState('')
+  const [newRating, setNewRating] = useState(0)
+
+  const handleEditClick = (review) => {
+    setEditingReviewId(review._id)
+    setNewReview(review.review)
+    setNewRating(review.stars)
+  }
+
+  const handleSaveClick = (id) => {
+    updateReviewById(id)
+    setEditingReviewId(null)
+  }
 
   const fetchReviewsById = async () => {
     const userID = userData._id
@@ -21,15 +40,115 @@ const UserReviews = () => {
     return setReviews(data)
   }
 
+  const deleteReviewById = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3002/reviews/${id}`, {
+        method: 'DELETE',
+      })
+
+      if (response.ok) {
+        console.log(reviews)
+      } else {
+        console.log('Failed to delete the review')
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  const updateReviewById = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3002/reviews/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ review: newReview, stars: newRating }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
   useEffect(() => {
     fetchReviewsById()
-  }, [])
+  }, [editingReviewId])
+
+  console.log(reviews)
+
+  // filter reviews
+  const filteredReviews = reviews.filter((review) => {
+    const searchQuery = query.toLowerCase()
+    return (
+      review._id.toLowerCase().includes(searchQuery) ||
+      review.review.toLowerCase().includes(searchQuery) ||
+      review.productId.title.toLowerCase().includes(searchQuery) ||
+      review.productId.type.toLowerCase().includes(searchQuery) ||
+      review.productId.style.toLowerCase().includes(searchQuery) ||
+      new Date(review.createdAt)
+        .toLocaleDateString()
+        .toLowerCase()
+        .includes(searchQuery) ||
+      new Date(review.updatedAt)
+        .toLocaleDateString()
+        .toLowerCase()
+        .includes(searchQuery)
+    )
+  })
+
+  const ProductCard = ({ product }) => {
+    return (
+      <div className="flex flex-col gap-3 border-b pb-3 lg:w-1/2 lg:flex-row lg:border-none xl:w-96">
+        <NavLink to={`/product/${product._id}`}>
+          <img
+            src={product.mainImage}
+            alt={product.title}
+            className="pointer-events-none m-auto h-36 max-h-[300px] w-36 lg:h-32 lg:w-32 xl:h-40 xl:w-40"
+          />
+        </NavLink>
+        <div className="space-y-3">
+          <NavLink to={`/product/${product._id}`}>
+            <h3 className="font-satoshi_bold text-base md:text-lg">
+              {product.title}
+            </h3>
+          </NavLink>
+          <p className="flex flex-row items-center font-satoshi_regular text-xs md:text-sm">
+            {[...Array(product.stars)].map((star, index) => {
+              return <FaStar key={index} className="mr-1 text-yellow-400" />
+            })}{' '}
+            {product.stars}/5{' '}
+          </p>
+          {product.isDiscounted ? (
+            <div className="flex flex-row items-center">
+              <span className="font-satoshi_bold text-lg md:text-xl">
+                ${product.discountedPrice}
+              </span>
+              <span className="px-2 font-satoshi_bold text-lg line-through opacity-40 md:text-xl">
+                ${product.price}
+              </span>
+              <span className="rounded-xl bg-[#FF3333] bg-opacity-10 px-1 py-1 text-xs text-red-500 md:px-3">
+                -{product.discountPercentage}%
+              </span>
+            </div>
+          ) : (
+            <p className="font-satoshi_bold text-lg md:text-xl">
+              ${product.price}
+            </p>
+          )}
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="scroll flex flex-col  font-satoshi_regular">
       <h2 className="my-6 text-2xl font-bold">My Reviews</h2>
       <div className="h-[45rem] space-y-4 overflow-y-auto rounded-lg bg-background p-4 md:p-8">
-        <div className="rounded-lg  px-2 ">
+        <div className="rounded-lg ">
           <div className="flex w-full flex-row justify-between">
             <form className=" w-3/4 lg:w-1/3">
               <input
@@ -78,9 +197,9 @@ const UserReviews = () => {
           </div>
         </div>
 
-        {reviews.length > 0 ? (
+        {filteredReviews.length > 0 ? (
           // stars
-          reviews.map((review) => {
+          filteredReviews.map((review) => {
             const stars = [...Array(review.stars)].map((star, index) => {
               return <FaStar key={index} className="mr-1 text-yellow-400" />
             })
@@ -88,31 +207,74 @@ const UserReviews = () => {
             return (
               <div
                 key={review._id}
-                className="flex  rounded-md border border-black p-4 px-4 py-2"
+                className="flex flex-col gap-8 rounded-md  border border-slate-500/30 p-4 px-4 py-2"
               >
                 {/* product */}
+                <div className="flex flex-col  items-center justify-center lg:flex-row ">
+                  <ProductCard product={review.productId} />
 
-                <div className="flex ">
-                  {' '}
-                  <Card product={review.productId} />
-                </div>
-                {/* review */}
-                <div className="mx-2  mb-16  flex h-[240px] w-1/2 flex-col items-start  space-y-3 rounded-2xl border border-black/10 px-8 pt-7 font-satoshi_regular text-base">
-                  <div className="flex">{stars}</div>
-                  <div className="flex items-center">
-                    <h4 className="font-satoshi_bold text-xl">
-                      {review.createdBy.first_name} {review.createdBy.last_name}
-                    </h4>
-                    <div className="pl-2">
-                      {review.verified && (
-                        <IoCheckmarkCircle className="text-xl text-green-600" />
+                  {/* review */}
+                  <div className="flex flex-col justify-between lg:w-1/2">
+                    <div className="mx-2  mb-16  flex  flex-col items-start   space-y-3  rounded-2xl px-8 pt-7 font-satoshi_regular text-base ">
+                      <div className="flex">
+                        {editingReviewId === review._id ? (
+                          <RatingReview
+                            key={review._id}
+                            rating={newRating}
+                            setRating={setNewRating}
+                          />
+                        ) : (
+                          stars
+                        )}
+                      </div>
+                      <div className="flex  items-center">
+                        <h4 className="font-satoshi_bold text-xl">
+                          {review.createdBy.first_name}{' '}
+                          {review.createdBy.last_name}
+                        </h4>
+                        <div className="pl-2">
+                          {review.verified && (
+                            <IoCheckmarkCircle className="text-xl text-green-600" />
+                          )}
+                        </div>
+                      </div>
+                      <div className="text-overflow-ellipsis max-h-[120px] overflow-hidden opacity-60">
+                        {editingReviewId === review._id ? (
+                          <textarea
+                            value={newReview}
+                            onChange={(e) => setNewReview(e.target.value)}
+                            rows="5"
+                            cols="50"
+                          />
+                        ) : (
+                          <p>{review.review}</p>
+                        )}
+                      </div>
+                    </div>
+                    <div className=" flex justify-center gap-4">
+                      {editingReviewId === review._id ? (
+                        <Button
+                          primary
+                          onClick={() => {
+                            handleSaveClick(review._id)
+                          }}
+                        >
+                          Submit
+                        </Button>
+                      ) : (
+                        <Button primary onClick={() => handleEditClick(review)}>
+                          Edit
+                        </Button>
                       )}
+                      <Button
+                        danger
+                        onClick={() => deleteReviewById(review._id)}
+                      >
+                        Delete
+                      </Button>
                     </div>
                   </div>
-                  <p className="text-overflow-ellipsis max-h-[120px] overflow-hidden opacity-60">
-                    {review.review}
-                  </p>
-                </div>
+                </div>{' '}
               </div>
             )
           })

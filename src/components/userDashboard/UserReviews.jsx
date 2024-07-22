@@ -21,9 +21,6 @@ const UserReviews = () => {
 
     return setReviews(data)
   }
-  useEffect(() => {
-    fetchReviewsById()
-  }, [reviews])
 
   const deleteReviewById = async (id) => {
     try {
@@ -41,19 +38,41 @@ const UserReviews = () => {
     }
   }
 
-  useEffect(() => {
-    const reviewsCopy = [...reviews]
-    console.log(reviewsCopy, query.length)
-    if (query.length > 0) {
-      const filteredReviews = reviews.filter((review) =>
-        review.productId.title.includes(query)
-      )
-      console.log(filteredReviews)
-      return setReviews(filteredReviews)
-    } else if (query.length === 0) {
-      return setReviews(reviewsCopy)
+  const updateReviewById = async (id) => {
+    try {
+      const response = fetch(`http://localhost:3002/reviews/${id}`, {
+        method: 'PATCH',
+      })
+    } catch (error) {
+      console.log(error.message)
     }
-  }, [query])
+  }
+
+  useEffect(() => {
+    fetchReviewsById()
+  }, [])
+
+  console.log(reviews)
+
+  // filter reviews
+  const filteredReviews = reviews.filter((review) => {
+    const searchQuery = query.toLowerCase()
+    return (
+      review._id.toLowerCase().includes(searchQuery) ||
+      review.review.toLowerCase().includes(searchQuery) ||
+      review.productId.title.toLowerCase().includes(searchQuery) ||
+      review.productId.type.toLowerCase().includes(searchQuery) ||
+      review.productId.style.toLowerCase().includes(searchQuery) ||
+      new Date(review.createdAt)
+        .toLocaleDateString()
+        .toLowerCase()
+        .includes(searchQuery) ||
+      new Date(review.updatedAt)
+        .toLocaleDateString()
+        .toLowerCase()
+        .includes(searchQuery)
+    )
+  })
 
   return (
     <div className="scroll flex flex-col  font-satoshi_regular">
@@ -108,9 +127,9 @@ const UserReviews = () => {
           </div>
         </div>
 
-        {reviews.length > 0 ? (
+        {filteredReviews.length > 0 ? (
           // stars
-          reviews.map((review) => {
+          filteredReviews.map((review) => {
             const stars = [...Array(review.stars)].map((star, index) => {
               return <FaStar key={index} className="mr-1 text-yellow-400" />
             })

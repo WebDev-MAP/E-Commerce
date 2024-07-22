@@ -29,6 +29,30 @@ const UserOrders = () => {
     fetchReviews()
   }, [])
 
+  console.log(userOrders)
+
+  // filter Orders
+  const filteredOrders = userOrders.filter((order) => {
+    const searchQuery = query.toLowerCase()
+    return (
+      order._id.toLowerCase().includes(searchQuery) ||
+      order.paymentMethod.toLowerCase().includes(searchQuery) ||
+      order.status.toLowerCase().includes(searchQuery) ||
+      order.totalAmount.toString().toLowerCase().includes(searchQuery) ||
+      // order.productId.title.toLowerCase().includes(searchQuery) ||
+      // order.productId.type.toLowerCase().includes(searchQuery) ||
+      // order.productId.style.toLowerCase().includes(searchQuery) ||
+      new Date(order.createdAt)
+        .toLocaleDateString()
+        .toLowerCase()
+        .includes(searchQuery) ||
+      new Date(order.updatedAt)
+        .toLocaleDateString()
+        .toLowerCase()
+        .includes(searchQuery)
+    )
+  })
+
   // fetch all reviews from user
   const fetchReviews = async () => {
     try {
@@ -96,17 +120,6 @@ const UserOrders = () => {
     </div>
   )
 
-  console.log(userOrders, query)
-
-  const filteredProducts = userOrders.filter((order) => {
-    const orderString = Object.values(order)
-      .map((value) => value.toString())
-      .join(' ')
-    return orderString.includes(query)
-  })
-
-  console.log(filteredProducts)
-
   useEffect(() => {
     const fetchOrder = async () => {
       const response = await fetch(
@@ -172,7 +185,7 @@ const UserOrders = () => {
           </div>
         </div>
 
-        {userOrders.map((order, index) => (
+        {filteredOrders.map((order, index) => (
           // all orders of the user
 
           <div key={order._id} className="rounded-md  border-2">

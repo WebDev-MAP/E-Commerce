@@ -15,12 +15,31 @@ import { IoMdSettings } from 'react-icons/io'
 import { IoIosArrowBack } from 'react-icons/io'
 import { IoIosArrowForward } from 'react-icons/io'
 import { BiSolidDashboard } from 'react-icons/bi'
+import { useEffect } from 'react'
 
 const PageUserDashboard = () => {
-  const { sidebarActive, setSidebarActive } = useShopContext()
-
+  const { sidebarActive, setSidebarActive, setQuery } = useShopContext()
   const [sidebarDropdown, setSidebarDropdown] = useState(null)
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false)
+
+  useEffect(() => {
+    if (isSidebarMinimized) {
+      setSidebarDropdown(null)
+    }
+  }, [isSidebarMinimized])
+
+  useEffect(() => {
+    const checkResize = () => {
+      if (window.innerWidth >= 760) {
+        setIsSidebarMinimized(false)
+      } else {
+        setIsSidebarMinimized(true)
+      }
+    }
+    window.addEventListener('resize', checkResize)
+
+    return () => window.removeEventListener('resize', checkResize)
+  }, [])
 
   return (
     <>
@@ -70,6 +89,7 @@ const PageUserDashboard = () => {
                       className={`flex cursor-pointer items-center justify-between gap-4 text-xl`}
                       onClick={() => {
                         setSidebarActive('orders')
+                        setQuery('')
                       }}
                     >
                       <FaShoppingCart />
@@ -81,6 +101,7 @@ const PageUserDashboard = () => {
                     className={`flex cursor-pointer items-center justify-between gap-4 text-xl`}
                     onClick={() => {
                       setSidebarActive('reviews')
+                      setQuery('')
                     }}
                   >
                     <div className="flex flex-row items-center gap-4">

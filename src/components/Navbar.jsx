@@ -33,6 +33,8 @@ function Navbar() {
     products,
     sidebarActive,
     setSidebarActive,
+    adminSidebarActive,
+    setAdminSidebarActive,
   } = useShopContext()
   const { cartQuantity } = useCartContext()
 
@@ -316,24 +318,44 @@ function Navbar() {
                     <ul
                       className={`flex flex-col items-start hover:cursor-pointer`}
                     >
-                      <NavLink
-                        to="/user"
-                        onClick={() => setSidebarActive('dashboard')}
-                      >
-                        <li>My Account</li>
-                      </NavLink>
-                      <NavLink
-                        to="/user"
-                        onClick={() => setSidebarActive('orders')}
-                      >
-                        <li>My Orders</li>
-                      </NavLink>
-                      <NavLink
-                        to="/user"
-                        onClick={() => setSidebarActive('settings')}
-                      >
-                        <li>Settings</li>
-                      </NavLink>
+                      {userData.role === 'admin' && (
+                        <>
+                          <NavLink
+                            to="/admin"
+                            onClick={() => setAdminSidebarActive('dashboard')}
+                          >
+                            <li>Dashboard</li>
+                          </NavLink>
+                          <NavLink
+                            to="/admin"
+                            onClick={() => setAdminSidebarActive('analytics')}
+                          >
+                            <li>Analytics</li>
+                          </NavLink>
+                        </>
+                      )}
+                      {userData.role === 'user' && (
+                        <>
+                          <NavLink
+                            to="/user"
+                            onClick={() => setSidebarActive('dashboard')}
+                          >
+                            <li>My Account</li>
+                          </NavLink>
+                          <NavLink
+                            to="/user"
+                            onClick={() => setSidebarActive('orders')}
+                          >
+                            <li>My Orders</li>
+                          </NavLink>
+                          <NavLink
+                            to="/user"
+                            onClick={() => setSidebarActive('settings')}
+                          >
+                            <li>Settings</li>
+                          </NavLink>
+                        </>
+                      )}
                       <li
                         onClick={() => {
                           userLogout(userData)

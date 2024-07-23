@@ -14,6 +14,7 @@ function ShopProvider({ children }) {
   const [isLoggedin, setIsLoggedin] = useState(false)
   const [userData, setUserData] = useState({})
   const [sidebarActive, setSidebarActive] = useState(null)
+  const [adminSidebarActive, setAdminSidebarActive] = useState(null)
   const [criteria, setCriteria] = useState({
     type: [],
     size: [],
@@ -97,6 +98,8 @@ function ShopProvider({ children }) {
         query,
         setQuery,
         fetchReviews,
+		  setAdminSidebarActive,
+		  adminSidebarActive,
       }}
     >
       <CartProvider>

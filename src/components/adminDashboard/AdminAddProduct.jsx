@@ -1,13 +1,39 @@
 import React, { useState } from 'react'
 import { FaPercent, FaSpinner } from 'react-icons/fa'
 import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-const AdminAddProduct = ({ id }) => {
+const AdminAddProduct = () => {
   const baseUrl = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+
+  const [images, setImages] = useState([])
+
+  const handleImageChange = (event) => {
+    const files = Array.from(event.target.files)
+    const promises = files.map(file => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend = () => resolve(reader.result)
+        reader.onerror = error => reject(error)
+      })
+    })
+
+    Promise.all(promises)
+      .then(base64Files => {
+        setImages(prevImages => [...prevImages, ...base64Files])
+      })
+      .catch(error => console.error('File reading error:', error))
+  }
+
+  const removeImage = (index) => {
+    setImages(images.filter((_, i) => i !== index))
+  }
 
   const initialProductState = {
     title: '',
     mainImage: '',
+    images: [],
     price: 0,
     isDiscounted: false,
     discountPercentage: 0,
@@ -28,9 +54,8 @@ const AdminAddProduct = ({ id }) => {
   const validateForm = () => {
     const newErrors = {}
     if (!product.title) newErrors.title = 'Title is required'
-    if (!product.mainImage) newErrors.mainImage = 'Main Image is required'
-    if (!product.price || product.price <= 0)
-      newErrors.price = 'Price is required'
+    if (!images.length) newErrors.images = 'At least one image is required'
+    if (!product.price || product.price <= 0) newErrors.price = 'Price is required'
     if (!product.type) newErrors.type = 'Type is required'
     if (!product.style) newErrors.style = 'Style is required'
     if (!product.description) newErrors.description = 'Description is required'
@@ -40,6 +65,9 @@ const AdminAddProduct = ({ id }) => {
   }
 
   const createProduct = async (url, data) => {
+    data.mainImage = images[0]
+    data.images = images.slice(1)
+    console.log(data)
     try {
       const response = await fetch(`${url}/products`, {
         method: 'POST',
@@ -56,43 +84,14 @@ const AdminAddProduct = ({ id }) => {
     }
   }
 
-  const handleImageChange = (imageFile) => {
-    if (
-      imageFile &&
-      (imageFile.type === 'image/jpeg' ||
-        imageFile.type === 'image/png' ||
-        imageFile.type === 'image/jpg')
-    ) {
-      const readFile = new FileReader()
-      readFile.readAsDataURL(imageFile)
-      readFile.onloadend = () => {
-        setProduct((prevProduct) => ({
-          ...prevProduct,
-          mainImage: readFile.result,
-        }))
-        setErrors((prevErrors) => ({ ...prevErrors, mainImage: '' }))
-      }
-    } else {
-      setProduct((prevProduct) => ({ ...prevProduct, mainImage: '' }))
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        mainImage: 'Invalid file type',
-      }))
-    }
-  }
-
   const handleChange = (event) => {
-    const { name, value, type, checked, files } = event.target
+    const { name, value, type, checked } = event.target
     const newValue = type === 'checkbox' ? checked : value
 
-    if (name === 'mainImage') {
-      handleImageChange(files[0])
-    } else {
-      setProduct((prevProduct) => ({
-        ...prevProduct,
-        [name]: newValue,
-      }))
-    }
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      [name]: newValue,
+    }))
   }
 
   const handleCheckboxChange = (event) => {
@@ -104,7 +103,6 @@ const AdminAddProduct = ({ id }) => {
         ? [...prevProduct[name], value]
         : prevProduct[name].filter((item) => item !== value),
     }))
-    console.log(name, value, checked)
   }
 
   const handleSubmit = async (event) => {
@@ -117,7 +115,8 @@ const AdminAddProduct = ({ id }) => {
 
     setLoading(true)
 
-    const response = await createProduct(baseUrl, product)
+    const productData = { ...product, images }
+    const response = await createProduct(baseUrl, productData)
 
     setLoading(false)
     setMessage(response.message)
@@ -137,24 +136,25 @@ const AdminAddProduct = ({ id }) => {
     }, 5000)
 
     setProduct(initialProductState)
+    setImages([])
   }
 
   return (
-    <div className="h-full space-y-4 overflow-y-auto">
+    <div className="h-full space-y-4 overflow-y-auto p-4 sm:p-6 lg:p-8">
       <div className="flex flex-row items-center justify-start">
         <h3 className="font-satoshi_regular text-2xl font-bold">Add Product</h3>
       </div>
       {message && (
         <p className="mt-3 text-xs font-bold text-green-500">{message}</p>
       )}
-      <div className="mt-10 rounded-lg bg-background px-16 py-8">
-        <div className="flex w-full flex-row">
+      <div className="mt-10 rounded-lg bg-background px-4 py-8 sm:px-8 lg:px-16">
+        <div className="flex w-full flex-col">
           <form className="w-full">
-            <div className="flex flex-col gap-5 ">
-              <div className="flex flex-row gap-3">
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <label
                   htmlFor="title"
-                  className="w-1/5 font-satoshi_regular text-lg"
+                  className="w-full sm:w-1/5 font-satoshi_regular text-lg"
                 >
                   Title
                   {errors.title && (
@@ -170,41 +170,47 @@ const AdminAddProduct = ({ id }) => {
                   className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 />
               </div>
-              <div>
-                <div className="flex flex-row gap-3">
-                  <label
-                    htmlFor="mainImage"
-                    className="w-1/5 font-satoshi_regular text-lg"
-                  >
-                    Main Image
-                    {errors.mainImage && (
-                      <p className="mt-1 text-xs text-red-500">
-                        {errors.mainImage}
-                      </p>
-                    )}
-                  </label>
-                  <div className="w-full">
-                    <input
-                      type="file"
-                      id="mainImage"
-                      name="mainImage"
-                      onChange={handleChange}
-                      className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
-                    />
-                    {product.mainImage && (
+              <div className="flex flex-col gap-3">
+                <label
+                  htmlFor="images"
+                  className="font-satoshi_regular text-lg"
+                >
+                  Images
+                  {errors.images && (
+                    <p className="mt-1 text-xs text-red-500">{errors.images}</p>
+                  )}
+                </label>
+                <input
+                  type="file"
+                  id="images"
+                  name="images"
+                  multiple
+                  onChange={handleImageChange}
+                  className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
+                />
+                <div className="flex flex-wrap gap-3">
+                  {images.map((image, index) => (
+                    <div key={index} className="flex items-center gap-3">
                       <img
-                        src={product.mainImage}
-                        alt="Uploaded Preview"
-                        className="mt-3 w-36 max-w-xs"
+                        src={image}
+                        alt={`Uploaded Preview ${index}`}
+                        className="w-36 max-w-xs"
                       />
-                    )}
-                  </div>
+                      <button
+                        type="button"
+                        onClick={() => removeImage(index)}
+                        className="rounded-lg bg-red-500 px-3 py-2 text-white"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <label
                   htmlFor="price"
-                  className="w-1/5 font-satoshi_regular text-lg"
+                  className="w-full sm:w-1/5 font-satoshi_regular text-lg"
                 >
                   Price
                   {errors.price && (
@@ -220,10 +226,10 @@ const AdminAddProduct = ({ id }) => {
                   className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 />
               </div>
-              <div className="flex flex-row items-center gap-3">
+              <div className="flex flex-col sm:flex-row items-center gap-3">
                 <label
                   htmlFor="isDiscounted"
-                  className="w-1/5 font-satoshi_regular text-lg"
+                  className="w-full sm:w-1/5 font-satoshi_regular text-lg"
                 >
                   Is Discounted
                 </label>
@@ -236,10 +242,10 @@ const AdminAddProduct = ({ id }) => {
                   className="h-5 w-5"
                 />
               </div>
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <label
                   htmlFor="discountPercentage"
-                  className="w-1/5 font-satoshi_regular text-lg"
+                  className="w-full sm:w-1/5 font-satoshi_regular text-lg"
                 >
                   Discount Percentage
                 </label>
@@ -255,10 +261,10 @@ const AdminAddProduct = ({ id }) => {
                   />
                 </div>
               </div>
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <label
                   htmlFor="type"
-                  className="w-1/5 font-satoshi_regular text-lg"
+                  className="w-full sm:w-1/5 font-satoshi_regular text-lg"
                 >
                   Type
                 </label>
@@ -278,10 +284,10 @@ const AdminAddProduct = ({ id }) => {
                     ))}
                 </select>
               </div>
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <label
                   htmlFor="style"
-                  className="w-1/5 font-satoshi_regular text-lg"
+                  className="w-full sm:w-1/5 font-satoshi_regular text-lg"
                 >
                   Style
                 </label>
@@ -298,10 +304,10 @@ const AdminAddProduct = ({ id }) => {
                   <option value="Party">Party</option>
                 </select>
               </div>
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <label
                   htmlFor="description"
-                  className="w-1/5 font-satoshi_regular text-lg"
+                  className="w-full sm:w-1/5 font-satoshi_regular text-lg"
                 >
                   Description
                   {errors.description && (
@@ -318,10 +324,10 @@ const AdminAddProduct = ({ id }) => {
                   className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 ></textarea>
               </div>
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <label
                   htmlFor="descriptionDetails"
-                  className="w-1/5 font-satoshi_regular text-lg"
+                  className="w-full sm:w-1/5 font-satoshi_regular text-lg"
                 >
                   Description Details
                 </label>
@@ -333,10 +339,10 @@ const AdminAddProduct = ({ id }) => {
                   className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 ></textarea>
               </div>
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <label
                   htmlFor="details"
-                  className="w-1/5 font-satoshi_regular text-lg"
+                  className="w-full sm:w-1/5 font-satoshi_regular text-lg"
                 >
                   Details
                 </label>
@@ -348,10 +354,10 @@ const AdminAddProduct = ({ id }) => {
                   className="w-full rounded-lg bg-gray-300/50 px-3 py-2"
                 ></textarea>
               </div>
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <label
                   htmlFor="sizes"
-                  className="w-1/5 font-satoshi_regular text-lg"
+                  className="w-full sm:w-1/5 font-satoshi_regular text-lg"
                 >
                   Sizes
                   {errors.sizes && (
@@ -380,10 +386,10 @@ const AdminAddProduct = ({ id }) => {
                   ))}
                 </div>
               </div>
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <label
                   htmlFor="colors"
-                  className="w-1/5 font-satoshi_regular text-lg"
+                  className="w-full sm:w-1/5 font-satoshi_regular text-lg"
                 >
                   Colors
                   {errors.colors && (

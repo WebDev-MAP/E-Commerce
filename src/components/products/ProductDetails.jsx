@@ -76,33 +76,33 @@ const ProductDetails = ({ product }) => {
             <div className="flex flex-row justify-center gap-2 md:justify-normal md:gap-4 lg:flex-col">
               <img
                 src={
-                  product._id === '6682b056a9a8fa03a17aa311'
-                    ? '/images/products/product-12-1.png'
+                  product.images[0]
+                    ? product.images[0]
                     : '/images/products/broken-image.png'
                 }
                 alt="product image 1"
                 className="min-h-28 min-w-[100px] cursor-pointer"
-                onClick={() => setMainImage(`${product.images[0]}`)}
+                onClick={() => product.images[0] && setMainImage(`${product.images[0]}`)}
               />
               <img
                 src={
-                  product._id === '6682b056a9a8fa03a17aa311'
-                    ? '/images/products/product-12-2.png'
+                  product.images[1]
+                    ? product.images[1]
                     : '/images/products/broken-image.png'
                 }
                 alt="product image 2"
                 className="min-h-28  min-w-[100px] cursor-pointer"
-                onClick={() => setMainImage(`${product.images[1]}`)}
+                onClick={() => product.images[1] && setMainImage(`${product.images[1]}`)}
               />
               <img
                 src={
-                  product._id === '6682b056a9a8fa03a17aa311'
-                    ? '/images/products/product-12-3.png'
+                  product.images[2]
+                    ? product.images[2]
                     : '/images/products/broken-image.png'
                 }
                 alt="product image 3"
                 className="min-h-28  min-w-[100px] cursor-pointer"
-                onClick={() => setMainImage(`${product.images[2]}`)}
+                onClick={() => product.images[2] && setMainImage(`${product.images[2]}`)}
               />
             </div>
           </div>

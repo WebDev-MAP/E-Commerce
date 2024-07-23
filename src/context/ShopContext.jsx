@@ -70,6 +70,9 @@ function ShopProvider({ children }) {
     fetchReviews()
   }, [])
 
+  // query for review search userDashboard
+  const [query, setQuery] = useState('')
+
   return (
     <ShopContext.Provider
       value={{
@@ -90,6 +93,9 @@ function ShopProvider({ children }) {
         reviews,
         sidebarActive,
         setSidebarActive,
+        query,
+        setQuery,
+        fetchReviews,
       }}
     >
       <CartProvider>

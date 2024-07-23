@@ -122,7 +122,7 @@ const UserSettings = () => {
                       value={setting.value}
                       type={setting.type}
                       onBlur={async (e) => {
-                        if (e.target.value.length <= 3) {
+                        if (e.target.value.length <= 2) {
                           setCurrentUserData(userData)
                           setting.setEdit(!setting.edit)
                           return alert('Please enter a valid value')

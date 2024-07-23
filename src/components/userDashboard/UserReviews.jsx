@@ -6,18 +6,17 @@ import RatingReview from '../RatingReview'
 // Icons
 import { IoCheckmarkCircle } from 'react-icons/io5'
 import { FaStar } from 'react-icons/fa'
-import { IoIosArrowDown } from 'react-icons/io'
 import Button from '../Button'
 
 const UserReviews = () => {
-  const { userData } = useShopContext()
+  const { userData, query, setQuery, fetchReviews } = useShopContext()
   const [reviews, setReviews] = useState([])
-  const [query, setQuery] = useState('')
-  const [categoryOpen, setCategoryOpen] = useState(false)
 
   const [editingReviewId, setEditingReviewId] = useState(null)
   const [newReview, setNewReview] = useState('')
   const [newRating, setNewRating] = useState(0)
+  const [sortOrder, setSortOrder] = useState('newest')
+  const [submitTriggered, setSubmitTriggered] = useState(false)
 
   const handleEditClick = (review) => {
     setEditingReviewId(review._id)
@@ -27,7 +26,6 @@ const UserReviews = () => {
 
   const handleSaveClick = (id) => {
     updateReviewById(id)
-    setEditingReviewId(null)
   }
 
   const fetchReviewsById = async () => {
@@ -45,6 +43,8 @@ const UserReviews = () => {
       const response = await fetch(`http://localhost:3002/reviews/${id}`, {
         method: 'DELETE',
       })
+      setSubmitTriggered(true)
+      fetchReviews()
 
       if (response.ok) {
         console.log(reviews)
@@ -65,6 +65,9 @@ const UserReviews = () => {
         },
         body: JSON.stringify({ review: newReview, stars: newRating }),
       })
+      setEditingReviewId(null)
+      setSubmitTriggered(true)
+      fetchReviews()
 
       if (!response.ok) {
         throw new Error('Network response was not ok')
@@ -76,9 +79,14 @@ const UserReviews = () => {
 
   useEffect(() => {
     fetchReviewsById()
-  }, [editingReviewId])
+  }, [])
 
-  console.log(reviews)
+  useEffect(() => {
+    if (submitTriggered) {
+      fetchReviewsById()
+      setSubmitTriggered(false) // Setzen Sie den Submit-Zustand zurück
+    }
+  }, [submitTriggered])
 
   // filter reviews
   const filteredReviews = reviews.filter((review) => {
@@ -89,6 +97,7 @@ const UserReviews = () => {
       review.productId.title.toLowerCase().includes(searchQuery) ||
       review.productId.type.toLowerCase().includes(searchQuery) ||
       review.productId.style.toLowerCase().includes(searchQuery) ||
+      review.productId._id.toLowerCase().includes(searchQuery) ||
       new Date(review.createdAt)
         .toLocaleDateString()
         .toLowerCase()
@@ -100,47 +109,64 @@ const UserReviews = () => {
     )
   })
 
+  // sort reviews
+  const sortedReviews = [...filteredReviews].sort((a, b) => {
+    if (sortOrder === 'newest') {
+      return new Date(b.createdAt) - new Date(a.createdAt)
+    } else if (sortOrder === 'oldest') {
+      return new Date(a.createdAt) - new Date(b.createdAt)
+    } else if (sortOrder === 'highest') {
+      return b.stars - a.stars
+    } else if (sortOrder === 'lowest') {
+      return a.stars - b.stars
+    } else if (sortOrder === 'title-ascending') {
+      return a.productId.title.localeCompare(b.productId.title)
+    } else if (sortOrder === 'title-descending') {
+      return b.productId.title.localeCompare(a.productId.title)
+    }
+  })
+
   const ProductCard = ({ product }) => {
     return (
-      <div className="flex flex-col gap-3 border-b pb-3 lg:w-1/2 lg:flex-row lg:border-none xl:w-96">
-        <NavLink to={`/product/${product._id}`}>
+      <NavLink to={`/product/${product._id}`}>
+        <div className="flex flex-col gap-3 border-b pb-3 lg:w-1/2 lg:flex-row lg:border-none xl:w-96">
           <img
             src={product.mainImage}
             alt={product.title}
-            className="pointer-events-none m-auto h-36 max-h-[300px] w-36 lg:h-32 lg:w-32 xl:h-40 xl:w-40"
+            className=" m-auto h-36 max-h-[300px] w-36  lg:h-32 lg:w-32 xl:h-40 xl:w-40"
           />
-        </NavLink>
-        <div className="space-y-3">
-          <NavLink to={`/product/${product._id}`}>
+
+          <div className="space-y-3">
             <h3 className="font-satoshi_bold text-base md:text-lg">
               {product.title}
             </h3>
-          </NavLink>
-          <p className="flex flex-row items-center font-satoshi_regular text-xs md:text-sm">
-            {[...Array(product.stars)].map((star, index) => {
-              return <FaStar key={index} className="mr-1 text-yellow-400" />
-            })}{' '}
-            {product.stars}/5{' '}
-          </p>
-          {product.isDiscounted ? (
-            <div className="flex flex-row items-center">
-              <span className="font-satoshi_bold text-lg md:text-xl">
-                ${product.discountedPrice}
-              </span>
-              <span className="px-2 font-satoshi_bold text-lg line-through opacity-40 md:text-xl">
-                ${product.price}
-              </span>
-              <span className="rounded-xl bg-[#FF3333] bg-opacity-10 px-1 py-1 text-xs text-red-500 md:px-3">
-                -{product.discountPercentage}%
-              </span>
-            </div>
-          ) : (
-            <p className="font-satoshi_bold text-lg md:text-xl">
-              ${product.price}
+
+            <p className="flex flex-row items-center font-satoshi_regular text-xs md:text-sm">
+              {[...Array(product.stars)].map((star, index) => {
+                return <FaStar key={index} className="mr-1 text-yellow-400" />
+              })}{' '}
+              {product.stars}/5{' '}
             </p>
-          )}
+            {product.isDiscounted ? (
+              <div className="flex flex-row items-center">
+                <span className="font-satoshi_bold text-lg md:text-xl">
+                  ${product.discountedPrice}
+                </span>
+                <span className="px-2 font-satoshi_bold text-lg line-through opacity-40 md:text-xl">
+                  ${product.price}
+                </span>
+                <span className="rounded-xl bg-[#FF3333] bg-opacity-10 px-1 py-1 text-xs text-red-500 md:px-3">
+                  -{product.discountPercentage}%
+                </span>
+              </div>
+            ) : (
+              <p className="font-satoshi_bold text-lg md:text-xl">
+                ${product.price}
+              </p>
+            )}
+          </div>
         </div>
-      </div>
+      </NavLink>
     )
   }
 
@@ -150,6 +176,7 @@ const UserReviews = () => {
       <div className="h-[45rem] space-y-4 overflow-y-auto rounded-lg bg-background p-4 md:p-8">
         <div className="rounded-lg ">
           <div className="flex w-full flex-row justify-between">
+            {/* searchbar */}
             <form className=" w-3/4 lg:w-1/3">
               <input
                 type="text"
@@ -161,45 +188,27 @@ const UserReviews = () => {
                 }}
               />
             </form>
+            {/* sort */}
             <div className="hidden pl-4 md:block lg:pl-0">
-              <div
+              <select
                 className="relative flex w-full cursor-pointer items-center gap-2 rounded-xl border-2 border-slate-500/30 px-3 py-2"
-                onClick={() => setCategoryOpen(!categoryOpen)}
-                onBlur={() => setTimeout(() => setCategoryOpen(false), 300)}
-                tabIndex="0"
+                onChange={(e) => setSortOrder(e.target.value)}
+                value={sortOrder}
               >
-                Category <IoIosArrowDown />
-                <div
-                  className={`absolute left-0 top-10 z-50 mt-2 flex flex-col  items-center justify-start font-satoshi_regular ${categoryOpen ? ' block h-full w-full' : 'hidden h-0 w-0'}`}
-                >
-                  <ul
-                    className={`flex w-full flex-col items-start justify-center rounded-md bg-white hover:cursor-pointer`}
-                  >
-                    <li className="w-full px-4 py-2 hover:rounded-md hover:bg-gray-50">
-                      T-shirts
-                    </li>
-                    <li className="w-full px-4 py-2 hover:rounded-md hover:bg-gray-50">
-                      Shorts
-                    </li>
-                    <li className="w-full px-4 py-2 hover:rounded-md hover:bg-gray-50">
-                      Shirts
-                    </li>
-                    <li className="w-full px-4 py-2 hover:rounded-md hover:bg-gray-50">
-                      Hoodies
-                    </li>
-                    <li className="w-full px-4 py-2 hover:rounded-md hover:bg-gray-50">
-                      Jeans
-                    </li>
-                  </ul>
-                </div>
-              </div>
+                <option value="newest">Newest first</option>
+                <option value="oldest">Oldest first</option>
+                <option value="highest">Highest rating</option>
+                <option value="lowest">Lowest rating</option>
+                <option value="title-ascending">Title A-Z</option>
+                <option value="title-descending">Title Z-A</option>
+              </select>
             </div>
           </div>
         </div>
 
-        {filteredReviews.length > 0 ? (
+        {sortedReviews.length > 0 ? (
           // stars
-          filteredReviews.map((review) => {
+          sortedReviews.map((review) => {
             const stars = [...Array(review.stars)].map((star, index) => {
               return <FaStar key={index} className="mr-1 text-yellow-400" />
             })

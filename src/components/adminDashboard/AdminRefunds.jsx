@@ -265,6 +265,9 @@ const AdminRefunds = () => {
         </div>
         <div className="overflow-x-auto">
           <Orders currentOrders={query ? mappedOrders : refundOrders} />
+          {refundOrders.length === 0 && (
+            <p className="pt-10 text-center text-xl">No Requested Refunds</p>
+          )}
         </div>
         <ToastContainer
           position="bottom-right"

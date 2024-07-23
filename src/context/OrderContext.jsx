@@ -14,6 +14,7 @@ function OrderProvider({ children }) {
   const [loading, setLoading] = useState(true)
   const { userData, isLoggedin } = useShopContext()
   const { discountRate } = useCartContext()
+  const [refundOrders, setRefundOrders] = useState([])
 
   // Fetch user orders from API
   const fetchUserOrders = async () => {
@@ -52,12 +53,26 @@ function OrderProvider({ children }) {
     }
   }
 
+  // Fetch Requested Refund Orders
+  const fetchRefundOrders = async () => {
+    try {
+      const response = await fetch(
+        'http://localhost:3002/orders/requested-refunds'
+      )
+      const data = await response.json()
+      setRefundOrders(data)
+    } catch (error) {
+      console.error('Error:', error.message)
+    }
+  }
+
   useEffect(() => {
     if (isLoggedin && userData.role === 'user') {
       fetchUserOrders()
       console.log({ userOrders })
     } else if (isLoggedin && userData.role === 'admin') {
       fetchAdminOrders()
+      fetchRefundOrders()
     }
   }, [isLoggedin, userData])
 
@@ -102,6 +117,8 @@ function OrderProvider({ children }) {
         loading,
         createOrder,
         fetchAdminOrders,
+        refundOrders,
+        fetchRefundOrders,
       }}
     >
       {children}

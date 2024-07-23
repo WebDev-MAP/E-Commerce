@@ -58,7 +58,7 @@ function ShopProvider({ children }) {
     try {
       const response = await fetch('http://localhost:3002/products/')
       const data = await response.json()
-      setProducts(data)
+      setProducts(data.filter((product) => !product.isDeleted))
     } catch (error) {
       console.error('Error fetching products', error.message)
     } finally {
@@ -86,6 +86,7 @@ function ShopProvider({ children }) {
         userData,
         setUserData,
         products,
+        fetchProducts,
         loading,
         reviews,
         sidebarActive,

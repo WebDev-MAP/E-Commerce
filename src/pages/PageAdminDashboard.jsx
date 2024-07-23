@@ -8,6 +8,8 @@ import AdminAllCustomers from '../components/adminDashboard/AdminAllCustomers'
 import AdminReviews from '../components/adminDashboard/AdminReviews'
 import AdminEditProduct from '../components/adminDashboard/AdminEditProduct'
 import AdminAnalytics from '../components/adminDashboard/AdminAnalytics'
+import AdminRefunds from '../components/adminDashboard/AdminRefunds'
+import { useOrderContext } from '../context/OrderContext'
 
 // Icons
 import { FaBoxArchive } from 'react-icons/fa6'
@@ -27,6 +29,7 @@ const PageAdminDashboard = () => {
   const [sidebarCategory, setSidebarCategory] = useState(null)
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false)
   const [showAddProduct, setShowAddProduct] = useState(false)
+  const { fetchRefundOrders, refundOrders } = useOrderContext()
   const { id } = useParams()
 
   useEffect(() => {
@@ -46,6 +49,10 @@ const PageAdminDashboard = () => {
     window.addEventListener('resize', checkResize)
 
     return () => window.removeEventListener('resize', checkResize)
+  }, [])
+
+  useEffect(() => {
+    fetchRefundOrders()
   }, [])
 
   return (
@@ -114,36 +121,37 @@ const PageAdminDashboard = () => {
                       <MdKeyboardArrowDown />
                     </div>
                   </div>
-                  {sidebarDropdown === 'products' && (
-                    <div className="flex flex-col gap-4 pb-2 pl-8">
-                      <div
-                        className="flex items-center gap-4 text-lg"
-                        onClick={() => {
-                          setSidebarActive(null),
-                            setSidebarCategory('add-product')
-                          setShowAddProduct(false)
-                        }}
-                      >
-                        <NavLink to="/admin">Add Product</NavLink>
-                      </div>
-                      <div
-                        className="flex items-center gap-4 text-lg"
-                        onClick={() => {
-                          setSidebarActive(null),
-                            setSidebarCategory('product-list')
-                          setShowAddProduct(false)
-                        }}
-                      >
-                        <NavLink to="/admin">Product list</NavLink>
-                      </div>
-                      {/* <div className="flex items-center gap-4 text-lg">
+                  {sidebarDropdown === 'products' &&
+                    isSidebarMinimized === false && (
+                      <div className="flex flex-col gap-4 pb-2 pl-8">
+                        <div
+                          className="flex items-center gap-4 text-lg"
+                          onClick={() => {
+                            setSidebarActive(null),
+                              setSidebarCategory('add-product')
+                            setShowAddProduct(false)
+                          }}
+                        >
+                          <NavLink to="/admin">Add Product</NavLink>
+                        </div>
+                        <div
+                          className="flex items-center gap-4 text-lg"
+                          onClick={() => {
+                            setSidebarActive(null),
+                              setSidebarCategory('product-list')
+                            setShowAddProduct(false)
+                          }}
+                        >
+                          <NavLink to="/admin">Product list</NavLink>
+                        </div>
+                        {/* <div className="flex items-center gap-4 text-lg">
                         <NavLink to="/admin">Categories</NavLink>
                       </div>
                       <div className="flex items-center gap-4 text-lg">
                         <NavLink to="/admin">Brands</NavLink>
                       </div> */}
-                    </div>
-                  )}
+                      </div>
+                    )}
                   <div
                     className={`flex cursor-pointer items-center justify-between gap-4 text-xl`}
                     onClick={() => {
@@ -160,28 +168,40 @@ const PageAdminDashboard = () => {
                       <MdKeyboardArrowDown />
                     </div>
                   </div>
-                  {sidebarDropdown === 'orders' && (
-                    <div className={`flex flex-col gap-4 pb-2 pl-8`}>
-                      <div
-                        className="flex items-center gap-4 text-lg"
-                        onClick={() => {
-                          setSidebarActive(null),
-                            setSidebarCategory('all-orders')
-                        }}
-                      >
-                        <NavLink to="/admin">All Orders</NavLink>
-                      </div>
-                      {/* <div className="flex items-center gap-4 text-lg">
+                  {sidebarDropdown === 'orders' &&
+                    isSidebarMinimized === false && (
+                      <div className={`flex flex-col gap-4 pb-2 pl-8`}>
+                        <div
+                          className="flex items-center gap-4 text-lg"
+                          onClick={() => {
+                            setSidebarActive(null),
+                              setSidebarCategory('all-orders')
+                          }}
+                        >
+                          <NavLink to="/admin">All Orders</NavLink>
+                        </div>
+                        {/* <div className="flex items-center gap-4 text-lg">
                         <NavLink to="/admin">Shipments</NavLink>
                       </div>
                       <div className="flex items-center gap-4 text-lg">
                         <NavLink to="/admin">Invoices</NavLink>
                       </div> */}
-                      <div className="flex items-center gap-4 text-lg">
-                        <NavLink to="/admin">Refunds</NavLink>
+                        <div
+                          className="flex items-center gap-4 text-lg"
+                          onClick={() => {
+                            setSidebarActive(null),
+                              setSidebarCategory('req-refunds')
+                          }}
+                        >
+                          <NavLink to="/admin">Requested Refunds</NavLink>
+                          {refundOrders.length > 0 && (
+                            <div className=" flex h-6 w-8 items-center justify-center rounded-full bg-red-500/90 text-xs">
+                              <p>{refundOrders.length}</p>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                   <div
                     className={`flex cursor-pointer items-center justify-between gap-4 text-xl`}
                     onClick={() => {
@@ -198,18 +218,19 @@ const PageAdminDashboard = () => {
                       <MdKeyboardArrowDown />
                     </div>
                   </div>
-                  {sidebarDropdown === 'customers' && (
-                    <div className={`flex flex-col gap-4 pb-2 pl-8`}>
-                      <div
-                        className="flex items-center gap-4 text-lg"
-                        onClick={() => {
-                          setSidebarActive(null),
-                            setSidebarCategory('all-customers')
-                        }}
-                      >
-                        <NavLink to="/admin">All Customers</NavLink>
-                      </div>
-                      {/* <div className="flex items-center gap-4 text-lg">
+                  {sidebarDropdown === 'customers' &&
+                    isSidebarMinimized === false && (
+                      <div className={`flex flex-col gap-4 pb-2 pl-8`}>
+                        <div
+                          className="flex items-center gap-4 text-lg"
+                          onClick={() => {
+                            setSidebarActive(null),
+                              setSidebarCategory('all-customers')
+                          }}
+                        >
+                          <NavLink to="/admin">All Customers</NavLink>
+                        </div>
+                        {/* <div className="flex items-center gap-4 text-lg">
                         <NavLink to="/admin">x</NavLink>
                       </div>
                       <div className="flex items-center gap-4 text-lg">
@@ -218,8 +239,8 @@ const PageAdminDashboard = () => {
                       <div className="flex items-center gap-4 text-lg">
                         <NavLink to="/admin">x</NavLink>
                       </div> */}
-                    </div>
-                  )}
+                      </div>
+                    )}
                   <div
                     className={`flex cursor-pointer items-center justify-between gap-4 text-xl`}
                     onClick={() => {
@@ -254,6 +275,7 @@ const PageAdminDashboard = () => {
               )}
               {id && <AdminEditProduct />}
               {sidebarCategory === 'all-orders' && <AdminAllOrders />}
+              {sidebarCategory === 'req-refunds' && <AdminRefunds />}
               {sidebarCategory === 'all-customers' && <AdminAllCustomers />}
               {sidebarActive === 'reviews' && <AdminReviews />}
               {sidebarActive === 'analytics' && <AdminAnalytics />}

@@ -2,13 +2,24 @@ import { useEffect, useState } from 'react'
 import { useOrderContext } from '../../context/OrderContext'
 import { toast, ToastContainer } from 'react-toastify'
 
-const AdminAllOrders = () => {
+const AdminRefunds = () => {
   const [query, setQuery] = useState('')
-  const { fetchAdminOrders, adminOrders } = useOrderContext()
-  const [editingOrderId, setEditingOrderId] = useState(null)
+  const { fetchRefundOrders, refundOrders } = useOrderContext()
 
   const notify = () => {
-    toast.success('Order Updated', {
+    toast.success('Refund Confirmed', {
+      position: 'bottom-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
+  }
+
+  const notifyDeny = () => {
+    toast.error('Refund Denied', {
       position: 'bottom-right',
       autoClose: 3000,
       hideProgressBar: false,
@@ -20,56 +31,56 @@ const AdminAllOrders = () => {
   }
 
   useEffect(() => {
-    fetchAdminOrders()
+    fetchRefundOrders()
   }, [])
 
-  const updateOrderStatus = async (orderId, newStatus) => {
+  const updateRefundStatus = async (orderId, newRefundStatus, orderStatus) => {
     try {
       const response = await fetch(
-        `http://localhost:3002/orders/update-status/${orderId}`,
+        `http://localhost:3002/orders/update-refund-status/${orderId}`,
         {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            status: newStatus,
-            isRefunded: newStatus === 'Refunded',
+            refundStatus: newRefundStatus,
+            status: orderStatus,
+            isRefunded: newRefundStatus === 'Confirmed',
           }),
         }
       )
       const data = await response.json()
-      console.log('Order status updated', data)
-      fetchAdminOrders()
-      notify()
+      console.log('Refund status updated', data)
+      fetchRefundOrders()
+      if (newRefundStatus === 'Confirmed') {
+        notify()
+      } else {
+        notifyDeny()
+      }
     } catch (error) {
       console.error('Error:', error.message)
     }
   }
 
-  const handleEditClick = (orderId) => {
-    setEditingOrderId(orderId)
+  const handleConfirm = (orderId) => {
+    updateRefundStatus(orderId, 'Confirmed', 'Refunded')
   }
 
-  const handleCancelClick = (orderId) => {
-    setEditingOrderId(null)
+  const handleDeny = (orderId, orderStatus) => {
+    console.log(orderId, orderStatus)
+    updateRefundStatus(orderId, 'Denied', orderStatus)
   }
 
-  const handleStatusChange = (orderId, newStatus) => {
-    console.log(orderId, newStatus)
-    updateOrderStatus(orderId, newStatus)
-    setEditingOrderId(null)
-  }
-
-  const filteredOrders = adminOrders.filter((order) => {
+  const filteredOrders = refundOrders.filter((order) => {
     const searchQuery = query.toLowerCase()
     return (
       order._id.toLowerCase().includes(searchQuery) ||
-      order.user.toLowerCase().includes(searchQuery) ||
       order.totalAmount.toString().includes(searchQuery) ||
       order.totalDiscount.toString().includes(searchQuery) ||
       order.paymentMethod.toLowerCase().includes(searchQuery) ||
       order.status.toLowerCase().includes(searchQuery) ||
+      order.refundStatus.toLowerCase().includes(searchQuery) ||
       new Date(order.createdAt)
         .toLocaleDateString('en-GB', {
           day: '2-digit',
@@ -91,7 +102,6 @@ const AdminAllOrders = () => {
 
   const mappedOrders = filteredOrders.map((order) => ({
     _id: order._id,
-    user: order.user,
     totalItems: order.products
       ? order.products.reduce((total, product) => total + product.quantity, 0)
       : 0,
@@ -99,6 +109,7 @@ const AdminAllOrders = () => {
     totalDiscount: order.totalDiscount.toString(),
     paymentMethod: order.paymentMethod,
     status: order.status,
+    refundStatus: order.refundStatus,
     createdAt: order.createdAt,
     updatedAt: order.updatedAt,
   }))
@@ -110,9 +121,6 @@ const AdminAllOrders = () => {
           <tr>
             <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
               Order ID
-            </th>
-            <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
-              User ID
             </th>
             <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
               Total Items
@@ -130,30 +138,28 @@ const AdminAllOrders = () => {
               Status
             </th>
             <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
+              Refund Status
+            </th>
+            <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
               Created At
             </th>
             <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
-              Last Updated
+              Last Updated Date
             </th>
             <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
-              Edit
+              Confirm
+            </th>
+            <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
+              Deny
             </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
           {currentOrders.map((order) => (
-            <tr
-              key={order._id}
-              className={`${order._id === editingOrderId ? 'bg-gray-100' : ''}`}
-            >
+            <tr key={order._id}>
               <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
                 <div className="text-sm leading-5 text-gray-900">
                   {order._id}
-                </div>
-              </td>
-              <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
-                <div className="text-sm leading-5 text-gray-900">
-                  {order.user}
                 </div>
               </td>
               <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
@@ -185,22 +191,12 @@ const AdminAllOrders = () => {
               </td>
               <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
                 <div className="text-sm leading-5 text-gray-900">
-                  {editingOrderId === order._id ? (
-                    <select
-                      value={order.status}
-                      onChange={(e) =>
-                        handleStatusChange(order._id, e.target.value)
-                      }
-                    >
-                      <option value="Pending">Pending</option>
-                      <option value="Confirmed">Confirmed</option>
-                      <option value="Shipped">Shipped</option>
-                      <option value="Delivered">Delivered</option>
-                      <option value="Refunded">Refunded</option>
-                    </select>
-                  ) : (
-                    <>{order.status}</>
-                  )}
+                  {order.status}
+                </div>
+              </td>
+              <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
+                <div className="text-sm leading-5 text-gray-900">
+                  {order.refundStatus}
                 </div>
               </td>
               <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
@@ -223,21 +219,22 @@ const AdminAllOrders = () => {
               </td>
               <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
                 <div className="text-sm leading-5 text-gray-900">
-                  {editingOrderId === order._id ? (
-                    <button
-                      onClick={() => handleCancelClick(order._id)}
-                      className="rounded-md bg-red-500 px-2 py-1 text-white hover:bg-red-400"
-                    >
-                      Cancel
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => handleEditClick(order._id)}
-                      className="rounded-md bg-black px-2 py-1 text-white hover:bg-black/80"
-                    >
-                      Edit
-                    </button>
-                  )}
+                  <button
+                    onClick={() => handleConfirm(order._id)}
+                    className="rounded-md bg-green-500 px-2 py-1 text-white hover:bg-green-400"
+                  >
+                    Confirm
+                  </button>
+                </div>
+              </td>
+              <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
+                <div className="text-sm leading-5 text-gray-900">
+                  <button
+                    onClick={() => handleDeny(order._id, order.status)}
+                    className="rounded-md bg-red-500 px-2 py-1 text-white hover:bg-red-400"
+                  >
+                    Deny
+                  </button>
                 </div>
               </td>
             </tr>
@@ -250,7 +247,7 @@ const AdminAllOrders = () => {
   return (
     <div className="h-[121rem]">
       <h2 className="mb-4 font-satoshi_regular text-2xl font-bold">
-        All Orders
+        Requested Refunds
       </h2>
       <div className="mt-8 h-1/2 w-full overflow-y-auto rounded-lg bg-background p-4 md:p-8">
         <div className="my-3">
@@ -267,7 +264,7 @@ const AdminAllOrders = () => {
           </form>
         </div>
         <div className="overflow-x-auto">
-          <Orders currentOrders={query ? mappedOrders : adminOrders} />
+          <Orders currentOrders={query ? mappedOrders : refundOrders} />
         </div>
         <ToastContainer
           position="bottom-right"
@@ -287,4 +284,4 @@ const AdminAllOrders = () => {
   )
 }
 
-export default AdminAllOrders
+export default AdminRefunds

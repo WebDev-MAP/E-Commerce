@@ -13,7 +13,7 @@ import { MdDelete } from 'react-icons/md'
 const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
   const [query, setQuery] = useState('')
   const [categoryOpen, setCategoryOpen] = useState(false)
-  const { products } = useShopContext()
+  const { products, fetchProducts } = useShopContext()
   const [itemOffset, setItemOffset] = useState(0)
   const [itemsPerPage, setItemsPerPage] = useState(10)
 
@@ -43,13 +43,17 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
   const handleDeleteProduct = async (id) => {
     try {
       const response = await fetch(`http://localhost:3002/products/${id}`, {
-        method: 'DELETE',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
+		  body: JSON.stringify({
+			 isDeleted: true,
+		 }),
       })
       const data = await response.json()
-      console.log('Product deleted', data)
+      console.log('Product soft deleted', data)
+		fetchProducts()
       notify()
     } catch (error) {
       console.error('Error:', error.message)
@@ -231,7 +235,7 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
               position="bottom-right"
               autoClose={3000}
               hideProgressBar={false}
-              newestOnTop={false}
+              newestOnTop={true}
               closeOnClick
               rtl={false}
               pauseOnFocusLoss

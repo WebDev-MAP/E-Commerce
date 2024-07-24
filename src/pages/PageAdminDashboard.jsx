@@ -17,7 +17,7 @@ import { FaBoxArchive } from 'react-icons/fa6'
 import { FaShoppingCart } from 'react-icons/fa'
 import { FaUsers } from 'react-icons/fa'
 import { BsChatLeftTextFill } from 'react-icons/bs'
-import { IoMdSettings } from 'react-icons/io'
+// import { IoMdSettings } from 'react-icons/io'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { IoIosArrowBack } from 'react-icons/io'
 import { IoIosArrowForward } from 'react-icons/io'
@@ -25,7 +25,7 @@ import { BiSolidDashboard } from 'react-icons/bi'
 import { SiGoogleanalytics } from 'react-icons/si'
 
 const PageAdminDashboard = () => {
-  const [sidebarActive, setSidebarActive] = useState(null)
+//   const [sidebarActive, setSidebarActive] = useState(null)
   const [sidebarDropdown, setSidebarDropdown] = useState(null)
   const [sidebarCategory, setSidebarCategory] = useState(null)
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false)
@@ -84,7 +84,7 @@ const PageAdminDashboard = () => {
                 <div
                   className="text flex items-center gap-3 text-2xl "
                   onClick={() => {
-							setAdminSidebarActive('dashboard')
+                    setAdminSidebarActive('dashboard')
                     setSidebarDropdown(null)
                     setSidebarCategory(null)
                   }}
@@ -96,7 +96,7 @@ const PageAdminDashboard = () => {
                   <div
                     className={`flex cursor-pointer items-center justify-between gap-4 text-xl`}
                     onClick={() => {
-							setAdminSidebarActive('analytics')
+                      setAdminSidebarActive('analytics')
                       setSidebarDropdown(null)
                       setSidebarCategory(null)
                     }}
@@ -129,7 +129,7 @@ const PageAdminDashboard = () => {
                         <div
                           className="flex items-center gap-4 text-lg"
                           onClick={() => {
-									setAdminSidebarActive(null),
+                            setAdminSidebarActive(null),
                               setSidebarCategory('add-product')
                             setShowAddProduct(false)
                           }}
@@ -139,7 +139,7 @@ const PageAdminDashboard = () => {
                         <div
                           className="flex items-center gap-4 text-lg"
                           onClick={() => {
-									setAdminSidebarActive(null),
+                            setAdminSidebarActive(null),
                               setSidebarCategory('product-list')
                             setShowAddProduct(false)
                           }}
@@ -176,7 +176,7 @@ const PageAdminDashboard = () => {
                         <div
                           className="flex items-center gap-4 text-lg"
                           onClick={() => {
-									setAdminSidebarActive(null),
+                            setAdminSidebarActive(null),
                               setSidebarCategory('all-orders')
                           }}
                         >
@@ -189,16 +189,18 @@ const PageAdminDashboard = () => {
                         <NavLink to="/admin">Invoices</NavLink>
                       </div> */}
                         <div
-                          className="flex items-center gap-4 text-lg"
+                          className="relative flex items-center gap-4 text-lg"
                           onClick={() => {
-									setAdminSidebarActive(null),
+                            setAdminSidebarActive(null),
                               setSidebarCategory('req-refunds')
                           }}
                         >
                           <NavLink to="/admin">Requested Refunds</NavLink>
                           {refundOrders.length > 0 && (
-                            <div className=" flex h-6 w-8 items-center justify-center rounded-full bg-red-500/90 text-xs">
-                              <p>{refundOrders.length}</p>
+                            <div className="absolute bottom-[-4px] right-12 flex h-4 w-4 -translate-y-1/2 translate-x-1/4 items-center justify-center rounded-full bg-red-600 text-xs text-white">
+                              {refundOrders.length > 9
+                                ? '9+'
+                                : refundOrders.length}
                             </div>
                           )}
                         </div>
@@ -226,7 +228,7 @@ const PageAdminDashboard = () => {
                         <div
                           className="flex items-center gap-4 text-lg"
                           onClick={() => {
-									setAdminSidebarActive(null),
+                            setAdminSidebarActive(null),
                               setSidebarCategory('all-customers')
                           }}
                         >
@@ -246,7 +248,7 @@ const PageAdminDashboard = () => {
                   <div
                     className={`flex cursor-pointer items-center justify-between gap-4 text-xl`}
                     onClick={() => {
-							setAdminSidebarActive('reviews')
+                      setAdminSidebarActive('reviews')
                       setSidebarDropdown(null)
                       setSidebarCategory(null)
                     }}
@@ -259,10 +261,10 @@ const PageAdminDashboard = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-4 text-xl">
+              {/* <div className="flex items-center gap-4 text-xl">
                 <IoMdSettings />
                 <NavLink to="/admin">Settings</NavLink>
-              </div>
+              </div> */}
             </div>
             <div
               className={`${id ? `h-full` : `h-[65.8rem]`} w-full  px-3 py-5 sm:px-5 md:px-10 lg:px-20`}
@@ -281,7 +283,9 @@ const PageAdminDashboard = () => {
               {sidebarCategory === 'all-customers' && <AdminAllCustomers />}
               {adminSidebarActive === 'reviews' && <AdminReviews />}
               {adminSidebarActive === 'analytics' && <AdminAnalytics />}
-              {!adminSidebarActive && !sidebarCategory && !id && <AdminDashboard />}
+              {!adminSidebarActive && !sidebarCategory && !id && (
+                <AdminDashboard />
+              )}
             </div>
           </div>
         </div>

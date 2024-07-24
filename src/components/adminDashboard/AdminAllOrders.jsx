@@ -108,34 +108,34 @@ const AdminAllOrders = () => {
       <table className="min-w-full border border-gray-200 bg-white">
         <thead className="bg-gray-100">
           <tr>
-            <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
+            <th className="border-b border-gray-200 px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
               Order ID
             </th>
-            <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
+            <th className="border-b border-gray-200 px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
               User ID
             </th>
-            <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
+            <th className="border-b border-gray-200 px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
               Total Items
             </th>
-            <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
+            <th className="border-b border-gray-200 px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
               Total Amount
             </th>
-            <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
+            <th className="border-b border-gray-200 px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
               Total Discount
             </th>
-            <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
+            <th className="border-b border-gray-200 px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
               Payment Method
             </th>
-            <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
+            <th className="border-b border-gray-200 px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
               Status
             </th>
-            <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
+            <th className="border-b border-gray-200 px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
               Created At
             </th>
-            <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
+            <th className="border-b border-gray-200 px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
               Last Updated
             </th>
-            <th className="border-b border-gray-200 px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">
+            <th className="border-b border-gray-200 px-4 py-3 text-left text-xs font-medium uppercase text-gray-500">
               Edit
             </th>
           </tr>
@@ -146,17 +146,17 @@ const AdminAllOrders = () => {
               key={order._id}
               className={`${order._id === editingOrderId ? 'bg-gray-100' : ''}`}
             >
-              <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
+              <td className="whitespace-no-wrap border-b border-gray-200 px-4 py-4">
                 <div className="text-sm leading-5 text-gray-900">
                   {order._id}
                 </div>
               </td>
-              <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
+              <td className="whitespace-no-wrap border-b border-gray-200 px-4 py-4">
                 <div className="text-sm leading-5 text-gray-900">
                   {order.user}
                 </div>
               </td>
-              <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
+              <td className="whitespace-no-wrap border-b border-gray-200 px-4 py-4">
                 <div className="text-sm leading-5 text-gray-900">
                   {query
                     ? order.totalItems
@@ -168,22 +168,22 @@ const AdminAllOrders = () => {
                       : 0}
                 </div>
               </td>
-              <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
+              <td className="whitespace-no-wrap border-b border-gray-200 px-4 py-4">
                 <div className="text-sm leading-5 text-gray-900">
                   ${order.totalAmount}
                 </div>
               </td>
-              <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
+              <td className="whitespace-no-wrap border-b border-gray-200 px-4 py-4">
                 <div className="text-sm leading-5 text-gray-900">
                   ${order.totalDiscount}
                 </div>
               </td>
-              <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
+              <td className="whitespace-no-wrap border-b border-gray-200 px-4 py-4">
                 <div className="text-sm leading-5 text-gray-900">
                   {order.paymentMethod}
                 </div>
               </td>
-              <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
+              <td className="whitespace-no-wrap border-b border-gray-200 px-4 py-4">
                 <div className="text-sm leading-5 text-gray-900">
                   {editingOrderId === order._id ? (
                     <select
@@ -203,7 +203,7 @@ const AdminAllOrders = () => {
                   )}
                 </div>
               </td>
-              <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
+              <td className="whitespace-no-wrap border-b border-gray-200 px-4 py-4">
                 <div className="text-sm leading-5 text-gray-900">
                   {new Date(order.createdAt).toLocaleDateString('en-GB', {
                     day: '2-digit',
@@ -212,7 +212,7 @@ const AdminAllOrders = () => {
                   })}
                 </div>
               </td>
-              <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
+              <td className="whitespace-no-wrap border-b border-gray-200 px-4 py-4">
                 <div className="text-sm leading-5 text-gray-900">
                   {new Date(order.updatedAt).toLocaleDateString('en-GB', {
                     day: '2-digit',
@@ -221,7 +221,7 @@ const AdminAllOrders = () => {
                   })}
                 </div>
               </td>
-              <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
+              <td className="whitespace-no-wrap border-b border-gray-200 px-4 py-4">
                 <div className="text-sm leading-5 text-gray-900">
                   {editingOrderId === order._id ? (
                     <button
@@ -233,7 +233,7 @@ const AdminAllOrders = () => {
                   ) : (
                     <button
                       onClick={() => handleEditClick(order._id)}
-                      className="rounded-md bg-black px-2 py-1 text-white hover:bg-black/80"
+                      className="rounded-md bg-black px-2 py-1 text-white hover:bg-black/80 text-sm"
                     >
                       Edit
                     </button>

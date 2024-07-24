@@ -139,7 +139,7 @@ const AdminAllCustomers = () => {
               <td className="whitespace-no-wrap border-b border-gray-200 px-6 py-4">
                 <button
                   onClick={() => editUser(customer._id)}
-                  className="text-blue-500 hover:text-blue-700"
+                  className="rounded-md bg-black px-2 py-1 text-white hover:bg-black/80 text-sm"
                 >
                   Edit
                 </button>

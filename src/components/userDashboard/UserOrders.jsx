@@ -7,8 +7,14 @@ import { FaStar } from 'react-icons/fa'
 
 const UserOrders = () => {
   // context
-  const { userData, setSidebarActive, query, setQuery, fetchReviews } =
-    useShopContext()
+  const {
+    userData,
+    setSidebarActive,
+    query,
+    setQuery,
+    fetchReviews,
+    fetchRefundOrders,
+  } = useShopContext()
   // state
   const [currentProductId, setCurrentProductId] = useState('')
   const [userOrders, setUserOrders] = useState([])
@@ -32,7 +38,27 @@ const UserOrders = () => {
     fetchReviewsByUser()
   }, [])
 
-  console.log(userOrders)
+  const requestRefund = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3002/orders/update-refund-status/${id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ refundStatus: 'Requested' }),
+        }
+      )
+      fetchOrder()
+      fetchRefundOrders()
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
   // filter Orders
   const filteredOrders = userOrders.filter((order) => {
@@ -146,15 +172,14 @@ const UserOrders = () => {
       </Button>
     </div>
   )
-
+  const fetchOrder = async () => {
+    const response = await fetch(
+      `http://localhost:3002/orders/myorders/${userId}`
+    )
+    const data = await response.json()
+    setUserOrders(data.userOrders)
+  }
   useEffect(() => {
-    const fetchOrder = async () => {
-      const response = await fetch(
-        `http://localhost:3002/orders/myorders/${userId}`
-      )
-      const data = await response.json()
-      setUserOrders(data.userOrders)
-    }
     fetchOrder()
   }, [])
 
@@ -197,17 +222,32 @@ const UserOrders = () => {
             // all orders of the user
 
             <div key={order._id} className="rounded-md  border-2">
-              <div className=" flex flex-wrap items-center justify-center gap-4 rounded-md border-2 border-black p-2 sm:flex-row">
+              <div className=" flex flex-wrap items-center justify-center gap-4 rounded-md border-2 border-black p-2 px-4 sm:flex-row lg:justify-between ">
                 <p>Order Date: {order.createdAt.slice(0, 10)}</p>
                 <p>Total: {order.totalAmount}$</p>
                 <p>Status: {order.status}</p>
-                <button className="text rounded-md bg-black p-2 text-white">
-                  Refund
-                </button>
+                {order.refundStatus === 'Pending' && (
+                  <button
+                    className="text rounded-md bg-black p-2 text-white"
+                    onClick={() => {
+                      requestRefund(order._id)
+                    }}
+                  >
+                    Refund
+                  </button>
+                )}
+
+                {order.refundStatus !== 'Pending' && (
+                  <button
+                    className={`text rounded-md ${order.refundStatus === 'Confirmed' && `bg-green-500 text-white`} ${order.refundStatus === 'Denied' && `bg-red-500 text-white`} p-2 text-black`}
+                  >
+                    Refund {order.refundStatus}
+                  </button>
+                )}
               </div>
 
               {/* all products of the order */}
-              <div className="flex flex-wrap justify-center gap-2 p-2 lg:justify-start">
+              <div className="flex flex-wrap justify-center gap-2 p-2 px-4 lg:justify-start">
                 {order.products.map((product) => (
                   <div
                     key={product.productId._id}

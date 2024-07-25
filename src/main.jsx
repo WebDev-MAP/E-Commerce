@@ -15,8 +15,16 @@ import PageAdminDashboard from './pages/PageAdminDashboard.jsx'
 import PageUserDashboard from './pages/PageUserDashboard.jsx'
 import PageCheckout from './pages/PageCheckout.jsx'
 
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import ProtectedRouteUser from './components/ProtectedRouteUser.jsx'
 import ProtectedRouteAdmin from './components/ProtectedRouteAdmin.jsx'
+
+const initialOptions = {
+  'client-id': 'test',
+  currency: 'USD',
+  intent: 'capture',
+  'data-client-token': 'abc123xyz==',
+}
 
 const router = createBrowserRouter([
   {
@@ -74,6 +82,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
-    <RouterProvider router={router} />
+    <PayPalScriptProvider deferLoading={true} options={initialOptions}>
+      <RouterProvider router={router} />
+    </PayPalScriptProvider>
   </>
 )

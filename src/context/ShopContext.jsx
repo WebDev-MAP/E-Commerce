@@ -25,7 +25,7 @@ function ShopProvider({ children }) {
   const [reviews, setReviews] = useState([])
   const [loading, setLoading] = useState(true)
 
-  // cookies
+  // Cookies
   useEffect(() => {
     const authToken = Cookies.get('authToken')
     if (authToken) {
@@ -98,8 +98,8 @@ function ShopProvider({ children }) {
         query,
         setQuery,
         fetchReviews,
-		  setAdminSidebarActive,
-		  adminSidebarActive,
+        setAdminSidebarActive,
+        adminSidebarActive,
       }}
     >
       <CartProvider>

@@ -17,6 +17,7 @@ function CartProvider({ children }) {
   const [promoApplied, setPromoApplied] = useState(false)
   const [warnText, setWarnText] = useState('')
   const { userData, setUserData } = useShopContext()
+  const [cartTotal, setCartTotal] = useState(0)
 
   useEffect(() => {
     const localCartItems =
@@ -194,6 +195,8 @@ function CartProvider({ children }) {
         applyPromoCode,
         setPromoCode,
         clearCart,
+        cartTotal,
+        setCartTotal,
       }}
     >
       {children}

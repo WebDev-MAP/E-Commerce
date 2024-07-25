@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { formatCurrency } from '../utilities/formatCurrency'
 import { LiaSpinnerSolid } from 'react-icons/lia'
 import { useCartContext } from '../context/CartContext'
@@ -6,16 +6,18 @@ import { useOrderContext } from '../context/OrderContext'
 import OrderSummary from '../components/cart/OrderSummary'
 import ShippingInformation from '../components/cart/ShippingInformation'
 import { useShopContext } from '../context/ShopContext'
+
 import { useNavigate } from 'react-router-dom'
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 import Button from '../components/Button'
 
 function PageCheckout() {
   const [{ isPending }, dispatch] = usePayPalScriptReducer()
-  const { cartItems, clearCart } = useCartContext()
+  const { cartItems, clearCart, cartTotal } = useCartContext()
   const { orderLoading, createOrder, userOrders } = useOrderContext()
   const { userData } = useShopContext()
   const [loading, setLoading] = useState(false)
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -35,7 +37,7 @@ function PageCheckout() {
       purchase_units: [
         {
           amount: {
-            value: '100',
+            value: `${cartTotal}`,
           },
         },
       ],
@@ -49,6 +51,15 @@ function PageCheckout() {
       if (!userData.token) {
         console.log('User not logged in')
         navigate('/login')
+        return
+      }
+
+      if (userData.role === 'admin') {
+        setLoading(true)
+        await createOrder(cartItems)
+        setLoading(false)
+        clearCart()
+        navigate('/admin')
         return
       }
       setLoading(true)

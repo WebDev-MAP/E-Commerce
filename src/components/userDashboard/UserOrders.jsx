@@ -182,6 +182,7 @@ const UserOrders = () => {
   useEffect(() => {
     fetchOrder()
   }, [])
+  console.log(sortedOrders)
 
   return (
     <div className="scroll font-satoshi_regular">

@@ -4,7 +4,7 @@ import { useShopContext } from '../../context/ShopContext'
 import { useOrderContext } from '../../context/OrderContext'
 
 function OrderSummary() {
-  const { cartItems, discountRate } = useCartContext()
+  const { cartItems, discountRate, setCartTotal } = useCartContext()
 
   const { products, loading } = useShopContext()
 
@@ -26,6 +26,8 @@ function OrderSummary() {
   let deliveryFee = 15
   let discount = subTotal * discountRate
   let total = subTotal + deliveryFee - discount
+
+  setCartTotal(total)
 
   return (
     <section className="order-summary mt-5 rounded-[20px] border p-5 md:mt-0 md:w-full">

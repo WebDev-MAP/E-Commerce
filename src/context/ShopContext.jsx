@@ -13,7 +13,7 @@ function ShopProvider({ children }) {
   const [selectedDressStyle, setSelectedDressStyle] = useState([])
   const [isLoggedin, setIsLoggedin] = useState(false)
   const [userData, setUserData] = useState({})
-  const [sidebarActive, setSidebarActive] = useState(null)
+  const [sidebarActive, setSidebarActive] = useState('dashboard')
   const [adminSidebarActive, setAdminSidebarActive] = useState(null)
   const [criteria, setCriteria] = useState({
     type: [],

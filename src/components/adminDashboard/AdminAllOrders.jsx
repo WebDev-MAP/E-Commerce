@@ -6,6 +6,7 @@ const AdminAllOrders = () => {
   const [query, setQuery] = useState('')
   const { fetchAdminOrders, adminOrders } = useOrderContext()
   const [editingOrderId, setEditingOrderId] = useState(null)
+  const [sortOrder, setSortOrder] = useState('newest')
 
   const notify = () => {
     toast.success('Order Updated', {
@@ -51,7 +52,7 @@ const AdminAllOrders = () => {
     setEditingOrderId(orderId)
   }
 
-  const handleCancelClick = (orderId) => {
+  const handleCancelClick = () => {
     setEditingOrderId(null)
   }
 
@@ -102,6 +103,20 @@ const AdminAllOrders = () => {
     createdAt: order.createdAt,
     updatedAt: order.updatedAt,
   }))
+
+  const sortedOrders = query
+    ? mappedOrders
+    : adminOrders.sort((a, b) => {
+        if (sortOrder === 'newest') {
+          return new Date(b.createdAt) - new Date(a.createdAt)
+        } else if (sortOrder === 'oldest') {
+          return new Date(a.createdAt) - new Date(b.createdAt)
+        } else if (sortOrder === 'highest') {
+          return b.totalAmount - a.totalAmount
+        } else if (sortOrder === 'lowest') {
+          return a.totalAmount - b.totalAmount
+        }
+      })
 
   function Orders({ currentOrders }) {
     return (
@@ -233,7 +248,7 @@ const AdminAllOrders = () => {
                   ) : (
                     <button
                       onClick={() => handleEditClick(order._id)}
-                      className="rounded-md bg-black px-2 py-1 text-white hover:bg-black/80 text-sm"
+                      className="rounded-md bg-black px-2 py-1 text-sm text-white hover:bg-black/80"
                     >
                       Edit
                     </button>
@@ -248,16 +263,16 @@ const AdminAllOrders = () => {
   }
 
   return (
-    <div className="h-[121rem]">
+    <div className="h-[121rem] w-full">
       <h2 className="mb-4 font-satoshi_regular text-2xl font-bold">
         All Orders
       </h2>
       <div className="mt-8 h-1/2 w-full overflow-y-auto rounded-lg bg-background p-4 md:p-8">
-        <div className="my-3">
+        <div className="my-3 flex w-full flex-row justify-between">
           <form className=" w-3/4 lg:w-1/3">
             <input
               type="text"
-              placeholder="Search User"
+              placeholder="Search Order"
               className="w-full rounded-xl border-2 border-slate-500/40 px-4 py-2"
               value={query}
               onChange={(e) => {
@@ -265,9 +280,21 @@ const AdminAllOrders = () => {
               }}
             />
           </form>
+          <div className="hidden pl-4 md:block lg:pl-0">
+            <select
+              className="relative flex w-full cursor-pointer items-center gap-2 rounded-xl border-2 border-slate-500/30 px-3 py-2"
+              onChange={(e) => setSortOrder(e.target.value)}
+              value={sortOrder}
+            >
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="highest">Highest total</option>
+              <option value="lowest">Lowest total</option>
+            </select>
+          </div>
         </div>
         <div className="overflow-x-auto">
-          <Orders currentOrders={query ? mappedOrders : adminOrders} />
+          <Orders currentOrders={query ? mappedOrders : sortedOrders} />
         </div>
         <ToastContainer
           position="bottom-right"

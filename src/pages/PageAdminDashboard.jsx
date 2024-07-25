@@ -61,7 +61,7 @@ const PageAdminDashboard = () => {
     <>
       <div>
         <div>
-          <div className="flex flex-row">
+          <div className="flex flex-row w-full">
             <div
               className={`relative flex h-[65.8rem] flex-col items-start justify-between rounded-r-md border-r-4 bg-background py-12 pl-5 pr-8 font-satoshi_regular md:pl-8 lg:pl-20 ${isSidebarMinimized ? 'w-[3.8rem] overflow-hidden' : 'w-[20rem]'}`}
             >
@@ -267,7 +267,7 @@ const PageAdminDashboard = () => {
               </div> */}
             </div>
             <div
-              className={`${id ? `h-full` : `h-[65.8rem]`} w-full  px-3 py-5 sm:px-5 md:px-10 lg:px-20`}
+              className={`h-full w-full  px-3 py-5 sm:px-5 md:px-10 lg:px-20 overflow-x-auto overflow-y-hidden`}
             >
               {adminSidebarActive === 'dashboard' && <AdminDashboard />}
               {sidebarCategory === 'add-product' && <AdminAddProduct />}

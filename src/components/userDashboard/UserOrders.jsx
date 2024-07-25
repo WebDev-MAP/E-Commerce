@@ -226,7 +226,7 @@ const UserOrders = () => {
                 <p>Order Date: {order.createdAt.slice(0, 10)}</p>
                 <p>Total: {order.totalAmount}$</p>
                 <p>Status: {order.status}</p>
-                {order.refundStatus === 'Pending' && (
+                {!order.refundStatus && (
                   <button
                     className="text rounded-md bg-black p-2 text-white"
                     onClick={() => {
@@ -237,7 +237,7 @@ const UserOrders = () => {
                   </button>
                 )}
 
-                {order.refundStatus !== 'Pending' && (
+                {order.refundStatus && (
                   <button
                     className={`text rounded-md ${order.refundStatus === 'Confirmed' && `bg-green-500 text-white`} ${order.refundStatus === 'Denied' && `bg-red-500 text-white`} p-2 text-black`}
                   >

@@ -16,7 +16,6 @@ function CartProvider({ children }) {
   const [discountRate, setDiscountRate] = useLocalStorage('discount-rate', 0)
   const [promoApplied, setPromoApplied] = useState(false)
   const [warnText, setWarnText] = useState('')
-
   const { userData, setUserData } = useShopContext()
 
   useEffect(() => {

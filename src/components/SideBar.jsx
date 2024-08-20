@@ -17,13 +17,13 @@ const sizes = [
 ]
 const styles = ['Casual', 'Formal', 'Party', 'Gym']
 const type = ['T-shirts', 'Shorts', 'Shirts', 'Hoodie', 'Jeans']
-const colors = [
-  { color: 'Black', className: 'bg-black' },
-  { color: 'Red', className: 'bg-red-600' },
-  { color: 'Green', className: 'bg-green-500' },
-  { color: 'Yellow', className: 'bg-yellow-400' },
-  { color: 'Blue', className: 'bg-blue-600' },
-]
+// const colors = [
+//   { color: 'Black', className: 'bg-black' },
+//   { color: 'Red', className: 'bg-red-600' },
+//   { color: 'Green', className: 'bg-green-500' },
+//   { color: 'Yellow', className: 'bg-yellow-400' },
+//   { color: 'Blue', className: 'bg-blue-600' },
+// ]
 
 // Filterkriterien
 
@@ -243,7 +243,7 @@ function SideBar() {
           className="flex font-satoshi_bold text-xl"
           onClick={() => setStyleAccordionIsOpen(!styleAccordionIsOpen)}
         >
-          <p className="mr-auto inline-block">style </p>
+          <p className="mr-auto inline-block">Style </p>
           <div>
             {styleAccordionIsOpen ? (
               <FaAngleDown className="inline   transition-transform duration-500 hover:cursor-pointer" />

@@ -254,7 +254,7 @@ const AdminRefunds = () => {
           <form className=" w-3/4 lg:w-1/3">
             <input
               type="text"
-              placeholder="Search User"
+              placeholder="Search Order"
               className="w-full rounded-xl border-2 border-slate-500/40 px-4 py-2"
               value={query}
               onChange={(e) => {

@@ -42,7 +42,7 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
 
   const handleDeleteProduct = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3002/products/${id}`, {
+      const response = await fetch(`http://localhost:3002/products/delete/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

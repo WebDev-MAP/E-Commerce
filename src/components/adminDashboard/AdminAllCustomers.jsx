@@ -108,6 +108,16 @@ const AdminAllCustomers = () => {
   }
 
   const handleUpdateUser = async (userId, updatedUser) => {
+    if (updatedUser.email) {
+      const emailExists = customers.some(
+        (customer) =>
+          customer.email === updatedUser.email && customer._id !== userId
+      )
+      if (emailExists) {
+        alert('Email already exists')
+        return
+      }
+    }
     try {
       const response = await fetch(`http://localhost:3002/user/${userId}`, {
         method: 'PATCH',

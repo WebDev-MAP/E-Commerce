@@ -5,6 +5,8 @@ import Modal from '../Modal'
 import { NavLink } from 'react-router-dom'
 import { FaStar } from 'react-icons/fa'
 
+const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+
 const UserOrders = () => {
   // context
   const {
@@ -40,16 +42,13 @@ const UserOrders = () => {
 
   const requestRefund = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3002/orders/update-refund-status/${id}`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ refundStatus: 'Requested' }),
-        }
-      )
+      const response = await fetch(`${url}/orders/update-refund-status/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ refundStatus: 'Requested' }),
+      })
       fetchOrder()
       fetchRefundOrders()
       if (!response.ok) {
@@ -108,7 +107,7 @@ const UserOrders = () => {
   // fetch all reviews from user
   const fetchReviewsByUser = async () => {
     try {
-      const response = await fetch(`http://localhost:3002/reviews/${userId}`)
+      const response = await fetch(`${url}/reviews/${userId}`)
       const data = await response.json()
       setUserReviews(data)
       console.log(data)
@@ -120,7 +119,7 @@ const UserOrders = () => {
   // send review
   const sendReview = async (description, rating) => {
     try {
-      const response = await fetch('http://localhost:3002/reviews', {
+      const response = await fetch(`${url}/reviews`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -173,9 +172,7 @@ const UserOrders = () => {
     </div>
   )
   const fetchOrder = async () => {
-    const response = await fetch(
-      `http://localhost:3002/orders/myorders/${userId}`
-    )
+    const response = await fetch(`${url}/orders/myorders/${userId}`)
     const data = await response.json()
     setUserOrders(data.userOrders)
   }

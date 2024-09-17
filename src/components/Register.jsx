@@ -12,7 +12,8 @@ function Register() {
 
   const registerUser = async (firstName, lastName, email, password) => {
     try {
-      const response = await fetch('http://localhost:3002/user/register', {
+      const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+      const response = await fetch(`${url}/user/register`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

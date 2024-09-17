@@ -3,6 +3,7 @@ import { useLocalStorage } from '../hooks/useLocalStorage'
 import { useShopContext } from './ShopContext'
 
 const CartContext = createContext()
+const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
 
 export const useCartContext = () => useContext(CartContext)
 
@@ -51,14 +52,11 @@ function CartProvider({ children }) {
 
   const updateCartAPI = async (cartItems) => {
     try {
-      const response = await fetch(
-        `http://localhost:3002/user/${userData._id}`,
-        {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cart: cartItems }),
-        }
-      )
+      const response = await fetch(`${url}/user/${userData._id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cart: cartItems }),
+      })
       if (!response.ok) throw new Error('Failed to update the cart')
       const data = await response.json()
       setUserData(data)
@@ -95,7 +93,7 @@ function CartProvider({ children }) {
   const increaseCartQuantity = async (productId, size, color, quantity = 1) => {
     const productToAdd = { productId, size, color, quantity }
     if (userData?.token) {
-      const response = await fetch('http://localhost:3002/cart/add-to-cart', {
+      const response = await fetch(`${url}/cart/add-to-cart`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...productToAdd, userId: userData._id }),

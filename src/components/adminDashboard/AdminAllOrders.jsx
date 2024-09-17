@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { useOrderContext } from '../../context/OrderContext'
 import { toast, ToastContainer } from 'react-toastify'
 
+const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+
 const AdminAllOrders = () => {
   const [query, setQuery] = useState('')
   const { fetchAdminOrders, adminOrders } = useOrderContext()
@@ -27,7 +29,7 @@ const AdminAllOrders = () => {
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
       const response = await fetch(
-        `http://localhost:3002/orders/update-status/${orderId}`,
+        `${url}/orders/update-status/${orderId}`,
         {
           method: 'PATCH',
           headers: {

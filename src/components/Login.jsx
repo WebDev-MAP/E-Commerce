@@ -12,7 +12,8 @@ function Login() {
 
   const loginUser = async (email, password) => {
     try {
-      const response = await fetch('http://localhost:3002/user/login', {
+      const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+      const response = await fetch(`${url}/user/login`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

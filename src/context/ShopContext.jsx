@@ -4,6 +4,7 @@ import OrderProvider from './OrderContext'
 import Cookies from 'js-cookie'
 
 const ShopContext = createContext()
+const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
 
 export const useShopContext = () => useContext(ShopContext)
 
@@ -29,7 +30,7 @@ function ShopProvider({ children }) {
   useEffect(() => {
     const authToken = Cookies.get('authToken')
     if (authToken) {
-      fetch('http://localhost:3002/user/tokenLogin', {
+      fetch(`${url}/user/tokenLogin`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -46,7 +47,7 @@ function ShopProvider({ children }) {
   //fetching all reviews from api
   const fetchReviews = async () => {
     try {
-      const response = await fetch('http://localhost:3002/reviews')
+      const response = await fetch(`${url}/reviews`)
       const data = await response.json()
       setReviews(data)
     } catch (error) {
@@ -57,7 +58,7 @@ function ShopProvider({ children }) {
   // Fetching Products from the API
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:3002/products/')
+      const response = await fetch(`${url}/products/`)
       const data = await response.json()
       setProducts(data.filter((product) => !product.isDeleted))
     } catch (error) {

@@ -44,7 +44,8 @@ function Navbar() {
 
   const userLogout = async (user) => {
     try {
-      const response = await fetch('http://localhost:3002/user/logout', {
+      const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+      const response = await fetch(`${url}/user/logout`, {
         headers: {
           'Content-Type': 'application/json',
         },

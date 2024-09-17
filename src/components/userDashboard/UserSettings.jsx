@@ -5,6 +5,8 @@ import Button from '../Button'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
+const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+
 const UserSettings = () => {
   const { userData, setUserData, setIsLoggedin, reviews } = useShopContext()
   console.log(reviews)
@@ -24,7 +26,7 @@ const UserSettings = () => {
 
   const checkEmailUnique = async (email) => {
     try {
-      const response = await fetch(`http://localhost:3002/user/`)
+      const response = await fetch(`${url}/user/`)
       const data = await response.json()
       const emailExists = data.some((user) => user.email === email)
       return emailExists
@@ -40,7 +42,7 @@ const UserSettings = () => {
     }
 
     try {
-      fetch(`http://localhost:3002/user/${userID}`, {
+      fetch(`${url}/user/${userID}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +57,7 @@ const UserSettings = () => {
   const deleteAccount = async () => {
     const userID = userData._id
     try {
-      fetch(`http://localhost:3002/user/${userID}`, {
+      fetch(`${url}/user/${userID}`, {
         method: 'DELETE',
       })
       setUserData({})

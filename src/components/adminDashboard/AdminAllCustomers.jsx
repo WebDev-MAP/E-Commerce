@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 
+const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+
 const AdminAllCustomers = () => {
   const [customers, setCustomers] = useState([])
   const [query, setQuery] = useState('')
@@ -87,7 +89,7 @@ const AdminAllCustomers = () => {
 
   const fetchCustomers = async () => {
     try {
-      const response = await fetch('http://localhost:3002/user/')
+      const response = await fetch(`${url}/user/`)
       const data = await response.json()
       setCustomers(data.filter((customer) => !customer.isDeleted))
     } catch (error) {
@@ -119,7 +121,7 @@ const AdminAllCustomers = () => {
       }
     }
     try {
-      const response = await fetch(`http://localhost:3002/user/${userId}`, {
+      const response = await fetch(`${url}/user/${userId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -139,7 +141,7 @@ const AdminAllCustomers = () => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:3002/user/${userId}`, {
+      const response = await fetch(`${url}/user/${userId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

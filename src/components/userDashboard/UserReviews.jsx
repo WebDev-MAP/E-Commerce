@@ -8,6 +8,8 @@ import { IoCheckmarkCircle } from 'react-icons/io5'
 import { FaStar } from 'react-icons/fa'
 import Button from '../Button'
 
+const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+
 const UserReviews = () => {
   const { userData, query, setQuery, fetchReviews } = useShopContext()
   const [reviews, setReviews] = useState([])
@@ -31,7 +33,7 @@ const UserReviews = () => {
   const fetchReviewsById = async () => {
     const userID = userData._id
 
-    const response = await fetch(`http://localhost:3002/reviews/${userID}`)
+    const response = await fetch(`${url}/reviews/${userID}`)
 
     const data = await response.json()
 
@@ -40,7 +42,7 @@ const UserReviews = () => {
 
   const deleteReviewById = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3002/reviews/${id}`, {
+      const response = await fetch(`${url}/reviews/${id}`, {
         method: 'DELETE',
       })
       setSubmitTriggered(true)
@@ -58,7 +60,7 @@ const UserReviews = () => {
 
   const updateReviewById = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3002/reviews/${id}`, {
+      const response = await fetch(`${url}/reviews/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

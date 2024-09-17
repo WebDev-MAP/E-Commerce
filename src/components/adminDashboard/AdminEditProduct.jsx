@@ -8,6 +8,8 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useShopContext } from '../../context/ShopContext'
 
+const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+
 const AdminEditProduct = () => {
   const [mainImg, setMainImg] = useState('')
   const [img1, setImg1] = useState('')
@@ -58,7 +60,7 @@ const AdminEditProduct = () => {
 
   const fetchProduct = async () => {
     try {
-      const response = await fetch(`http://localhost:3002/products/${id}`)
+      const response = await fetch(`${url}/products/${id}`)
       const data = await response.json()
       setProduct(data)
       setMainImg(data.mainImage)
@@ -107,7 +109,7 @@ const AdminEditProduct = () => {
     setLoading(true)
 
     try {
-      const response = await fetch(`http://localhost:3002/products/${id}`, {
+      const response = await fetch(`${url}/products/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

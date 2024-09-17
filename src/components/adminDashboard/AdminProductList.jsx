@@ -10,6 +10,8 @@ import { IoIosArrowDown } from 'react-icons/io'
 import { MdEdit } from 'react-icons/md'
 import { MdDelete } from 'react-icons/md'
 
+const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+
 const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
   const [query, setQuery] = useState('')
   const [categoryOpen, setCategoryOpen] = useState(false)
@@ -42,18 +44,18 @@ const AdminProductList = ({ showAddProduct, setShowAddProduct }) => {
 
   const handleDeleteProduct = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3002/products/delete/${id}`, {
+      const response = await fetch(`${url}/products/delete/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-		  body: JSON.stringify({
-			 isDeleted: true,
-		 }),
+        body: JSON.stringify({
+          isDeleted: true,
+        }),
       })
       const data = await response.json()
       console.log('Product soft deleted', data)
-		fetchProducts()
+      fetchProducts()
       notify()
     } catch (error) {
       console.error('Error:', error.message)

@@ -8,6 +8,8 @@ import { FaShoppingCart } from 'react-icons/fa'
 import { FaStar } from 'react-icons/fa'
 import { FaUsers } from 'react-icons/fa'
 
+const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+
 const UserDashboard = () => {
   const { userData } = useShopContext()
   const [ordersDropdownOpen, setOrdersDropdownOpen] = useState(false)
@@ -33,7 +35,7 @@ const UserDashboard = () => {
     const userId = userData._id
     try {
       const response = await fetch(
-        `http://localhost:3002/orders/myorders/${userId}`
+        `${url}/orders/myorders/${userId}`
       )
       const data = await response.json()
       console.log(data)
@@ -49,7 +51,7 @@ const UserDashboard = () => {
     const userId = userData._id
 
     try {
-      const response = await fetch(`http://localhost:3002/reviews/${userId}`)
+      const response = await fetch(`${url}/reviews/${userId}`)
       const data = await response.json()
       setUserReview(data)
       console.log(data)

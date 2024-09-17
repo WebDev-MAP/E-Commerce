@@ -5,6 +5,8 @@ import { IoCheckmarkCircle, IoCloseCircle } from 'react-icons/io5'
 import { NavLink } from 'react-router-dom'
 import Button from '../Button'
 
+const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+
 const AdminReviews = () => {
   const [reviews, setReviews] = useState([])
   const [query, setQuery] = useState('')
@@ -66,7 +68,7 @@ const AdminReviews = () => {
 
   const fetchReviews = async () => {
     try {
-      const response = await fetch('http://localhost:3002/reviews')
+      const response = await fetch(`${url}/reviews`)
       const data = await response.json()
       const _reviews = data.map((review) => ({
         _id: review._id,
@@ -90,15 +92,12 @@ const AdminReviews = () => {
 
   const deleteReview = async (reviewId) => {
     try {
-      const response = await fetch(
-        `http://localhost:3002/reviews/${reviewId}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
+      const response = await fetch(`${url}/reviews/${reviewId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
       const data = await response.json()
       console.log('Review deleted', data)
       notify('Review deleted!')

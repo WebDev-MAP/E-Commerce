@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../Button'
 
+const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+
 const AdminEditUser = ({ userId, onUserEdited, notify }) => {
   const navigate = useNavigate()
   const [user, setUser] = useState({
@@ -23,7 +25,7 @@ const AdminEditUser = ({ userId, onUserEdited, notify }) => {
 
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3002/user/${userId}`)
+        const response = await fetch(`${url}/user/${userId}`)
         if (!response.ok) {
           throw new Error('Error fetching user')
         }
@@ -49,7 +51,7 @@ const AdminEditUser = ({ userId, onUserEdited, notify }) => {
 
   const checkEmailUnique = async (email) => {
     try {
-      const response = await fetch('http://localhost:3002/user/')
+      const response = await fetch(`${url}/user/`)
       const data = await response.json()
       const emailExists = data.some((u) => u.email === email)
       return emailExists
@@ -60,7 +62,7 @@ const AdminEditUser = ({ userId, onUserEdited, notify }) => {
 
   const updateUserData = async (fieldName, value) => {
     try {
-      const response = await fetch(`http://localhost:3002/user/${userId}`, {
+      const response = await fetch(`${url}/user/${userId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -82,7 +84,7 @@ const AdminEditUser = ({ userId, onUserEdited, notify }) => {
 
   const deleteUserAccount = async () => {
     try {
-      const response = await fetch(`http://localhost:3002/user/${userId}`, {
+      const response = await fetch(`${url}/user/${userId}`, {
         method: 'DELETE',
       })
 

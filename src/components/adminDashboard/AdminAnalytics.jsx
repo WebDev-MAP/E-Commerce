@@ -23,9 +23,11 @@ const AdminAnalytics = () => {
   const [discountCost, setDiscountCost] = useState(0)
   const [prevDiscountCost, setPrevDiscountCost] = useState(0)
 
+  const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
+
   const fetchOrders = async () => {
     try {
-      const response = await fetch('http://localhost:3002/orders/admin')
+      const response = await fetch(`${url}/orders/admin`)
       const data = await response.json()
       setOrders(data)
     } catch (error) {

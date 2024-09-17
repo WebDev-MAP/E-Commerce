@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useCartContext } from './CartContext'
 
 const OrderContext = createContext()
+const url = import.meta.env.VITE_BASE_URL || 'http://localhost:3002'
 
 export const useOrderContext = () => useContext(OrderContext)
 
@@ -19,14 +20,11 @@ function OrderProvider({ children }) {
   // Fetch user orders from API
   const fetchUserOrders = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3002/orders/myorders/${userData._id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${userData.token}`,
-          },
-        }
-      )
+      const response = await fetch(`${url}/orders/myorders/${userData._id}`, {
+        headers: {
+          Authorization: `Bearer ${userData.token}`,
+        },
+      })
       const data = await response.json()
       setUserOrders(data.userOrders)
     } catch (error) {
@@ -39,7 +37,7 @@ function OrderProvider({ children }) {
   // Fetch all orders for admin from API
   const fetchAdminOrders = async () => {
     try {
-      const response = await fetch('http://localhost:3002/orders/admin', {
+      const response = await fetch(`${url}/orders/admin`, {
         headers: {
           Authorization: `Bearer ${userData.token}`,
         },
@@ -56,9 +54,7 @@ function OrderProvider({ children }) {
   // Fetch Requested Refund Orders
   const fetchRefundOrders = async () => {
     try {
-      const response = await fetch(
-        'http://localhost:3002/orders/requested-refunds'
-      )
+      const response = await fetch(`${url}/orders/requested-refunds`)
       const data = await response.json()
       setRefundOrders(data)
     } catch (error) {
@@ -84,22 +80,19 @@ function OrderProvider({ children }) {
         navigate('/login')
         return
       }
-      const response = await fetch(
-        'http://localhost:3002/orders/create-order',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${userData.token}`,
-          },
-          body: JSON.stringify({
-            orderData,
-            userId: userData._id,
-            paymentMethod: 'Paypal',
-            discount: discountRate,
-          }),
-        }
-      )
+      const response = await fetch(`${url}/orders/create-order`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userData.token}`,
+        },
+        body: JSON.stringify({
+          orderData,
+          userId: userData._id,
+          paymentMethod: 'Paypal',
+          discount: discountRate,
+        }),
+      })
       if (!response.ok) throw new Error('Error creating order')
       const data = await response.json()
       setUserOrders((prevOrd) => [...prevOrd, data.order])
